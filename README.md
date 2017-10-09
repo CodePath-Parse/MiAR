@@ -15,13 +15,13 @@ Message in AR
   
 ## Wireframes
 
-![screenshot](/wireframes/newmessage.pngf?raw=true "new message")
+![screenshot](/wireframes/newmessage.png?raw=true "new message")
 
-![screenshot](/wireframes/claimamessage.pngf?raw=true "claim message")
+![screenshot](/wireframes/claimamessage.png?raw=true "claim message")
 
-![screenshot](/wireframes/existingmessage.pngf?raw=true "existing message")
+![screenshot](/wireframes/existingmessage.png?raw=true "existing message")
 
-![screenshot](/wireframes/loginusage.pngf?raw=true "login")
+![screenshot](/wireframes/loginusage.png?raw=true "login")
 
 
 
