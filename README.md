@@ -15,13 +15,18 @@ Message in AR
   
 ## Wireframes
 
+### Login and usage
+![screenshot](/wireframes/loginusage.png?raw=true "login")
+
+### Create new message
 ![screenshot](/wireframes/newmessage.png?raw=true "new message")
 
-![screenshot](/wireframes/claimamessage.png?raw=true "claim message")
-
+### Post an existing message
 ![screenshot](/wireframes/existingmessage.png?raw=true "existing message")
 
-![screenshot](/wireframes/loginusage.png?raw=true "login")
+### Claim a message
+![screenshot](/wireframes/claimamessage.png?raw=true "claim message")
+
 
 
 
