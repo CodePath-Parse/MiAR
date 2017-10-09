@@ -12,6 +12,18 @@ Message in AR
 * [ ] There are several ideas for who/how the canvases gets communicated.
   * [ ] Directly send canvas to named user(s), probably from their FB list or phone number network.
   * [ ] Broadcast the canvas in a particular location. Whenever other users are detected in that location, they receive the message and can see the canvas in the AR view.
+  
+## Wireframes
+
+![screenshot](/wireframes/newmessage.pngf?raw=true "new message")
+
+![screenshot](/wireframes/claimamessage.pngf?raw=true "claim message")
+
+![screenshot](/wireframes/existingmessage.pngf?raw=true "existing message")
+
+![screenshot](/wireframes/loginusage.pngf?raw=true "login")
+
+
 
 Caveat:
 We might need to change a few details as we go since we are unsure of the feasibility of some of the user stories which are largely dependent on ARKit.
