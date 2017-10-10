@@ -20,7 +20,16 @@ These are just links that we found useful:
 
 * [Building an AR app with ARKit and Scenekit](https://blog.pusher.com/building-an-ar-app-with-arkit-and-scenekit/)
 
+## Other
 
-# Inspiration
+* [Geofencing tutorial](https://www.raywenderlich.com/136165/core-location-geofencing-tutorial)
+* [Region monitoring info](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/LocationAwarenessPG/RegionMonitoring/RegionMonitoring.html)
+* [Firebase db usage tutorial](https://www.raywenderlich.com/139322/firebase-tutorial-getting-started-2)
+* [Firebase push notifications tutorial](https://www.appcoda.com/firebase-push-notifications/)
+* [Simple drawing app tutorial](https://www.raywenderlich.com/87899/make-simple-drawing-app-uikit-swift)
+
+
+## Inspiration
 
 * [Made with ARKit](http://www.madewitharkit.com)
+
