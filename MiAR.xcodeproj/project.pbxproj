@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322B2A96076E3691A2E807FF /* Pods_MiAR.framework */; };
 		2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577791F8C8175006F6A0A /* AppDelegate.swift */; };
 		2E65777C1F8C8175006F6A0A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E65777B1F8C8175006F6A0A /* art.scnassets */; };
 		2E65777E1F8C8175006F6A0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65777D1F8C8175006F6A0A /* ViewController.swift */; };
@@ -15,6 +16,8 @@
 		2E6577861F8C8175006F6A0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */; };
 		2E6577911F8C8175006F6A0A /* MiARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577901F8C8175006F6A0A /* MiARTests.swift */; };
 		2E65779C1F8C8175006F6A0A /* MiARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65779B1F8C8175006F6A0A /* MiARUITests.swift */; };
+		77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91494A243958474E44BE6E28 /* Pods_MiARTests.framework */; };
+		8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2E6577761F8C8175006F6A0A /* MiAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E6577791F8C8175006F6A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E65777B1F8C8175006F6A0A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 		2E6577971F8C8175006F6A0A /* MiARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E65779B1F8C8175006F6A0A /* MiARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiARUITests.swift; sourceTree = "<group>"; };
 		2E65779D1F8C8175006F6A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		322B2A96076E3691A2E807FF /* Pods_MiAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.debug.xcconfig"; sourceTree = "<group>"; };
+		778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.release.xcconfig"; sourceTree = "<group>"; };
+		8500B31CA6E6907D64197D38 /* Pods-MiARUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		91494A243958474E44BE6E28 /* Pods_MiARTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiARTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiAR.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiAR/Pods-MiAR.release.xcconfig"; sourceTree = "<group>"; };
+		B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiAR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiAR/Pods-MiAR.debug.xcconfig"; sourceTree = "<group>"; };
+		B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiARUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +84,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BFE1AFDD597BF19113C4DF6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */,
+				9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */,
+				76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */,
+				778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */,
+				8500B31CA6E6907D64197D38 /* Pods-MiARUITests.debug.xcconfig */,
+				2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		2E65776D1F8C8175006F6A0A = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +111,8 @@
 				2E65778F1F8C8175006F6A0A /* MiARTests */,
 				2E65779A1F8C8175006F6A0A /* MiARUITests */,
 				2E6577771F8C8175006F6A0A /* Products */,
+				2BFE1AFDD597BF19113C4DF6 /* Pods */,
+				A3CB8066CD1C6E795E984257 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +158,16 @@
 			path = MiARUITests;
 			sourceTree = "<group>";
 		};
+		A3CB8066CD1C6E795E984257 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				322B2A96076E3691A2E807FF /* Pods_MiAR.framework */,
+				91494A243958474E44BE6E28 /* Pods_MiARTests.framework */,
+				B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +175,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E6577A01F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiAR" */;
 			buildPhases = (
+				79BF94EEBA793E12414F37B0 /* [CP] Check Pods Manifest.lock */,
 				2E6577721F8C8175006F6A0A /* Sources */,
 				2E6577731F8C8175006F6A0A /* Frameworks */,
 				2E6577741F8C8175006F6A0A /* Resources */,
+				08317259D01A447BD7215A95 /* [CP] Embed Pods Frameworks */,
+				AD1C260D0C509316CC46EB99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +195,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E6577A31F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiARTests" */;
 			buildPhases = (
+				12C9522D7E56B9A6726DB27A /* [CP] Check Pods Manifest.lock */,
 				2E6577881F8C8175006F6A0A /* Sources */,
 				2E6577891F8C8175006F6A0A /* Frameworks */,
 				2E65778A1F8C8175006F6A0A /* Resources */,
+				7A7FC98F713E8127A27262F2 /* [CP] Embed Pods Frameworks */,
+				C29418E8E99C33B136D93AB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +216,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E6577A61F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiARUITests" */;
 			buildPhases = (
+				7CB50238967E6CCBAE600F49 /* [CP] Check Pods Manifest.lock */,
 				2E6577931F8C8175006F6A0A /* Sources */,
 				2E6577941F8C8175006F6A0A /* Frameworks */,
 				2E6577951F8C8175006F6A0A /* Resources */,
+				25EDEE83F8181506E94685E6 /* [CP] Embed Pods Frameworks */,
+				18AD30641F5C8D0C0564A9E3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,6 +306,158 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08317259D01A447BD7215A95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		12C9522D7E56B9A6726DB27A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiARTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		18AD30641F5C8D0C0564A9E3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25EDEE83F8181506E94685E6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79BF94EEBA793E12414F37B0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiAR-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A7FC98F713E8127A27262F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CB50238967E6CCBAE600F49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiARUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD1C260D0C509316CC46EB99 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C29418E8E99C33B136D93AB0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2E6577721F8C8175006F6A0A /* Sources */ = {
@@ -428,6 +629,7 @@
 		};
 		2E6577A11F8C8175006F6A0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -442,6 +644,7 @@
 		};
 		2E6577A21F8C8175006F6A0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -456,6 +659,7 @@
 		};
 		2E6577A41F8C8175006F6A0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -472,6 +676,7 @@
 		};
 		2E6577A51F8C8175006F6A0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -488,6 +693,7 @@
 		};
 		2E6577A71F8C8175006F6A0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8500B31CA6E6907D64197D38 /* Pods-MiARUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -503,6 +709,7 @@
 		};
 		2E6577A81F8C8175006F6A0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

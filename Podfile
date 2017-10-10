@@ -6,6 +6,7 @@ target 'MiAR' do
   use_frameworks!
 
   # Pods for MiAR
+  pod 'Firebase/Core'
 
   target 'MiARTests' do
     inherit! :search_paths
