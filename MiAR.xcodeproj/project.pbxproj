@@ -1,0 +1,768 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322B2A96076E3691A2E807FF /* Pods_MiAR.framework */; };
+		2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577791F8C8175006F6A0A /* AppDelegate.swift */; };
+		2E65777C1F8C8175006F6A0A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E65777B1F8C8175006F6A0A /* art.scnassets */; };
+		2E65777E1F8C8175006F6A0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65777D1F8C8175006F6A0A /* ViewController.swift */; };
+		2E6577811F8C8175006F6A0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E65777F1F8C8175006F6A0A /* Main.storyboard */; };
+		2E6577831F8C8175006F6A0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E6577821F8C8175006F6A0A /* Assets.xcassets */; };
+		2E6577861F8C8175006F6A0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */; };
+		2E6577911F8C8175006F6A0A /* MiARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577901F8C8175006F6A0A /* MiARTests.swift */; };
+		2E65779C1F8C8175006F6A0A /* MiARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65779B1F8C8175006F6A0A /* MiARUITests.swift */; };
+		77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91494A243958474E44BE6E28 /* Pods_MiARTests.framework */; };
+		8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2E65778D1F8C8175006F6A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E65776E1F8C8175006F6A0A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E6577751F8C8175006F6A0A;
+			remoteInfo = MiAR;
+		};
+		2E6577981F8C8175006F6A0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E65776E1F8C8175006F6A0A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E6577751F8C8175006F6A0A;
+			remoteInfo = MiAR;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2E6577761F8C8175006F6A0A /* MiAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E6577791F8C8175006F6A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2E65777B1F8C8175006F6A0A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		2E65777D1F8C8175006F6A0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2E6577801F8C8175006F6A0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2E6577821F8C8175006F6A0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E6577851F8C8175006F6A0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2E6577871F8C8175006F6A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E65778C1F8C8175006F6A0A /* MiARTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiARTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E6577901F8C8175006F6A0A /* MiARTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiARTests.swift; sourceTree = "<group>"; };
+		2E6577921F8C8175006F6A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E6577971F8C8175006F6A0A /* MiARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E65779B1F8C8175006F6A0A /* MiARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiARUITests.swift; sourceTree = "<group>"; };
+		2E65779D1F8C8175006F6A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		322B2A96076E3691A2E807FF /* Pods_MiAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.debug.xcconfig"; sourceTree = "<group>"; };
+		778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.release.xcconfig"; sourceTree = "<group>"; };
+		8500B31CA6E6907D64197D38 /* Pods-MiARUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		91494A243958474E44BE6E28 /* Pods_MiARTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiARTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiAR.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiAR/Pods-MiAR.release.xcconfig"; sourceTree = "<group>"; };
+		B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiAR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiAR/Pods-MiAR.debug.xcconfig"; sourceTree = "<group>"; };
+		B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiARUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E6577731F8C8175006F6A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E6577891F8C8175006F6A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E6577941F8C8175006F6A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BFE1AFDD597BF19113C4DF6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */,
+				9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */,
+				76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */,
+				778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */,
+				8500B31CA6E6907D64197D38 /* Pods-MiARUITests.debug.xcconfig */,
+				2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2E65776D1F8C8175006F6A0A = {
+			isa = PBXGroup;
+			children = (
+				2E6577781F8C8175006F6A0A /* MiAR */,
+				2E65778F1F8C8175006F6A0A /* MiARTests */,
+				2E65779A1F8C8175006F6A0A /* MiARUITests */,
+				2E6577771F8C8175006F6A0A /* Products */,
+				2BFE1AFDD597BF19113C4DF6 /* Pods */,
+				A3CB8066CD1C6E795E984257 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2E6577771F8C8175006F6A0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E6577761F8C8175006F6A0A /* MiAR.app */,
+				2E65778C1F8C8175006F6A0A /* MiARTests.xctest */,
+				2E6577971F8C8175006F6A0A /* MiARUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E6577781F8C8175006F6A0A /* MiAR */ = {
+			isa = PBXGroup;
+			children = (
+				2E6577791F8C8175006F6A0A /* AppDelegate.swift */,
+				2E65777B1F8C8175006F6A0A /* art.scnassets */,
+				2E65777D1F8C8175006F6A0A /* ViewController.swift */,
+				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
+				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
+				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
+				2E6577871F8C8175006F6A0A /* Info.plist */,
+			);
+			path = MiAR;
+			sourceTree = "<group>";
+		};
+		2E65778F1F8C8175006F6A0A /* MiARTests */ = {
+			isa = PBXGroup;
+			children = (
+				2E6577901F8C8175006F6A0A /* MiARTests.swift */,
+				2E6577921F8C8175006F6A0A /* Info.plist */,
+			);
+			path = MiARTests;
+			sourceTree = "<group>";
+		};
+		2E65779A1F8C8175006F6A0A /* MiARUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2E65779B1F8C8175006F6A0A /* MiARUITests.swift */,
+				2E65779D1F8C8175006F6A0A /* Info.plist */,
+			);
+			path = MiARUITests;
+			sourceTree = "<group>";
+		};
+		A3CB8066CD1C6E795E984257 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				322B2A96076E3691A2E807FF /* Pods_MiAR.framework */,
+				91494A243958474E44BE6E28 /* Pods_MiARTests.framework */,
+				B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2E6577751F8C8175006F6A0A /* MiAR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E6577A01F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiAR" */;
+			buildPhases = (
+				79BF94EEBA793E12414F37B0 /* [CP] Check Pods Manifest.lock */,
+				2E6577721F8C8175006F6A0A /* Sources */,
+				2E6577731F8C8175006F6A0A /* Frameworks */,
+				2E6577741F8C8175006F6A0A /* Resources */,
+				08317259D01A447BD7215A95 /* [CP] Embed Pods Frameworks */,
+				AD1C260D0C509316CC46EB99 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MiAR;
+			productName = MiAR;
+			productReference = 2E6577761F8C8175006F6A0A /* MiAR.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2E65778B1F8C8175006F6A0A /* MiARTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E6577A31F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiARTests" */;
+			buildPhases = (
+				12C9522D7E56B9A6726DB27A /* [CP] Check Pods Manifest.lock */,
+				2E6577881F8C8175006F6A0A /* Sources */,
+				2E6577891F8C8175006F6A0A /* Frameworks */,
+				2E65778A1F8C8175006F6A0A /* Resources */,
+				7A7FC98F713E8127A27262F2 /* [CP] Embed Pods Frameworks */,
+				C29418E8E99C33B136D93AB0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E65778E1F8C8175006F6A0A /* PBXTargetDependency */,
+			);
+			name = MiARTests;
+			productName = MiARTests;
+			productReference = 2E65778C1F8C8175006F6A0A /* MiARTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2E6577961F8C8175006F6A0A /* MiARUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E6577A61F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiARUITests" */;
+			buildPhases = (
+				7CB50238967E6CCBAE600F49 /* [CP] Check Pods Manifest.lock */,
+				2E6577931F8C8175006F6A0A /* Sources */,
+				2E6577941F8C8175006F6A0A /* Frameworks */,
+				2E6577951F8C8175006F6A0A /* Resources */,
+				25EDEE83F8181506E94685E6 /* [CP] Embed Pods Frameworks */,
+				18AD30641F5C8D0C0564A9E3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E6577991F8C8175006F6A0A /* PBXTargetDependency */,
+			);
+			name = MiARUITests;
+			productName = MiARUITests;
+			productReference = 2E6577971F8C8175006F6A0A /* MiARUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2E65776E1F8C8175006F6A0A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = MiAR;
+				TargetAttributes = {
+					2E6577751F8C8175006F6A0A = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+					2E65778B1F8C8175006F6A0A = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2E6577751F8C8175006F6A0A;
+					};
+					2E6577961F8C8175006F6A0A = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2E6577751F8C8175006F6A0A;
+					};
+				};
+			};
+			buildConfigurationList = 2E6577711F8C8175006F6A0A /* Build configuration list for PBXProject "MiAR" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2E65776D1F8C8175006F6A0A;
+			productRefGroup = 2E6577771F8C8175006F6A0A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2E6577751F8C8175006F6A0A /* MiAR */,
+				2E65778B1F8C8175006F6A0A /* MiARTests */,
+				2E6577961F8C8175006F6A0A /* MiARUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2E6577741F8C8175006F6A0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E65777C1F8C8175006F6A0A /* art.scnassets in Resources */,
+				2E6577861F8C8175006F6A0A /* LaunchScreen.storyboard in Resources */,
+				2E6577831F8C8175006F6A0A /* Assets.xcassets in Resources */,
+				2E6577811F8C8175006F6A0A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E65778A1F8C8175006F6A0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E6577951F8C8175006F6A0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08317259D01A447BD7215A95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		12C9522D7E56B9A6726DB27A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiARTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		18AD30641F5C8D0C0564A9E3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25EDEE83F8181506E94685E6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79BF94EEBA793E12414F37B0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiAR-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A7FC98F713E8127A27262F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CB50238967E6CCBAE600F49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MiARUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD1C260D0C509316CC46EB99 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C29418E8E99C33B136D93AB0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2E6577721F8C8175006F6A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E65777E1F8C8175006F6A0A /* ViewController.swift in Sources */,
+				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E6577881F8C8175006F6A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E6577911F8C8175006F6A0A /* MiARTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E6577931F8C8175006F6A0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E65779C1F8C8175006F6A0A /* MiARUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2E65778E1F8C8175006F6A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E6577751F8C8175006F6A0A /* MiAR */;
+			targetProxy = 2E65778D1F8C8175006F6A0A /* PBXContainerItemProxy */;
+		};
+		2E6577991F8C8175006F6A0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E6577751F8C8175006F6A0A /* MiAR */;
+			targetProxy = 2E6577981F8C8175006F6A0A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2E65777F1F8C8175006F6A0A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E6577801F8C8175006F6A0A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E6577851F8C8175006F6A0A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2E65779E1F8C8175006F6A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2E65779F1F8C8175006F6A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2E6577A11F8C8175006F6A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MiAR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiAR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E6577A21F8C8175006F6A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MiAR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiAR;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2E6577A41F8C8175006F6A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MiARTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiARTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiAR.app/MiAR";
+			};
+			name = Debug;
+		};
+		2E6577A51F8C8175006F6A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MiARTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiARTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MiAR.app/MiAR";
+			};
+			name = Release;
+		};
+		2E6577A71F8C8175006F6A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8500B31CA6E6907D64197D38 /* Pods-MiARUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MiARUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiARUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MiAR;
+			};
+			name = Debug;
+		};
+		2E6577A81F8C8175006F6A0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MiARUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiARUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MiAR;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2E6577711F8C8175006F6A0A /* Build configuration list for PBXProject "MiAR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E65779E1F8C8175006F6A0A /* Debug */,
+				2E65779F1F8C8175006F6A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E6577A01F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiAR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E6577A11F8C8175006F6A0A /* Debug */,
+				2E6577A21F8C8175006F6A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E6577A31F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiARTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E6577A41F8C8175006F6A0A /* Debug */,
+				2E6577A51F8C8175006F6A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E6577A61F8C8175006F6A0A /* Build configuration list for PBXNativeTarget "MiARUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E6577A71F8C8175006F6A0A /* Debug */,
+				2E6577A81F8C8175006F6A0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2E65776E1F8C8175006F6A0A /* Project object */;
+}
