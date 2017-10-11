@@ -5,13 +5,24 @@ Message in AR
 
 ## User Stories
 
+### Required
+
+* [ ] Users can create a new account.
 * [ ] Users are able to login/signup.
-* [ ] Users are able to write, draw, embed picture in a canvas provided by the app in the compose view.
-* [ ] Users can place the drawn canvas to a place in the AR view.
-* [ ] The canvas frame is hinged to a lat/lng (or maybe more granular location indicator).
-* [ ] There are several ideas for who/how the canvases gets communicated.
-  * [ ] Directly send canvas to named user(s), probably from their FB list or phone number network.
-  * [ ] Broadcast the canvas in a particular location. Whenever other users are detected in that location, they receive the message and can see the canvas in the AR view.
+* [ ] Users can write a text note, and address it to another user or
+  make it public.
+* [ ] Users can place the note in the AR view.
+* [ ] The app saves the GPS coordinates of the note.
+* [ ] Users get a notification about existing notes when they are
+  close to where the notes were left. (Geofencing).
+* [ ] Users can view a note using AR.
+
+### Optional
+* [ ] Users can add photos, drawings, or emojis to the note.
+* [ ] The notes appear where they were left (`ARAnchor`).
+
+### Bonus
+* [ ] The notes are 3D objects and not just flat images.
   
 ## Wireframes
 
