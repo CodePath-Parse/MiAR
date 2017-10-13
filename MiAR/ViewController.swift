@@ -63,7 +63,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return
         }
         
-        
+        let intensity = lightEstimate.ambientIntensity / 1000.0
+        sceneView.scene.lightingEnvironment.intensity = intensity
         
     }
     
