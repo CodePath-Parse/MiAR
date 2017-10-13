@@ -24,7 +24,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/heart.scn")!
+        
+        sceneView.autoenablesDefaultLighting = false
         
         // Set the scene to the view
         sceneView.scene = scene
@@ -35,6 +37,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        
+        configuration.isLightEstimationEnabled = true
 
         // Run the view's session
         sceneView.session.run(configuration)
@@ -53,6 +57,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
 
     // MARK: - ARSCNViewDelegate
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        guard let lightEstimate = sceneView.session.currentFrame?.lightEstimate else {
+            return
+        }
+        
+        
+        
+    }
     
 /*
     // Override to create and configure nodes for anchors added to the view's session.
