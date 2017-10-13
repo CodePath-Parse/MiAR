@@ -18,6 +18,9 @@
 		2E65779C1F8C8175006F6A0A /* MiARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65779B1F8C8175006F6A0A /* MiARUITests.swift */; };
 		77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91494A243958474E44BE6E28 /* Pods_MiARTests.framework */; };
 		8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */; };
+		C44A8C5C1F9026D0003B7C59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C44A8C5B1F9026D0003B7C59 /* README.md */; };
+		C44A8C5E1F9026D8003B7C59 /* RESOURCES.md in Resources */ = {isa = PBXBuildFile; fileRef = C44A8C5D1F9026D8003B7C59 /* RESOURCES.md */; };
+		C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		9F780FC4DB9572521FCDF948 /* Pods-MiAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiAR.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiAR/Pods-MiAR.release.xcconfig"; sourceTree = "<group>"; };
 		B30C85EC5723FB7795051A74 /* Pods-MiAR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiAR.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiAR/Pods-MiAR.debug.xcconfig"; sourceTree = "<group>"; };
 		B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiARUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C44A8C5B1F9026D0003B7C59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		C44A8C5D1F9026D8003B7C59 /* RESOURCES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RESOURCES.md; sourceTree = SOURCE_ROOT; };
+		C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,8 @@
 		2E65776D1F8C8175006F6A0A = {
 			isa = PBXGroup;
 			children = (
+				C44A8C5D1F9026D8003B7C59 /* RESOURCES.md */,
+				C44A8C5B1F9026D0003B7C59 /* README.md */,
 				2E6577781F8C8175006F6A0A /* MiAR */,
 				2E65778F1F8C8175006F6A0A /* MiARTests */,
 				2E65779A1F8C8175006F6A0A /* MiARUITests */,
@@ -133,6 +141,7 @@
 				2E65777B1F8C8175006F6A0A /* art.scnassets */,
 				2E65777D1F8C8175006F6A0A /* ViewController.swift */,
 				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
+				C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */,
 				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
 				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
 				2E6577871F8C8175006F6A0A /* Info.plist */,
@@ -284,8 +293,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C44A8C5E1F9026D8003B7C59 /* RESOURCES.md in Resources */,
 				2E65777C1F8C8175006F6A0A /* art.scnassets in Resources */,
 				2E6577861F8C8175006F6A0A /* LaunchScreen.storyboard in Resources */,
+				C44A8C5C1F9026D0003B7C59 /* README.md in Resources */,
 				2E6577831F8C8175006F6A0A /* Assets.xcassets in Resources */,
 				2E6577811F8C8175006F6A0A /* Main.storyboard in Resources */,
 			);
@@ -466,6 +477,7 @@
 			files = (
 				2E65777E1F8C8175006F6A0A /* ViewController.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
+				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
