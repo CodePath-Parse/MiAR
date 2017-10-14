@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322B2A96076E3691A2E807FF /* Pods_MiAR.framework */; };
+		2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E059DCC1F92C3EC009030BA /* Fox.swift */; };
 		2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577791F8C8175006F6A0A /* AppDelegate.swift */; };
 		2E65777C1F8C8175006F6A0A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E65777B1F8C8175006F6A0A /* art.scnassets */; };
 		2E65777E1F8C8175006F6A0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65777D1F8C8175006F6A0A /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2E059DCC1F92C3EC009030BA /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
 		2E6577761F8C8175006F6A0A /* MiAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E6577791F8C8175006F6A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E65777B1F8C8175006F6A0A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -110,6 +112,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		2E059DCE1F92C3F4009030BA /* Postmen */ = {
+			isa = PBXGroup;
+			children = (
+				2E059DCC1F92C3EC009030BA /* Fox.swift */,
+			);
+			path = Postmen;
+			sourceTree = "<group>";
+		};
 		2E65776D1F8C8175006F6A0A = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +147,7 @@
 		2E6577781F8C8175006F6A0A /* MiAR */ = {
 			isa = PBXGroup;
 			children = (
+				2E059DCE1F92C3F4009030BA /* Postmen */,
 				2E6577791F8C8175006F6A0A /* AppDelegate.swift */,
 				2E65777B1F8C8175006F6A0A /* art.scnassets */,
 				2E65777D1F8C8175006F6A0A /* ViewController.swift */,
@@ -476,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E65777E1F8C8175006F6A0A /* ViewController.swift in Sources */,
+				2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 			);
@@ -645,6 +657,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SA26Z4N7MU;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiAR;
@@ -660,6 +673,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SA26Z4N7MU;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.miar.MiAR;

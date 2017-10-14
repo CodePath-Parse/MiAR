@@ -13,6 +13,9 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+
+    private var fox: Fox?
+    private var scene: SCNScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +27,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/heart.scn")!
-        
-        sceneView.autoenablesDefaultLighting = false
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+//        scene = SCNScene(named: "art.scnassets/fox/max.scn")!
+//
+//        sceneView.autoenablesDefaultLighting = false
+//
+//        // Set the scene to the view
+//        sceneView.scene = scene
+
+        fox = Fox()
+        sceneView.scene.rootNode.addChildNode(fox!.node)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +72,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let intensity = lightEstimate.ambientIntensity / 1000.0
         sceneView.scene.lightingEnvironment.intensity = intensity
-        
     }
     
 /*
