@@ -20,6 +20,8 @@
 	<string>com.miar.MiAR</string>
 	<key>PROJECT_ID</key>
 	<string>praxis-zoo-521</string>
+	<key>STORAGE_BUCKET</key>
+	<string>praxis-zoo-521.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
