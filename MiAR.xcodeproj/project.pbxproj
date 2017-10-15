@@ -17,6 +17,7 @@
 		2E6577861F8C8175006F6A0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */; };
 		2E6577911F8C8175006F6A0A /* MiARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577901F8C8175006F6A0A /* MiARTests.swift */; };
 		2E65779C1F8C8175006F6A0A /* MiARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65779B1F8C8175006F6A0A /* MiARUITests.swift */; };
+		2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1E00C1F92E80400266C1B /* Plane.swift */; };
 		77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91494A243958474E44BE6E28 /* Pods_MiARTests.framework */; };
 		8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */; };
 		C44A8C5C1F9026D0003B7C59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C44A8C5B1F9026D0003B7C59 /* README.md */; };
@@ -58,6 +59,7 @@
 		2E6577971F8C8175006F6A0A /* MiARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E65779B1F8C8175006F6A0A /* MiARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiARUITests.swift; sourceTree = "<group>"; };
 		2E65779D1F8C8175006F6A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ED1E00C1F92E80400266C1B /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		322B2A96076E3691A2E807FF /* Pods_MiAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.debug.xcconfig"; sourceTree = "<group>"; };
 		778A85E948AA55D499B3FACA /* Pods-MiARTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				2E6577791F8C8175006F6A0A /* AppDelegate.swift */,
 				2E65777B1F8C8175006F6A0A /* art.scnassets */,
 				2E65777D1F8C8175006F6A0A /* ARViewController.swift */,
+				2ED1E00C1F92E80400266C1B /* Plane.swift */,
 				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
 				C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */,
 				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
@@ -488,6 +491,7 @@
 			files = (
 				2E65777E1F8C8175006F6A0A /* ARViewController.swift in Sources */,
 				2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */,
+				2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 			);
