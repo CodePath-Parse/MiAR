@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		082FE8681F92FBCA006EE9D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 082FE8671F92FBB9006EE9D0 /* GoogleService-Info.plist */; };
+		08E2F1011F92F1B8005B986C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E2F1001F92F1B8005B986C /* LoginViewController.swift */; };
 		27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322B2A96076E3691A2E807FF /* Pods_MiAR.framework */; };
 		2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E059DCC1F92C3EC009030BA /* Fox.swift */; };
 		2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577791F8C8175006F6A0A /* AppDelegate.swift */; };
@@ -43,7 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08E2F0FF1F92903E005B986C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		082FE8671F92FBB9006EE9D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		08E2F1001F92F1B8005B986C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2E059DCC1F92C3EC009030BA /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
 		2E6577761F8C8175006F6A0A /* MiAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,11 +158,12 @@
 				2E65777B1F8C8175006F6A0A /* art.scnassets */,
 				2E65777D1F8C8175006F6A0A /* ARViewController.swift */,
 				2ED1E00C1F92E80400266C1B /* Plane.swift */,
+				08E2F1001F92F1B8005B986C /* LoginViewController.swift */,
 				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
 				C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */,
 				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
 				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
-				08E2F0FF1F92903E005B986C /* GoogleService-Info.plist */,
+				082FE8671F92FBB9006EE9D0 /* GoogleService-Info.plist */,
 				2E6577871F8C8175006F6A0A /* Info.plist */,
 			);
 			path = MiAR;
@@ -315,6 +319,7 @@
 				C44A8C5C1F9026D0003B7C59 /* README.md in Resources */,
 				2E6577831F8C8175006F6A0A /* Assets.xcassets in Resources */,
 				2E6577811F8C8175006F6A0A /* Main.storyboard in Resources */,
+				082FE8681F92FBCA006EE9D0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,11 +347,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -460,9 +469,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MiAR/Pods-MiAR-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -495,6 +507,7 @@
 				2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */,
 				2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
+				08E2F1011F92F1B8005B986C /* LoginViewController.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
