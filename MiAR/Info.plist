@@ -33,6 +33,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>MiAR requires access to your phone’s location to notify you when you enter a geofence that has notes.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>MiAR requires access to your phone’s location to notify you when you enter a geofence that has notes.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>MiAR requires access to your phone’s location to notify you when you enter a geofence that has notes.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This application will use the camera for Augmented Reality.</string>
 	<key>UILaunchStoryboardName</key>
