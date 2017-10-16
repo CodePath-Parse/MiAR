@@ -32,6 +32,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         notificationCenter.requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in }
         notificationCenter.removeAllPendingNotificationRequests()
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if Auth.auth().currentUser != nil {
+            // User is signed in.
+            let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            window?.rootViewController = vc
+        } else {
+            // No user is signed in.
+            let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            window?.rootViewController = vc
+        }
+        window?.makeKeyAndVisible()
         
         return true
     }
@@ -66,11 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // [START_EXCLUDE]
         Auth.auth().signIn(with: credential) { (fbUser, error) in
             print("User signed in")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            self.window?.rootViewController = vc
         }
         // [END_EXCLUDE]
     }
     // [END headless_google_auth]
     
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+    }
+
     func handleEvent(forRegion region: CLRegion!) {
         // Show an alert if application is active
         if UIApplication.shared.applicationState == .active {
