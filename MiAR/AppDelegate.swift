@@ -44,6 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             window?.rootViewController = vc
         }
         window?.makeKeyAndVisible()
+
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        
+        notificationCenter.requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in }
+        notificationCenter.removeAllPendingNotificationRequests()
         
         return true
     }
