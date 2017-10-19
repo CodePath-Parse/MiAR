@@ -39,9 +39,10 @@ class Plane: SCNNode {
     }
 
     func setTextureScale() {
-        let width  = Float(plane!.width)
-        let height = Float(plane!.height)
-        let material = plane?.materials.first
+        guard let plane = plane else { return }
+        let width  = Float(plane.width)
+        let height = Float(plane.height)
+        let material = plane.materials.first
         material?.diffuse.contentsTransform = SCNMatrix4MakeScale(width, height, 1.0)
         material?.diffuse.wrapS = .repeat
         material?.diffuse.wrapT = .repeat
