@@ -27,6 +27,7 @@
 		C44A8C5C1F9026D0003B7C59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C44A8C5B1F9026D0003B7C59 /* README.md */; };
 		C44A8C5E1F9026D8003B7C59 /* RESOURCES.md in Resources */ = {isa = PBXBuildFile; fileRef = C44A8C5D1F9026D8003B7C59 /* RESOURCES.md */; };
 		C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */; };
+		C4BBF5AE1F9A7BA5001AFCBD /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		C44A8C5B1F9026D0003B7C59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		C44A8C5D1F9026D8003B7C59 /* RESOURCES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = RESOURCES.md; sourceTree = SOURCE_ROOT; };
 		C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
+		C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 		2E6577781F8C8175006F6A0A /* MiAR */ = {
 			isa = PBXGroup;
 			children = (
+				C4BBF5AC1F9A7B96001AFCBD /* Extensions */,
 				2057AA0A1F94185F00F23EBD /* Models */,
 				2E059DCE1F92C3F4009030BA /* Postmen */,
 				2057AA091F94185900F23EBD /* Views */,
@@ -225,6 +228,14 @@
 				B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4BBF5AC1F9A7B96001AFCBD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -539,6 +550,7 @@
 				2057AA0C1F9418D000F23EBD /* User.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
 				08E2F1011F92F1B8005B986C /* LoginViewController.swift in Sources */,
+				C4BBF5AE1F9A7BA5001AFCBD /* UIView+.swift in Sources */,
 				2057AA101F942A7400F23EBD /* Utilities.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 			);
