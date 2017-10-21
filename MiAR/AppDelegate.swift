@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if Auth.auth().currentUser != nil {
             // User is signed in.
-            let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            let vc = storyboard.instantiateViewController(withIdentifier: "ARViewController") as! ARViewController
             window?.rootViewController = vc
         } else {
             // No user is signed in.
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         Auth.auth().signIn(with: credential) { (fbUser, error) in
             print("User signed in")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            let vc = storyboard.instantiateViewController(withIdentifier: "ARViewController") as! ARViewController
             self.window?.rootViewController = vc
         }
         // [END_EXCLUDE]

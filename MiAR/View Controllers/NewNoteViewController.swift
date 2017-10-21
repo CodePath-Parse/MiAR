@@ -20,8 +20,13 @@ class NewNoteViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    @IBAction func onCancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+
+    }
     
-    @IBAction func onDoneButton(_ sender: Any) {
+    @IBAction func onSendButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
