@@ -143,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func region(withNote note: Note) -> CLCircularRegion {
-        let region = CLCircularRegion(center: note.coordinate, radius: note.radius, identifier: note.identifier)
+        let region = CLCircularRegion(center: note.coordinate!, radius: note.radius!, identifier: note.noteId)
         region.notifyOnEntry = (note.eventType == .onEntry)
         region.notifyOnExit = !region.notifyOnEntry
         return region
@@ -165,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func stopMonitoring(note: Note) {
         for region in locationManager.monitoredRegions {
-            guard let circularRegion = region as? CLCircularRegion, circularRegion.identifier == note.identifier else { continue }
+            guard let circularRegion = region as? CLCircularRegion, circularRegion.identifier == note.noteId else { continue }
             locationManager.stopMonitoring(for: circularRegion)
         }
     }

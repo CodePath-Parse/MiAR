@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import FirebaseDatabase
 
 enum EventType: String {
     case onEntry = "On Entry"
@@ -15,22 +16,82 @@ enum EventType: String {
 }
 
 class Note: NSObject {
+    let dispatch = DispatchGroup()
 
-    var coordinate: CLLocationCoordinate2D
-    var radius: CLLocationDistance
-    var identifier: String
-    var eventType: EventType
-    var note: String
+    var noteId: String
+    
+    var coordinate: CLLocationCoordinate2D?
+    var radius: CLLocationDistance?
+    var eventType: EventType?
+    var note: String?
     var image: UIImage?
+    var fromUser: User?
     var toUser: User?
     
-    init(coordinate: CLLocationCoordinate2D, radius: CLLocationDistance, identifier: String, eventType: EventType, note: String, image: UIImage?, toUser: User?) {
-        self.coordinate = coordinate
-        self.radius = radius
-        self.identifier = identifier
-        self.eventType = eventType
-        self.note = note
-        self.image = image
-        self.toUser = toUser
+    init(noteId: String) {
+        self.noteId = noteId
+        self.fromUser = User.currentUser
+    }
+    
+    func save() {
+        let ref = Database.database().reference()
+        
+        if let note = note {
+            ref.child("notes/\(self.noteId)/note").setValue(note)
+        }
+        if let toUser = toUser {
+            ref.child("notes/\(self.noteId)/to_uid").setValue(toUser.uid)
+        }
+        if let fromUser = fromUser {
+            ref.child("notes/\(self.noteId)/from_uid").setValue(fromUser.uid)
+        }
+    }
+    
+    static func makeNewNoteId() -> String {
+        let ref = Database.database().reference()
+        return ref.child("notes").childByAutoId().key
+    }
+    
+    static func get(withNoteId noteId: String, onSuccess: @escaping (Note)->(), onFailure: @escaping (Error)->()) {
+        let ref = Database.database().reference()
+        ref.child("notes").child(noteId).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let noteText = value?["note"] as? String ?? ""
+            guard let toUid = value?["to_uid"] as? String else {
+                return
+            }
+            guard let fromUid = value?["from_uid"] as? String else {
+                return
+            }
+            let note = Note(noteId: noteId)
+            note.note = noteText
+            
+            note.dispatch.enter()
+            User.get(withUid: toUid, onSuccess: { (user) in
+                note.toUser = user
+                note.dispatch.leave()
+            }, onFailure: { (error) in
+                print("Couldn't get toUser")
+                note.dispatch.leave()
+            })
+            
+            note.dispatch.enter()
+            User.get(withUid: fromUid, onSuccess: { (user) in
+                note.fromUser = user
+                note.dispatch.leave()
+            }, onFailure: { (error) in
+                print("Couldn't get toUser")
+                note.dispatch.leave()
+            })
+            
+            note.dispatch.notify(queue: .main, execute: {
+                onSuccess(note)
+            })
+            
+        }) { (error) in
+            print(error.localizedDescription)
+            onFailure(error)
+        }
     }
 }
