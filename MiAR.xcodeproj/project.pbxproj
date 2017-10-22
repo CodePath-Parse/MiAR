@@ -22,6 +22,8 @@
 		2E6577911F8C8175006F6A0A /* MiARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577901F8C8175006F6A0A /* MiARTests.swift */; };
 		2E65779C1F8C8175006F6A0A /* MiARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65779B1F8C8175006F6A0A /* MiARUITests.swift */; };
 		2E93EA9C1F959DB9007EAFA1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E93EA9B1F959DB9007EAFA1 /* LoginViewController.swift */; };
+		2EA39E951F9BCD9300B88E71 /* Simd+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E941F9BCD9300B88E71 /* Simd+.swift */; };
+		2EA39E971F9C2F7C00B88E71 /* SceneKit+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E961F9C2F7C00B88E71 /* SceneKit+.swift */; };
 		2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1E00C1F92E80400266C1B /* Plane.swift */; };
 		77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91494A243958474E44BE6E28 /* Pods_MiARTests.framework */; };
 		8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */; };
@@ -70,6 +72,8 @@
 		2E65779B1F8C8175006F6A0A /* MiARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiARUITests.swift; sourceTree = "<group>"; };
 		2E65779D1F8C8175006F6A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E93EA9B1F959DB9007EAFA1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2EA39E941F9BCD9300B88E71 /* Simd+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simd+.swift"; sourceTree = "<group>"; };
+		2EA39E961F9C2F7C00B88E71 /* SceneKit+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+.swift"; sourceTree = "<group>"; };
 		2ED1E00C1F92E80400266C1B /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		322B2A96076E3691A2E807FF /* Pods_MiAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -237,6 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */,
+				2EA39E941F9BCD9300B88E71 /* Simd+.swift */,
+				2EA39E961F9C2F7C00B88E71 /* SceneKit+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -550,14 +556,15 @@
 				2E93EA9C1F959DB9007EAFA1 /* LoginViewController.swift in Sources */,
 				2E65777E1F8C8175006F6A0A /* ARViewController.swift in Sources */,
 				2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */,
+				2EA39E971F9C2F7C00B88E71 /* SceneKit+.swift in Sources */,
 				2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */,
 				2057AA0E1F9418DE00F23EBD /* Note.swift in Sources */,
 				2057AA0C1F9418D000F23EBD /* User.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
-				08E2F1011F92F1B8005B986C /* LoginViewController.swift in Sources */,
 				C4BBF5AE1F9A7BA5001AFCBD /* UIView+.swift in Sources */,
 				2057AA101F942A7400F23EBD /* Utilities.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
+				2EA39E951F9BCD9300B88E71 /* Simd+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

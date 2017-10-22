@@ -93,10 +93,17 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
 
     private func addPostman(_ hitPoint: ARHitTestResult) {
-        fox = Fox()
-        fox?.node.position = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
-        sceneView.scene.rootNode.addChildNode(fox!.node)
-        print("Added fox")
+        guard let fox = self.fox else {
+            self.fox = Fox()
+            self.fox?.node.position = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
+            sceneView.scene.rootNode.addChildNode(self.fox!.node)
+            print("Added fox")
+            return
+        }
+        // move the fox
+        print("Moving the fox")
+        let destination = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
+        fox.moveTo(destination)
     }
 
     @objc func handleTapFrom(recognizer: UIGestureRecognizer) {
@@ -124,6 +131,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     // MARK: - ARSCNViewDelegate
 
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        fox?.update(atTime: time, with: renderer)
 //        guard let lightEstimate = sceneView.session.currentFrame?.lightEstimate else {
 //            return
 //        }
@@ -155,6 +163,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             planes.removeValue(forKey: anchor.identifier)
         }
     }
+
 /*
     // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
