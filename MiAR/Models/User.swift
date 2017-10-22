@@ -16,4 +16,6 @@ class User: NSObject {
         self.username = username
         self.email = email
     }
+    
+    static var currentUser: User?
 }
