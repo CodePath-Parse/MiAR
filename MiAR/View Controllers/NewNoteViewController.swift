@@ -33,14 +33,15 @@ class NewNoteViewController: UIViewController {
         noteTextView.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewNoteViewController.dismissKeyboard))
-        tap.delegate = self
+//        tap.delegate = self
         tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        scrollView.addGestureRecognizer(tap)
         registerForKeyboardNotifications()
     }
     
     // MARK: - Drawing functions
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         print("touches began")
         swiped = false
         if let touch = touches.first {
@@ -116,6 +117,7 @@ class NewNoteViewController: UIViewController {
         (1.0, 1.0, 1.0),
         ]
     @IBAction func colorPicked(_ sender: AnyObject) {
+        print("color picked")
         var index = sender.tag ?? 0
         if index < 0 || index >= colors.count {
             index = 0
@@ -235,13 +237,12 @@ extension NewNoteViewController: UITextViewDelegate {
     }
 }
 
-extension NewNoteViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        UIControlEvents.touchUpInside
-        if touch.isKind(of: UIControl.self) {
-            return false
-        }
-        return true
-    }
-}
+//extension NewNoteViewController: UIGestureRecognizerDelegate {
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        if touch.isKind(of: UIControl.self) {
+//            return false
+//        }
+//        return true
+//    }
+//}
+
