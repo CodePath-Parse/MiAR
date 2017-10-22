@@ -20,11 +20,17 @@ class Note: NSObject {
     var radius: CLLocationDistance
     var identifier: String
     var eventType: EventType
+    var note: String
+    var image: UIImage?
+    var toUser: User?
     
-    init(coordinate: CLLocationCoordinate2D, radius: CLLocationDistance, identifier: String, eventType: EventType) {
+    init(coordinate: CLLocationCoordinate2D, radius: CLLocationDistance, identifier: String, eventType: EventType, note: String, image: UIImage?, toUser: User?) {
         self.coordinate = coordinate
         self.radius = radius
         self.identifier = identifier
         self.eventType = eventType
+        self.note = note
+        self.image = image
+        self.toUser = toUser
     }
 }
