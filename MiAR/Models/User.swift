@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FirebaseDatabase
+import Firebase
 
 class User: NSObject {
     // Firebase path: "users/\(uid)"
@@ -30,6 +30,16 @@ class User: NSObject {
         let ref = Database.database().reference()
         ref.child("users/\(self.uid)/username").setValue(username)
         ref.child("users/\(self.uid)/email").setValue(email)
+    }
+    
+    static func tryGetCurrentUser() {
+        if Auth.auth().currentUser != nil {
+            User.get(withUid: Auth.auth().currentUser!.uid, onSuccess: { (user) in
+                User.currentUser = user
+            }, onFailure: { (error) in
+                print("Error getting current user")
+            })
+        }
     }
     
     static func get(withUid uid: String, onSuccess: @escaping (User)->(), onFailure: @escaping (Error)->()) {
