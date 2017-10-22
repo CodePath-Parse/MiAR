@@ -33,6 +33,8 @@ class NewNoteViewController: UIViewController {
         noteTextView.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewNoteViewController.dismissKeyboard))
+        tap.delegate = self
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         registerForKeyboardNotifications()
     }
@@ -230,5 +232,16 @@ extension NewNoteViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         print("text view end editing")
         activeTextView = nil
+    }
+}
+
+extension NewNoteViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        UIControlEvents.touchUpInside
+        if touch.isKind(of: UIControl.self) {
+            return false
+        }
+        return true
     }
 }
