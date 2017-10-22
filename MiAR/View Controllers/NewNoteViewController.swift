@@ -14,7 +14,7 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var tempImageView: UIImageView!
     @IBOutlet weak var noteTextView: UITextView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var drawView: UIView!
     
     var lastPoint = CGPoint.zero
     var red: CGFloat = 0.0
@@ -26,6 +26,8 @@ class NewNoteViewController: UIViewController {
     var noteImage: UIImage!
     let locationManager = CLLocationManager()
     var activeTextView: UITextView!
+    var emptyNote = true
+    var dismissingKeyboard = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +35,18 @@ class NewNoteViewController: UIViewController {
         noteTextView.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewNoteViewController.dismissKeyboard))
-//        tap.delegate = self
         tap.cancelsTouchesInView = false
-        scrollView.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
         registerForKeyboardNotifications()
     }
     
     // MARK: - Drawing functions
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
         print("touches began")
+        if dismissingKeyboard {
+            return
+        }
+        
         swiped = false
         if let touch = touches.first {
             lastPoint = touch.location(in: mainImageView)
@@ -51,18 +55,26 @@ class NewNoteViewController: UIViewController {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touches moved")
+        if dismissingKeyboard {
+            return
+        }
+        
         swiped = true
         if let touch = touches.first {
             let currentPoint = touch.location(in: mainImageView)
             drawLineFrom(fromPoint: lastPoint, toPoint: currentPoint)
             
-            // 7
             lastPoint = currentPoint
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touches ended")
+        if dismissingKeyboard {
+            dismissingKeyboard = false
+            return
+        }
+        
         if !swiped {
             // draw a single point
             drawLineFrom(fromPoint: lastPoint, toPoint: lastPoint)
@@ -163,17 +175,12 @@ class NewNoteViewController: UIViewController {
     // MARK: - Keyboard and scrolling
     @objc func dismissKeyboard() {
         print("dismiss keyboard")
-        if noteTextView.text.isEmpty {
-            noteTextView.text = "Leave a message"
-            noteTextView.textColor = UIColor.lightGray
-        }
-        
         view.endEditing(true)
     }
     
     func registerForKeyboardNotifications(){
         //Adding notifies on keyboard appearing
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
@@ -183,37 +190,27 @@ class NewNoteViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWillShow(notification: NSNotification){
         //Need to calculate keyboard exact size due to Apple suggestions
-        scrollView.isScrollEnabled = true
+        print("keyboard shown")
         var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
-        
-        scrollView.contentInset = contentInsets
-        scrollView.scrollIndicatorInsets = contentInsets
+        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
+        dismissingKeyboard = true
         
         var aRect = view.frame
         aRect.size.height -= keyboardSize!.height
-        if let activeTextView = activeTextView {
-            if let activeView = activeTextView.superview {
-                let viewPoint = CGPoint(x: activeView.frame.origin.x, y: activeView.frame.origin.y + activeView.frame.size.height)
-                if (!aRect.contains(viewPoint)){
-                    scrollView.scrollRectToVisible(activeTextView.superview!.frame, animated: true)
-                }
+        if let activeView = activeTextView.superview {
+            let viewPoint = CGPoint(x: activeView.frame.origin.x, y: activeView.frame.origin.y + activeView.frame.size.height)
+            if (!aRect.contains(viewPoint)){
+                let translateY = aRect.size.height - (viewPoint.y + activeView.frame.size.height)
+                drawView.transform = CGAffineTransform(translationX: 0, y: translateY)
             }
         }
     }
     
     @objc func keyboardWillBeHidden(notification: NSNotification){
-        //Once keyboard disappears, restore original positions
-        var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
-        scrollView.contentInset = contentInsets
-        scrollView.scrollIndicatorInsets = contentInsets
-        view.endEditing(true)
-        scrollView.isScrollEnabled = false
+        print("keyboard hidden")
+        drawView.transform = CGAffineTransform.identity
     }
     
     deinit {
@@ -223,26 +220,30 @@ class NewNoteViewController: UIViewController {
 
 // MARK: - TextView delegate
 extension NewNoteViewController: UITextViewDelegate {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        activeTextView = textView
+        return true
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         print("text view begin editing")
-        textView.text = ""
-        textView.textColor = UIColor.black
-        activeTextView = textView
+        if emptyNote {
+            textView.text = ""
+            emptyNote = false
+        }
         
+        textView.textColor = UIColor.black
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         print("text view end editing")
+        if textView.text.isEmpty {
+            emptyNote = true
+            noteTextView.text = "#Leave a message"
+            noteTextView.textColor = UIColor.lightGray
+        }
+        
         activeTextView = nil
     }
 }
-
-//extension NewNoteViewController: UIGestureRecognizerDelegate {
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        if touch.isKind(of: UIControl.self) {
-//            return false
-//        }
-//        return true
-//    }
-//}
 
