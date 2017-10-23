@@ -103,4 +103,47 @@ class Note: NSObject {
             onFailure(error)
         }
     }
+    
+    static func listen(onSuccess: @escaping (Note)->(), onFailure: @escaping (Error)->()) {
+        let ref = Database.database().reference()
+        ref.child("notes").observe(.childAdded, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let noteText = value?["note"] as? String ?? ""
+            guard let toUid = value?["to_uid"] as? String else {
+                return
+            }
+            guard let fromUid = value?["from_uid"] as? String else {
+                return
+            }
+            let note = Note(noteId: snapshot.key)
+            note.note = noteText
+            
+            note.dispatch.enter()
+            User.get(withUid: toUid, onSuccess: { (user) in
+                note.toUser = user
+                note.dispatch.leave()
+            }, onFailure: { (error) in
+                print("Couldn't get toUser")
+                note.dispatch.leave()
+            })
+            
+            note.dispatch.enter()
+            User.get(withUid: fromUid, onSuccess: { (user) in
+                note.fromUser = user
+                note.dispatch.leave()
+            }, onFailure: { (error) in
+                print("Couldn't get toUser")
+                note.dispatch.leave()
+            })
+            
+            note.dispatch.notify(queue: .main, execute: {
+                onSuccess(note)
+            })
+            
+        }) { (error) in
+            print(error.localizedDescription)
+            onFailure(error)
+        }
+    }
 }
