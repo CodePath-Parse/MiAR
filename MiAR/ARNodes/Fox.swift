@@ -97,17 +97,13 @@ class Fox: NSObject {
     func moveTo(_ destination: SCNVector3) {
         print("Current position: \(self.node.position)")
         print("Destination: \(destination)")
-        let rotation = SCNMatrix4MakeRotation(.pi/2, 0, 1, 0)
-        let transform = foxNode.worldTransform * rotation
-        SCNTransaction.begin()
-        SCNTransaction.animationDuration = 5
-        SCNTransaction.completionBlock = nil
-        if let parent = foxNode.parent {
-            foxNode.transform = parent.convertTransform(transform, from: nil)
-        } else {
-            foxNode.transform = transform
+        // this is super lame but I couldn't figure out quaternions :-(
+        foxNode.look(at: destination)
+        foxNode.runAction(SCNAction.rotate(by: .pi, around: SCNVector3Make(0, 1, 0), duration: 0))
+        isWalking = true
+        foxNode.runAction(SCNAction.move(to: destination, duration: 2)) {
+            self.isWalking = false
         }
-        SCNTransaction.commit()
     }
 
     // MARK: utils

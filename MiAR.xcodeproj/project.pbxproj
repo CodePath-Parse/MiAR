@@ -10,7 +10,7 @@
 		08A0893B1F93D4F800EA061B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */; };
 		2057AA0C1F9418D000F23EBD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0B1F9418D000F23EBD /* User.swift */; };
 		2057AA0E1F9418DE00F23EBD /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0D1F9418DE00F23EBD /* Note.swift */; };
-		2057AA101F942A7400F23EBD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0F1F942A7400F23EBD /* Utilities.swift */; };
+		2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0F1F942A7400F23EBD /* UIViewController+.swift */; };
 		27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322B2A96076E3691A2E807FF /* Pods_MiAR.framework */; };
 		2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E059DCC1F92C3EC009030BA /* Fox.swift */; };
 		2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577791F8C8175006F6A0A /* AppDelegate.swift */; };
@@ -54,7 +54,7 @@
 		08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2057AA0B1F9418D000F23EBD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2057AA0D1F9418DE00F23EBD /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		2057AA0F1F942A7400F23EBD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		2057AA0F1F942A7400F23EBD /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2E059DCC1F92C3EC009030BA /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
 		2E6577761F8C8175006F6A0A /* MiAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,12 +156,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		2E059DCE1F92C3F4009030BA /* Postmen */ = {
+		2E059DCE1F92C3F4009030BA /* ARNodes */ = {
 			isa = PBXGroup;
 			children = (
 				2E059DCC1F92C3EC009030BA /* Fox.swift */,
+				2ED1E00C1F92E80400266C1B /* Plane.swift */,
 			);
-			path = Postmen;
+			path = ARNodes;
 			sourceTree = "<group>";
 		};
 		2E65776D1F8C8175006F6A0A = {
@@ -193,18 +194,16 @@
 			children = (
 				C4BBF5AC1F9A7B96001AFCBD /* Extensions */,
 				2057AA0A1F94185F00F23EBD /* Models */,
-				2E059DCE1F92C3F4009030BA /* Postmen */,
+				2E059DCE1F92C3F4009030BA /* ARNodes */,
 				2057AA091F94185900F23EBD /* Views */,
 				2057AA081F94184C00F23EBD /* View Controllers */,
 				2E6577791F8C8175006F6A0A /* AppDelegate.swift */,
 				2E65777B1F8C8175006F6A0A /* art.scnassets */,
-				2ED1E00C1F92E80400266C1B /* Plane.swift */,
 				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
 				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
 				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
 				08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */,
 				2E6577871F8C8175006F6A0A /* Info.plist */,
-				2057AA0F1F942A7400F23EBD /* Utilities.swift */,
 			);
 			path = MiAR;
 			sourceTree = "<group>";
@@ -240,9 +239,10 @@
 		C4BBF5AC1F9A7B96001AFCBD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */,
-				2EA39E941F9BCD9300B88E71 /* Simd+.swift */,
 				2EA39E961F9C2F7C00B88E71 /* SceneKit+.swift */,
+				2EA39E941F9BCD9300B88E71 /* Simd+.swift */,
+				C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */,
+				2057AA0F1F942A7400F23EBD /* UIViewController+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -562,7 +562,7 @@
 				2057AA0C1F9418D000F23EBD /* User.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
 				C4BBF5AE1F9A7BA5001AFCBD /* UIView+.swift in Sources */,
-				2057AA101F942A7400F23EBD /* Utilities.swift in Sources */,
+				2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 				2EA39E951F9BCD9300B88E71 /* Simd+.swift in Sources */,
 			);
