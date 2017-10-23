@@ -183,6 +183,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             vc.completion = { (note) in
                 // Send by postman
                 // triggering a cool postman animation goes here...
+                print("Sending note...")
                 note.save()
             }
         }

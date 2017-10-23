@@ -15,7 +15,8 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var tempImageView: UIImageView!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var drawView: UIView!
-    
+    @IBOutlet weak var userPicker: UIPickerView!
+
     var lastPoint = CGPoint.zero
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
@@ -29,18 +30,28 @@ class NewNoteViewController: UIViewController {
     var emptyNote = true
     var dismissingKeyboard = false
     var note: Note?
+    var userList: [User] = [User]()
     
     var completion: ((Note) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        userPicker.dataSource = self
+        userPicker.delegate = self
         noteTextView.delegate = self
-        
+
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewNoteViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         registerForKeyboardNotifications()
+
+        User.getAllUsers(onSuccess: { (users) in
+            self.userList = users
+            self.userPicker.reloadAllComponents()
+        }) { (error) in
+            print("Failed to get users")
+        }
     }
     
     // MARK: - Drawing functions
@@ -172,7 +183,8 @@ class NewNoteViewController: UIViewController {
         }
         
         // we can call to create the note here or pass along to another VC to ask for sharing options
-        let note = Note(to: User.currentUser!, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
+        let toUser = userList[userPicker.selectedRow(inComponent: 0)]
+        let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
         completion?(note)
         dismiss(animated: true, completion: nil)
     }
@@ -252,3 +264,19 @@ extension NewNoteViewController: UITextViewDelegate {
     }
 }
 
+// MARK: -
+
+extension NewNoteViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.userList.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let emails = userList.map { $0.email }
+        return emails[row]
+    }
+}
