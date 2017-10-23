@@ -29,6 +29,8 @@ class NewNoteViewController: UIViewController {
     var emptyNote = true
     var dismissingKeyboard = false
     
+    var completion: ((String, UIImage, CLLocation?) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -161,14 +163,15 @@ class NewNoteViewController: UIViewController {
                                                width: mainImageView.frame.size.width, height: mainImageView.frame.size.height))
         noteImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
+        var currentLocation: CLLocation? = nil
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            let currentLocation = locationManager.location
+            currentLocation = locationManager.location
         }
         
         // we can call to create the note here or pass along to another VC to ask for sharing options
-        
+        completion?(noteTextView.text, noteImage, currentLocation)
         dismiss(animated: true, completion: nil)
     }
     

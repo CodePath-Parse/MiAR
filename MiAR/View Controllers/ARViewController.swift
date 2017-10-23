@@ -163,6 +163,16 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             planes.removeValue(forKey: anchor.identifier)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let nc = segue.destination as? UINavigationController,
+            let vc = nc.childViewControllers.first as? NewNoteViewController {
+            print("Enabling completion")
+            vc.completion = { (text, image, location) in
+                // Send by postman
+            }
+        }
+    }
 
 /*
     // Override to create and configure nodes for anchors added to the view's session.
