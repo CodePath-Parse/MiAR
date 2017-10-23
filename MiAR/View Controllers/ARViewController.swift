@@ -12,8 +12,9 @@ import ARKit
 
 class ARViewController: UIViewController, ARSCNViewDelegate {
 
+    @IBOutlet weak var sessionInfoView: UIVisualEffectView!
     @IBOutlet var sceneView: ARSCNView!
-
+    @IBOutlet weak var sessionInfoLabel: UILabel!
     private var debugging: Bool = false
 
     private var fox: Fox?
@@ -30,11 +31,22 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+//        guard ARWorldTrackingConfiguration.isSupported else {
+//            sessionInfoLabel.text = "You do not have AR support. Sorry!"
+//            return
+//        }
+
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
 
         configuration.isLightEstimationEnabled = true
         configuration.planeDetection = .horizontal
+
+        /*
+         Prevent the screen from being dimmed after a while as users will likely
+         have long periods of interaction without touching the screen or buttons.
+         */
+        UIApplication.shared.isIdleTimerDisabled = true
 
 
         // Run the view's session
@@ -143,10 +155,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if debugging,
             let planeAnchor = anchor as? ARPlaneAnchor {
-                // show planes
-                let plane = Plane(withAnchor: planeAnchor)
-                planes[anchor.identifier] = plane
-                node.addChildNode(plane)
+            // show planes
+            let plane = Plane(withAnchor: planeAnchor)
+            planes[anchor.identifier] = plane
+            node.addChildNode(plane)
         }
     }
 
@@ -168,8 +180,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         if let nc = segue.destination as? UINavigationController,
             let vc = nc.childViewControllers.first as? NewNoteViewController {
             print("Enabling completion")
-            vc.completion = { (text, image, location) in
+            vc.completion = { (note) in
                 // Send by postman
+                // triggering a cool postman animation goes here...
+                note.save()
             }
         }
     }
@@ -183,18 +197,73 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
 */
 
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        guard let frame = session.currentFrame else { return }
+        updateSessionInfoLabel(for: frame, trackingState: frame.camera.trackingState)
+    }
 
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+        guard let frame = session.currentFrame else { return }
+        updateSessionInfoLabel(for: frame, trackingState: frame.camera.trackingState)
+    }
+
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        updateSessionInfoLabel(for: session.currentFrame!, trackingState: camera.trackingState)
     }
 
     func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay.
+        sessionInfoLabel.text = "Session was interrupted"
     }
 
     func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-
+        // Reset tracking and/or remove existing anchors if consistent tracking is required.
+        sessionInfoLabel.text = "Session interruption ended"
+        resetTracking()
     }
+
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user.
+        sessionInfoLabel.text = "Session failed: \(error.localizedDescription)"
+        resetTracking()
+    }
+
+    private func updateSessionInfoLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
+        // Update the UI to provide feedback on the state of the AR experience.
+        let message: String
+
+        switch trackingState {
+        case .normal where frame.anchors.isEmpty:
+            // No planes detected; provide instructions for this app's AR interactions.
+            message = "Move the device around to detect horizontal surfaces."
+
+        case .normal:
+            // No feedback needed when tracking is normal and planes are visible.
+            message = ""
+
+        case .notAvailable:
+            message = "Tracking unavailable."
+
+        case .limited(.excessiveMotion):
+            message = "Tracking limited - Move the device more slowly."
+
+        case .limited(.insufficientFeatures):
+            message = "Tracking limited - Point the device at an area with visible surface detail, or improve lighting conditions."
+
+        case .limited(.initializing):
+            message = "Initializing AR session."
+
+        }
+
+        sessionInfoLabel.text = message
+        sessionInfoView.isHidden = message.isEmpty
+    }
+
+    private func resetTracking() {
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+
+
 }

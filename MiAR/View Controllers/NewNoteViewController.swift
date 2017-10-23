@@ -28,8 +28,9 @@ class NewNoteViewController: UIViewController {
     var activeTextView: UITextView!
     var emptyNote = true
     var dismissingKeyboard = false
+    var note: Note?
     
-    var completion: ((String, UIImage, CLLocation?) -> Void)?
+    var completion: ((Note) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,7 +172,8 @@ class NewNoteViewController: UIViewController {
         }
         
         // we can call to create the note here or pass along to another VC to ask for sharing options
-        completion?(noteTextView.text, noteImage, currentLocation)
+        let note = Note(to: User.currentUser!, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
+        completion?(note)
         dismiss(animated: true, completion: nil)
     }
     
