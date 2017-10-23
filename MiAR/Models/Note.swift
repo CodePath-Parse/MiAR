@@ -32,6 +32,15 @@ class Note: NSObject {
         self.noteId = noteId
         self.fromUser = User.currentUser
     }
+
+    convenience init(to: User, text: String, image: UIImage?) {
+        let noteId = Note.makeNewNoteId()
+        self.init(noteId: noteId)
+        self.note = text
+        self.image = image
+        self.fromUser = User.currentUser
+        self.toUser = to
+    }
     
     func save() {
         let ref = Database.database().reference()
