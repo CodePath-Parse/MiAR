@@ -42,7 +42,8 @@ class Fox: NSObject {
         foxNode = SCNNode()
         foxNode.name = "fox"
         foxNode.simdPosition = Fox.initialPosition
-        foxNode.scale = SCNVector3(x: 0.3, y: 0.3, z: 0.3)
+        // This makes the fox smaller
+        // foxNode.scale = SCNVector3(x: 0.3, y: 0.3, z: 0.3)
         foxOrientation = SCNNode()
         foxNode.addChildNode(foxOrientation)
         foxOrientation.addChildNode(model)

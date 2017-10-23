@@ -33,13 +33,14 @@ class Note: NSObject {
         self.fromUser = User.currentUser
     }
 
-    convenience init(to: User, text: String, image: UIImage?) {
+    convenience init(to: User, text: String, image: UIImage?, location: CLLocationCoordinate2D?) {
         let noteId = Note.makeNewNoteId()
         self.init(noteId: noteId)
         self.note = text
         self.image = image
         self.fromUser = User.currentUser
         self.toUser = to
+        self.coordinate = location
     }
     
     func save() {
