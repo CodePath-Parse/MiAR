@@ -17,7 +17,7 @@ enum EventType: String {
 
 class Note: NSObject {
     let dispatch = DispatchGroup()
-
+    
     var noteId: String
     
     var coordinate: CLLocationCoordinate2D?
@@ -32,7 +32,7 @@ class Note: NSObject {
         self.noteId = noteId
         self.fromUser = User.currentUser
     }
-
+    
     convenience init(to: User, text: String, image: UIImage?, location: CLLocationCoordinate2D?) {
         let noteId = Note.makeNewNoteId()
         self.init(noteId: noteId)
@@ -108,40 +108,16 @@ class Note: NSObject {
     static func listen(onSuccess: @escaping (Note)->(), onFailure: @escaping (Error)->()) {
         let ref = Database.database().reference()
         ref.child("notes").observe(.childAdded, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let noteText = value?["note"] as? String ?? ""
-            guard let toUid = value?["to_uid"] as? String else {
-                return
-            }
-            guard let fromUid = value?["from_uid"] as? String else {
-                return
-            }
-            let note = Note(noteId: snapshot.key)
-            note.note = noteText
-            
-            note.dispatch.enter()
-            User.get(withUid: toUid, onSuccess: { (user) in
-                note.toUser = user
-                note.dispatch.leave()
+            Note.get(withNoteId: snapshot.key, onSuccess: { (note) in
+                guard let currentUser = User.currentUser else {
+                    return
+                }
+                if note.toUser?.uid == currentUser.uid {
+                    onSuccess(note)
+                }
             }, onFailure: { (error) in
-                print("Couldn't get toUser")
-                note.dispatch.leave()
+                onFailure(error)
             })
-            
-            note.dispatch.enter()
-            User.get(withUid: fromUid, onSuccess: { (user) in
-                note.fromUser = user
-                note.dispatch.leave()
-            }, onFailure: { (error) in
-                print("Couldn't get toUser")
-                note.dispatch.leave()
-            })
-            
-            note.dispatch.notify(queue: .main, execute: {
-                onSuccess(note)
-            })
-            
         }) { (error) in
             print(error.localizedDescription)
             onFailure(error)

@@ -73,6 +73,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         
+        Note.listen(onSuccess: { (note) in
+            print(note)
+        }) { (error) in
+            print(error)
+        }
+        
         return true
     }
     
