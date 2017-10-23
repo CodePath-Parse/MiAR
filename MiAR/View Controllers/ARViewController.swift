@@ -17,6 +17,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var sessionInfoLabel: UILabel!
     private var debugging: Bool = false
 
+    private var statusMessage: String = ""
     private var fox: Fox?
 //    private var scene: SCNScene!
     private var planes: [UUID:Plane] = [UUID:Plane]()
@@ -109,20 +110,20 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             self.fox = Fox()
             self.fox?.node.position = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
             sceneView.scene.rootNode.addChildNode(self.fox!.node)
-            print("Added fox")
+            statusMessage = "This fox will deliver your message..."
             return
         }
         // move the fox
-        print("Moving the fox")
         let destination = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
         fox.moveTo(destination)
+        fox.disappear()
     }
 
     @objc func handleTapFrom(recognizer: UIGestureRecognizer) {
         let tapPoint = recognizer.location(in: sceneView)
         let hits = sceneView.hitTest(tapPoint, types: .existingPlaneUsingExtent)
         guard hits.count > 0 else {
-            print("No plane were hit")
+            statusMessage = "Move your phone around and tap again."
             return
         }
         let hitResult = hits.first!
@@ -179,12 +180,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nc = segue.destination as? UINavigationController,
             let vc = nc.childViewControllers.first as? NewNoteViewController {
-            print("Enabling completion")
             vc.completion = { (note) in
                 // Send by postman
                 // triggering a cool postman animation goes here...
-                print("Sending note...")
                 note.save()
+                self.statusMessage = "Tap on the screen to send message..."
             }
         }
     }
@@ -240,7 +240,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
         case .normal:
             // No feedback needed when tracking is normal and planes are visible.
-            message = ""
+            message = statusMessage
 
         case .notAvailable:
             message = "Tracking unavailable."
