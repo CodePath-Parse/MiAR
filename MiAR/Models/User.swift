@@ -56,4 +56,36 @@ class User: NSObject {
             onFailure(error)
         }
     }
+    
+    /*
+     Example usage:
+     
+         User.getAllUsers(onSuccess: { (users) in
+             print("Got all users")
+             print(users[0].email)
+         }) { (error) in
+             print("Errored out")
+         }
+     */
+    static func getAllUsers(onSuccess: @escaping ([User])->(), onFailure: @escaping (Error)->()) {
+        let ref = Database.database().reference()
+        let allUsersQuery = ref.child("users").queryOrderedByKey()
+        allUsersQuery.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            var users: [User] = []
+            for child in snapshot.children {
+                print(child)
+                let snap =  child as? DataSnapshot
+                let value = snap?.value as? NSDictionary
+                let username = value?["username"] as? String ?? ""
+                let email = value?["email"] as? String ?? ""
+                let user = User.init(uid: snap!.key, username: username, email: email)
+                users.append(user)
+            }
+            onSuccess(users)
+        }) { (error) in
+            print(error.localizedDescription)
+            onFailure(error)
+        }
+    }
 }
