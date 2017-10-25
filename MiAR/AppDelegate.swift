@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
+        Messaging.messaging().shouldEstablishDirectChannel = true
         // [END set_messaging_delegate]
         
         // Register for remote notifications. This shows a permission dialog on first run, to
@@ -63,6 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             
             // Also fill current user.
             User.tryGetCurrentUser()
+            
+            // Each user is subscribed to its own topic.
+            print("My uid" + Auth.auth().currentUser!.uid)
         } else {
             // No user is signed in.
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
@@ -255,8 +259,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("APNs token retrieved: \(deviceToken)")
         
+        let token = Messaging.messaging().fcmToken
+        print("FCM token: \(token ?? "")")
+    
+        //User.currentUser!.fcmToken = token
+        //User.currentUser!.save()
+        
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
+        // Messaging.messaging().subscribe(toTopic: Auth.auth().currentUser!.uid)
     }
 }
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08A0893B1F93D4F800EA061B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */; };
+		08667E7E1F9F05F100E99DFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */; };
 		2057AA0C1F9418D000F23EBD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0B1F9418D000F23EBD /* User.swift */; };
 		2057AA0E1F9418DE00F23EBD /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0D1F9418DE00F23EBD /* Note.swift */; };
 		2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0F1F942A7400F23EBD /* UIViewController+.swift */; };
@@ -52,7 +52,7 @@
 
 /* Begin PBXFileReference section */
 		08667E7C1F9D24ED00E99DFB /* MiAR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiAR.entitlements; sourceTree = "<group>"; };
-		08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2057AA0B1F9418D000F23EBD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2057AA0D1F9418DE00F23EBD /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2057AA0F1F942A7400F23EBD /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
 				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
 				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
-				08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */,
+				08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */,
 				2E6577871F8C8175006F6A0A /* Info.plist */,
 			);
 			path = MiAR;
@@ -328,6 +328,9 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -376,7 +379,7 @@
 				C44A8C5C1F9026D0003B7C59 /* README.md in Resources */,
 				2E6577831F8C8175006F6A0A /* Assets.xcassets in Resources */,
 				2E6577811F8C8175006F6A0A /* Main.storyboard in Resources */,
-				08A0893B1F93D4F800EA061B /* GoogleService-Info.plist in Resources */,
+				08667E7E1F9F05F100E99DFB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,7 +750,7 @@
 				DEVELOPMENT_TEAM = ASJEXD5996;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.irshya.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -764,7 +767,7 @@
 				DEVELOPMENT_TEAM = ASJEXD5996;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.irshya.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

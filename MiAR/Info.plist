@@ -28,6 +28,16 @@
 				<string>com.googleusercontent.apps.175631373882-cbandmh4u4i4omlplbv2m1ufita4gama</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.irshya.MiAR</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.175631373882-ou8art46d56gtt10urc9v0hj9ectt378</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -41,6 +51,10 @@
 	<string>MiAR requires access to your phone’s location to notify you when you enter a geofence that has notes.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>MiAR requires access to your phone’s location to notify you when you enter a geofence that has notes.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
