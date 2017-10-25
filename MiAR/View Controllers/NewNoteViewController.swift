@@ -15,7 +15,6 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var tempImageView: UIImageView!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var drawView: UIView!
-    @IBOutlet weak var userPicker: UIPickerView!
 
     var lastPoint = CGPoint.zero
     var red: CGFloat = 0.0
@@ -37,8 +36,6 @@ class NewNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userPicker.dataSource = self
-        userPicker.delegate = self
         noteTextView.delegate = self
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewNoteViewController.dismissKeyboard))
@@ -48,7 +45,7 @@ class NewNoteViewController: UIViewController {
 
         User.getAllUsers(onSuccess: { (users) in
             self.userList = users
-            self.userPicker.reloadAllComponents()
+            // self.tableView.reloadData()
         }) { (error) in
             print("Failed to get users")
         }
@@ -183,9 +180,9 @@ class NewNoteViewController: UIViewController {
         }
         
         // we can call to create the note here or pass along to another VC to ask for sharing options
-        let toUser = userList[userPicker.selectedRow(inComponent: 0)]
-        let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
-        completion?(note)
+//        let toUser = userList[userPicker.selectedRow(inComponent: 0)]
+//        let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
+//        completion?(note)
         dismiss(animated: true, completion: nil)
     }
     
@@ -210,19 +207,19 @@ class NewNoteViewController: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification){
         //Need to calculate keyboard exact size due to Apple suggestions
         print("keyboard shown")
-        var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
-        dismissingKeyboard = true
-        
-        var aRect = view.frame
-        aRect.size.height -= keyboardSize!.height
-        if let activeView = activeTextView.superview {
-            let viewPoint = CGPoint(x: activeView.frame.origin.x, y: activeView.frame.origin.y + activeView.frame.size.height)
-            if (!aRect.contains(viewPoint)){
-                let translateY = aRect.size.height - (viewPoint.y + activeView.frame.size.height)
-                drawView.transform = CGAffineTransform(translationX: 0, y: translateY)
-            }
-        }
+//        var info = notification.userInfo!
+//        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
+//        dismissingKeyboard = true
+//
+//        var aRect = view.frame
+//        aRect.size.height -= keyboardSize!.height
+//        if let activeView = activeTextView.superview {
+//            let viewPoint = CGPoint(x: activeView.frame.origin.x, y: activeView.frame.origin.y + activeView.frame.size.height)
+//            if (!aRect.contains(viewPoint)){
+//                let translateY = aRect.size.height - (viewPoint.y + activeView.frame.size.height)
+//                drawView.transform = CGAffineTransform(translationX: 0, y: translateY)
+//            }
+//        }
     }
     
     @objc func keyboardWillBeHidden(notification: NSNotification){
