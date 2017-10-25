@@ -24,6 +24,10 @@
 		2E93EA9C1F959DB9007EAFA1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E93EA9B1F959DB9007EAFA1 /* LoginViewController.swift */; };
 		2EA39E951F9BCD9300B88E71 /* Simd+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E941F9BCD9300B88E71 /* Simd+.swift */; };
 		2EA39E971F9C2F7C00B88E71 /* SceneKit+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E961F9C2F7C00B88E71 /* SceneKit+.swift */; };
+		2EA39E991F9EDCE100B88E71 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E981F9EDCE100B88E71 /* StatusViewController.swift */; };
+		2EA39E9B1F9EEE6E00B88E71 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E9A1F9EEE6E00B88E71 /* FocusSquare.swift */; };
+		2EA39E9D1F9EEEA600B88E71 /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E9C1F9EEEA600B88E71 /* FocusSquareSegment.swift */; };
+		2EA39E9F1F9EF05600B88E71 /* CustomARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA39E9E1F9EF05600B88E71 /* CustomARView.swift */; };
 		2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1E00C1F92E80400266C1B /* Plane.swift */; };
 		77450F731AD6C80A5FB09E55 /* Pods_MiARTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91494A243958474E44BE6E28 /* Pods_MiARTests.framework */; };
 		8D4F2F229301EBE56569A889 /* Pods_MiARUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8960DFFFB0C6A81A48BFC6E /* Pods_MiARUITests.framework */; };
@@ -75,6 +79,10 @@
 		2E93EA9B1F959DB9007EAFA1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2EA39E941F9BCD9300B88E71 /* Simd+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Simd+.swift"; sourceTree = "<group>"; };
 		2EA39E961F9C2F7C00B88E71 /* SceneKit+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneKit+.swift"; sourceTree = "<group>"; };
+		2EA39E981F9EDCE100B88E71 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
+		2EA39E9A1F9EEE6E00B88E71 /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
+		2EA39E9C1F9EEEA600B88E71 /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
+		2EA39E9E1F9EF05600B88E71 /* CustomARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARView.swift; sourceTree = "<group>"; };
 		2ED1E00C1F92E80400266C1B /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		322B2A96076E3691A2E807FF /* Pods_MiAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B6D84A1C72DAE04ABAA58F /* Pods-MiARTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MiARTests/Pods-MiARTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +129,7 @@
 		2057AA081F94184C00F23EBD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2EA39E981F9EDCE100B88E71 /* StatusViewController.swift */,
 				2E93EA9B1F959DB9007EAFA1 /* LoginViewController.swift */,
 				2E65777D1F8C8175006F6A0A /* ARViewController.swift */,
 				C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */,
@@ -131,6 +140,7 @@
 		2057AA091F94185900F23EBD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EA39E9E1F9EF05600B88E71 /* CustomARView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,6 +172,8 @@
 			children = (
 				2E059DCC1F92C3EC009030BA /* Fox.swift */,
 				2ED1E00C1F92E80400266C1B /* Plane.swift */,
+				2EA39E9A1F9EEE6E00B88E71 /* FocusSquare.swift */,
+				2EA39E9C1F9EEEA600B88E71 /* FocusSquareSegment.swift */,
 			);
 			path = ARNodes;
 			sourceTree = "<group>";
@@ -568,13 +580,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E93EA9C1F959DB9007EAFA1 /* LoginViewController.swift in Sources */,
+				2EA39E9B1F9EEE6E00B88E71 /* FocusSquare.swift in Sources */,
 				2E65777E1F8C8175006F6A0A /* ARViewController.swift in Sources */,
 				2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */,
 				2EA39E971F9C2F7C00B88E71 /* SceneKit+.swift in Sources */,
 				2ED1E00D1F92E80400266C1B /* Plane.swift in Sources */,
+				2EA39E9F1F9EF05600B88E71 /* CustomARView.swift in Sources */,
 				2057AA0E1F9418DE00F23EBD /* Note.swift in Sources */,
+				2EA39E991F9EDCE100B88E71 /* StatusViewController.swift in Sources */,
 				2057AA0C1F9418D000F23EBD /* User.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
+				2EA39E9D1F9EEEA600B88E71 /* FocusSquareSegment.swift in Sources */,
 				C4BBF5AE1F9A7BA5001AFCBD /* UIView+.swift in Sources */,
 				2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,

@@ -276,7 +276,7 @@ extension NewNoteViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let emails = userList.map { $0.email }
+        let emails = userList.map { $0.username }
         return emails[row]
     }
 }

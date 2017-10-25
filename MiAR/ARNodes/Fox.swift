@@ -8,6 +8,7 @@
 
 import Foundation
 import SceneKit
+import ARKit
 import simd
 
 class Fox: NSObject {
@@ -43,7 +44,7 @@ class Fox: NSObject {
         foxNode.name = "fox"
         foxNode.simdPosition = Fox.initialPosition
         // This makes the fox smaller
-        // foxNode.scale = SCNVector3(x: 0.3, y: 0.3, z: 0.3)
+         foxNode.scale = SCNVector3(x: 0.3, y: 0.3, z: 0.3)
         foxOrientation = SCNNode()
         foxNode.addChildNode(foxOrientation)
         foxOrientation.addChildNode(model)
@@ -107,6 +108,10 @@ class Fox: NSObject {
         }
     }
 
+    func disappear() {
+        foxNode.runAction(SCNAction.fadeOut(duration: 3), completionHandler: nil)
+    }
+
     // MARK: utils
 
     class func loadAnimation(fromSceneNamed sceneName: String) -> SCNAnimationPlayer {
@@ -120,4 +125,37 @@ class Fox: NSObject {
         }
         return animationPlayer
     }
+
+    func adjustOntoPlaneAnchor(_ anchor: ARPlaneAnchor, using node: SCNNode) {
+        // Get the object's position in the plane's coordinate system.
+        let planePosition = node.convertPosition(foxNode.position, from: foxNode.parent)
+
+        // Check that the object is not already on the plane.
+        guard planePosition.y != 0 else { return }
+
+        // Add 10% tolerance to the corners of the plane.
+        let tolerance: Float = 0.1
+
+        let minX: Float = anchor.center.x - anchor.extent.x / 2 - anchor.extent.x * tolerance
+        let maxX: Float = anchor.center.x + anchor.extent.x / 2 + anchor.extent.x * tolerance
+        let minZ: Float = anchor.center.z - anchor.extent.z / 2 - anchor.extent.z * tolerance
+        let maxZ: Float = anchor.center.z + anchor.extent.z / 2 + anchor.extent.z * tolerance
+
+        guard (minX...maxX).contains(planePosition.x) && (minZ...maxZ).contains(planePosition.z) else {
+            return
+        }
+
+        // Move onto the plane if it is near it (within 5 centimeters).
+        let verticalAllowance: Float = 0.05
+        let epsilon: Float = 0.001 // Do not update if the difference is less than 1 mm.
+        let distanceToPlane = abs(planePosition.y)
+        if distanceToPlane > epsilon && distanceToPlane < verticalAllowance {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = CFTimeInterval(distanceToPlane * 500) // Move 2 mm per second.
+            SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            foxNode.position.y = anchor.transform.columns.3.y
+            SCNTransaction.commit()
+        }
+    }
+
 }

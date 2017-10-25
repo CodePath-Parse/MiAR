@@ -7,12 +7,12 @@ Message in AR
 
 ### Required
 
-* [ ] Users can create a new account.
-* [ ] Users are able to login/signup.
-* [ ] Users can write a text note, and address it to another user or
+* [x] Users can create a new account.
+* [x] Users are able to login/signup.
+* [x] Users can write a text note, and address it to another user or
   make it public.
-* [ ] Users can place the note in the AR view.
-* [ ] The app saves the GPS coordinates of the note.
+* [x] Users can place the note in the AR view.
+* [x] The app saves the GPS coordinates of the note.
 * [ ] Users get a notification about existing notes when they are
   close to where the notes were left. (Geofencing).
 * [ ] Users can view a note using AR.
@@ -23,6 +23,10 @@ Message in AR
 
 ### Bonus
 * [ ] The notes are 3D objects and not just flat images.
+
+## Demo
+
+![screenshot](/images/fox.gif?raw=true "fox")
   
 ## Wireframes
 

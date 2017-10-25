@@ -10,12 +10,27 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ARViewController: UIViewController, ARSCNViewDelegate {
+class ARViewController: UIViewController {
 
-    @IBOutlet weak var sessionInfoView: UIVisualEffectView!
-    @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet weak var sessionInfoLabel: UILabel!
+    @IBOutlet var sceneView: CustomARView!
     private var debugging: Bool = false
+    var isRestartAvailable = true
+    var focusSquare = FocusSquare()
+
+
+    var note: Note?
+
+    lazy var statusViewController: StatusViewController = {
+        return childViewControllers.lazy.flatMap({ $0 as? StatusViewController }).first!
+    }()
+
+    /// A serial queue used to coordinate adding or removing nodes from the scene.
+    let updateQueue = DispatchQueue(label: "com.miar.queue")
+
+    var screenCenter: CGPoint {
+        let bounds = sceneView.bounds
+        return CGPoint(x: bounds.midX, y: bounds.midY)
+    }
 
     private var fox: Fox?
 //    private var scene: SCNScene!
@@ -23,7 +38,16 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCamera()
+        sceneView.scene.rootNode.addChildNode(focusSquare)
+
         setupScene()
+
+        // Hook up status view controller callback(s).
+        statusViewController.restartExperienceHandler = { [unowned self] in
+            self.restartExperience()
+        }
+
         setupRecognizers()
         setupDebugging()
     }
@@ -32,7 +56,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillAppear(animated)
 
 //        guard ARWorldTrackingConfiguration.isSupported else {
-//            sessionInfoLabel.text = "You do not have AR support. Sorry!"
 //            return
 //        }
 
@@ -63,6 +86,21 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
+    }
+
+    func setupCamera() {
+        guard let camera = sceneView.pointOfView?.camera else {
+            fatalError("Expected a valid `pointOfView` from the scene.")
+        }
+
+        /*
+         Enable HDR camera settings for the most realistic appearance
+         with environmental lighting and physically based materials.
+         */
+        camera.wantsHDR = true
+        camera.exposureOffset = -1
+        camera.minimumExposure = -1
+        camera.maximumExposure = 3
     }
 
     private func setupScene() {
@@ -104,29 +142,40 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         sceneView.addGestureRecognizer(debuggingRecognizer)
     }
 
-    private func addPostman(_ hitPoint: ARHitTestResult) {
+    private func addPostman(_ position: float3) {
+        print("Adding Fox")
         guard let fox = self.fox else {
             self.fox = Fox()
-            self.fox?.node.position = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
+            self.fox?.node.position = SCNVector3(position)
             sceneView.scene.rootNode.addChildNode(self.fox!.node)
-            print("Added fox")
             return
         }
         // move the fox
-        print("Moving the fox")
-        let destination = SCNVector3Make(hitPoint.worldTransform.columns.3.x, hitPoint.worldTransform.columns.3.y, hitPoint.worldTransform.columns.3.z)
+        let destination = SCNVector3(position)
         fox.moveTo(destination)
+        fox.disappear()
     }
 
     @objc func handleTapFrom(recognizer: UIGestureRecognizer) {
-        let tapPoint = recognizer.location(in: sceneView)
-        let hits = sceneView.hitTest(tapPoint, types: .existingPlaneUsingExtent)
-        guard hits.count > 0 else {
-            print("No plane were hit")
-            return
+        print("Handling TAP")
+        guard let _ = sceneView.session.currentFrame?.camera.transform,
+            let focusSquarePosition = focusSquare.lastPosition else {
+                statusViewController.showMessage("CANNOT PLACE OBJECT\nTry moving left or right.")
+                return
         }
-        let hitResult = hits.first!
-        addPostman(hitResult)
+
+//        fox?.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
+
+        updateQueue.async {
+            self.addPostman(focusSquarePosition)
+        }
+//        let tapPoint = recognizer.location(in: sceneView)
+//        let hits = sceneView.hitTest(tapPoint, types: .existingPlaneUsingExtent)
+//        guard hits.count > 0 else {
+//            return
+//        }
+//        let hitResult = hits.first!
+//        addPostman(hitResult)
     }
 
     @objc func handleLongPressFrom(recognizer: UILongPressGestureRecognizer) {
@@ -140,21 +189,106 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
-    // MARK: - ARSCNViewDelegate
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let nc = segue.destination as? UINavigationController,
+            let vc = nc.childViewControllers.first as? NewNoteViewController {
+            vc.completion = { (note) in
+                // Send by postman
+                // triggering a cool postman animation goes here...
+                note.save()
+                self.statusViewController.scheduleMessage("TAP TO SEND NOTE", inSeconds: 1, messageType: .planeEstimation)
+            }
+        }
+    }
+
+}
+
+extension ARViewController {
+    func resetTracking() {
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+
+        statusViewController.scheduleMessage("FIND A SURFACE TO PLACE AN OBJECT", inSeconds: 7.5, messageType: .planeEstimation)
+    }
+
+    func restartExperience() {
+        guard isRestartAvailable else { return }
+        isRestartAvailable = false
+        statusViewController.cancelAllScheduledMessages()
+        resetTracking()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.isRestartAvailable = true
+        }
+    }
+
+
+}
+
+extension ARViewController : ARSCNViewDelegate {
+
+    func updateFocusSquare() {
+        if fox != nil {
+            focusSquare.hide()
+        } else {
+            focusSquare.unhide()
+            statusViewController.scheduleMessage("TRY MOVING LEFT OR RIGHT", inSeconds: 5.0, messageType: .focusSquare)
+        }
+
+        // We should always have a valid world position unless the sceen is just being initialized.
+        guard let (worldPosition, planeAnchor, _) = sceneView.worldPosition(fromScreenPosition: screenCenter, objectPosition: focusSquare.lastPosition) else {
+            updateQueue.async {
+                self.focusSquare.state = .initializing
+                self.sceneView.pointOfView?.addChildNode(self.focusSquare)
+            }
+//            addObjectButton.isHidden = true
+            return
+        }
+
+        updateQueue.async {
+            self.sceneView.scene.rootNode.addChildNode(self.focusSquare)
+            let camera = self.sceneView.session.currentFrame?.camera
+
+            if let planeAnchor = planeAnchor {
+                self.focusSquare.state = .planeDetected(anchorPosition: worldPosition, planeAnchor: planeAnchor, camera: camera)
+            } else {
+                self.focusSquare.state = .featuresDetected(anchorPosition: worldPosition, camera: camera)
+            }
+        }
+//        addObjectButton.isHidden = false
+        statusViewController.cancelScheduledMessage(for: .focusSquare)
+    }
+
 
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        fox?.update(atTime: time, with: renderer)
-//        guard let lightEstimate = sceneView.session.currentFrame?.lightEstimate else {
-//            return
-//        }
-//
-//        let intensity = lightEstimate.ambientIntensity / 1000.0
-//        sceneView.scene.lightingEnvironment.intensity = intensity
+        DispatchQueue.main.async {
+//            self.fox?.update(atTime: time, with: renderer)
+            self.updateFocusSquare()
+        }
+
+        // If light estimation is enabled, update the intensity of the model's lights and the environment map
+        let baseIntensity: CGFloat = 40
+        let lightingEnvironment = sceneView.scene.lightingEnvironment
+        if let lightEstimate = sceneView.session.currentFrame?.lightEstimate {
+            lightingEnvironment.intensity = lightEstimate.ambientIntensity / baseIntensity
+        } else {
+            lightingEnvironment.intensity = baseIntensity
+        }
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        if debugging,
-            let planeAnchor = anchor as? ARPlaneAnchor {
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        DispatchQueue.main.async {
+            self.statusViewController.cancelScheduledMessage(for: .planeEstimation)
+            self.statusViewController.showMessage("SURFACE DETECTED")
+            if self.fox == nil && self.note == nil {
+                self.statusViewController.scheduleMessage("TAP + TO SEND A NOTE", inSeconds: 7.5, messageType: .contentPlacement)
+            }
+        }
+        updateQueue.async {
+                self.fox?.adjustOntoPlaneAnchor(planeAnchor, using: node)
+        }
+        if debugging {
             // show planes
             let plane = Plane(withAnchor: planeAnchor)
             planes[anchor.identifier] = plane
@@ -176,95 +310,4 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let nc = segue.destination as? UINavigationController,
-            let vc = nc.childViewControllers.first as? NewNoteViewController {
-            print("Enabling completion")
-            vc.completion = { (note) in
-                // Send by postman
-                // triggering a cool postman animation goes here...
-                print("Sending note...")
-                note.save()
-            }
-        }
-    }
-
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-
-        return node
-    }
-*/
-
-    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
-        guard let frame = session.currentFrame else { return }
-        updateSessionInfoLabel(for: frame, trackingState: frame.camera.trackingState)
-    }
-
-    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
-        guard let frame = session.currentFrame else { return }
-        updateSessionInfoLabel(for: frame, trackingState: frame.camera.trackingState)
-    }
-
-    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        updateSessionInfoLabel(for: session.currentFrame!, trackingState: camera.trackingState)
-    }
-
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay.
-        sessionInfoLabel.text = "Session was interrupted"
-    }
-
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required.
-        sessionInfoLabel.text = "Session interruption ended"
-        resetTracking()
-    }
-
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user.
-        sessionInfoLabel.text = "Session failed: \(error.localizedDescription)"
-        resetTracking()
-    }
-
-    private func updateSessionInfoLabel(for frame: ARFrame, trackingState: ARCamera.TrackingState) {
-        // Update the UI to provide feedback on the state of the AR experience.
-        let message: String
-
-        switch trackingState {
-        case .normal where frame.anchors.isEmpty:
-            // No planes detected; provide instructions for this app's AR interactions.
-            message = "Move the device around to detect horizontal surfaces."
-
-        case .normal:
-            // No feedback needed when tracking is normal and planes are visible.
-            message = ""
-
-        case .notAvailable:
-            message = "Tracking unavailable."
-
-        case .limited(.excessiveMotion):
-            message = "Tracking limited - Move the device more slowly."
-
-        case .limited(.insufficientFeatures):
-            message = "Tracking limited - Point the device at an area with visible surface detail, or improve lighting conditions."
-
-        case .limited(.initializing):
-            message = "Initializing AR session."
-
-        }
-
-        sessionInfoLabel.text = message
-        sessionInfoView.isHidden = message.isEmpty
-    }
-
-    private func resetTracking() {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
-        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-    }
-
-
 }
