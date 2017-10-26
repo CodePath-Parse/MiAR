@@ -59,6 +59,7 @@ class NewNoteViewController: UIViewController {
         tokenInputView?.fieldName = "Send Note To:"
         tokenInputView?.placeholderText = "Enter a name"
         tokenInputView?.delegate = self
+        tokenInputView?.drawBottomBorder = true
         tableView?.delegate = self
         tableView?.dataSource = self
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
