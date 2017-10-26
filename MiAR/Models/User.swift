@@ -17,7 +17,6 @@ class User: NSObject {
     
     var username: String
     var email: String
-    var fcmToken: String?
     
     init(uid: String, username: String, email: String) {
         self.uid = uid
@@ -31,10 +30,6 @@ class User: NSObject {
         let ref = Database.database().reference()
         ref.child("users/\(self.uid)/username").setValue(username)
         ref.child("users/\(self.uid)/email").setValue(email)
-        
-        if let fcmToken = self.fcmToken {
-            ref.child("users/\(self.uid)/token").setValue(fcmToken)
-        }
     }
     
     static func tryGetCurrentUser() {
