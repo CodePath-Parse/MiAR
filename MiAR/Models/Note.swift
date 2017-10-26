@@ -33,8 +33,8 @@ class Note: NSObject {
         self.noteId = noteId
         self.fromUser = User.currentUser
     }
-    
-    convenience init(to: User, text: String, image: UIImage?, location: CLLocationCoordinate2D?) {
+
+    convenience init(to: User?, text: String, image: UIImage?, location: CLLocationCoordinate2D?) {
         let noteId = Note.makeNewNoteId()
         self.init(noteId: noteId)
         self.note = text

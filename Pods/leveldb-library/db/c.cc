@@ -269,10 +269,13 @@ void leveldb_compact_range(
     const char* start_key, size_t start_key_len,
     const char* limit_key, size_t limit_key_len) {
   Slice a, b;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcomma"
   db->rep->CompactRange(
       // Pass NULL Slice if corresponding "const char*" is NULL
       (start_key ? (a = Slice(start_key, start_key_len), &a) : NULL),
       (limit_key ? (b = Slice(limit_key, limit_key_len), &b) : NULL));
+#pragma clang diagnostic pop
 }
 
 void leveldb_destroy_db(

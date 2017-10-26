@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CLTokenInputView
 
 class NewNoteViewController: UIViewController {
 
@@ -15,7 +16,8 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var tempImageView: UIImageView!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var drawView: UIView!
-    @IBOutlet weak var userPicker: UIPickerView!
+    @IBOutlet weak var tokenInputView: CLTokenInputView?
+    @IBOutlet weak var tableView: UITableView?
 
     var lastPoint = CGPoint.zero
     var red: CGFloat = 0.0
@@ -27,18 +29,19 @@ class NewNoteViewController: UIViewController {
     var noteImage: UIImage!
     let locationManager = CLLocationManager()
     var activeTextView: UITextView!
+
     var emptyNote = true
     var dismissingKeyboard = false
     var note: Note?
     var userList: [User] = [User]()
+    var filteredUsers: [User] = [User]()
+    var selectedUsers: [User] = [User]()
     
     var completion: ((Note) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userPicker.dataSource = self
-        userPicker.delegate = self
         noteTextView.delegate = self
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewNoteViewController.dismissKeyboard))
@@ -48,10 +51,28 @@ class NewNoteViewController: UIViewController {
 
         User.getAllUsers(onSuccess: { (users) in
             self.userList = users
-            self.userPicker.reloadAllComponents()
+            self.tableView?.reloadData()
         }) { (error) in
             print("Failed to get users")
         }
+        
+        tokenInputView?.fieldName = "Send Note To:"
+        tokenInputView?.placeholderText = "Enter a name"
+        tokenInputView?.delegate = self
+        tokenInputView?.drawBottomBorder = true
+        tableView?.delegate = self
+        tableView?.dataSource = self
+        tableView?.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if !tokenInputView!.isEditing {
+            tokenInputView?.beginEditing()
+        }
+    }
+    
+    @objc func infoButtonTapped(sender: Any?) {
+        
     }
     
     // MARK: - Drawing functions
@@ -169,10 +190,20 @@ class NewNoteViewController: UIViewController {
 
     }
     
+    @IBAction func onTextButton(_ sender: Any) {
+        noteTextView.isHidden = false
+        noteTextView.isUserInteractionEnabled = true
+        noteTextView.updateFocusIfNeeded()
+        noteTextView.becomeFirstResponder()
+    }
+
     @IBAction func onSendButton(_ sender: Any) {
         UIGraphicsBeginImageContext(mainImageView.bounds.size)
+        // backgroundImage blending goer here... 
         mainImageView.image?.draw(in: CGRect(x: 0, y: 0,
                                                width: mainImageView.frame.size.width, height: mainImageView.frame.size.height))
+        let textImage = noteTextView.snapshot()
+        textImage?.draw(in: CGRect(x: 0, y: 0, width: mainImageView.frame.size.width, height: mainImageView.frame.size.height))
         noteImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
@@ -183,7 +214,7 @@ class NewNoteViewController: UIViewController {
         }
         
         // we can call to create the note here or pass along to another VC to ask for sharing options
-        let toUser = userList[userPicker.selectedRow(inComponent: 0)]
+        let toUser = selectedUsers.first
         let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
         completion?(note)
         dismiss(animated: true, completion: nil)
@@ -200,7 +231,7 @@ class NewNoteViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    
+
     func deregisterFromKeyboardNotifications(){
         //Removing notifies on keyboard appearing
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -210,26 +241,26 @@ class NewNoteViewController: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification){
         //Need to calculate keyboard exact size due to Apple suggestions
         print("keyboard shown")
-        var info = notification.userInfo!
-        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
-        dismissingKeyboard = true
-        
-        var aRect = view.frame
-        aRect.size.height -= keyboardSize!.height
-        if let activeView = activeTextView.superview {
-            let viewPoint = CGPoint(x: activeView.frame.origin.x, y: activeView.frame.origin.y + activeView.frame.size.height)
-            if (!aRect.contains(viewPoint)){
-                let translateY = aRect.size.height - (viewPoint.y + activeView.frame.size.height)
-                drawView.transform = CGAffineTransform(translationX: 0, y: translateY)
-            }
-        }
+//        var info = notification.userInfo!
+//        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
+//        dismissingKeyboard = true
+//
+//        var aRect = view.frame
+//        aRect.size.height -= keyboardSize!.height
+//        if let activeView = activeTextView.superview {
+//            let viewPoint = CGPoint(x: activeView.frame.origin.x, y: activeView.frame.origin.y + activeView.frame.size.height)
+//            if (!aRect.contains(viewPoint)){
+//                let translateY = aRect.size.height - (viewPoint.y + activeView.frame.size.height)
+//                drawView.transform = CGAffineTransform(translationX: 0, y: translateY)
+//            }
+//        }
     }
     
     @objc func keyboardWillBeHidden(notification: NSNotification){
         print("keyboard hidden")
         drawView.transform = CGAffineTransform.identity
     }
-    
+
     deinit {
         deregisterFromKeyboardNotifications()
     }
@@ -262,6 +293,15 @@ extension NewNoteViewController: UITextViewDelegate {
         
         activeTextView = nil
     }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            print("detected newline")
+            textView.resignFirstResponder()
+            textView.isUserInteractionEnabled = false
+        }
+        return true
+    }
 }
 
 // MARK: -
@@ -278,5 +318,78 @@ extension NewNoteViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let emails = userList.map { $0.username }
         return emails[row]
+    }
+}
+
+extension NewNoteViewController: CLTokenInputViewDelegate {
+    func tokenInputView(_ view: CLTokenInputView, didChangeText text: String?) {
+        print("Text Changed")
+        guard let text = text,
+            text != "" else {
+                filteredUsers = [User]()
+                tableView?.isHidden = true
+                drawView.isHidden = false
+                tableView?.reloadData()
+                return
+        }
+        filteredUsers = userList.filter { $0.username.contains(text) }
+        tableView?.isHidden = false
+        drawView.isHidden = true
+        tableView?.reloadData()
+    }
+
+    func tokenInputViewDidBeginEditing(_ view: CLTokenInputView) {
+        print("Began editing")
+    }
+    
+    func tokenInputViewDidEndEditing(_ view: CLTokenInputView) {
+        print("Finished editing")
+    }
+    
+    func tokenInputView(_ view: CLTokenInputView, didAdd token: CLToken) {
+        print("Add token")
+        if let user = userList.filter({ $0.username == token.displayText }).first {
+            selectedUsers.append(user)
+        }
+    }
+    
+    func tokenInputView(_ view: CLTokenInputView, didRemove token: CLToken) {
+        print("Removed Token")
+        selectedUsers = selectedUsers.filter { $0.username != token.displayText }
+    }
+    
+    func tokenInputView(_ view: CLTokenInputView, tokenForText text: String) -> CLToken? {
+        print("Token for text" )
+        if let matchingUser = filteredUsers.first {
+            let match = CLToken(displayText: matchingUser.username, context: matchingUser)
+            return match
+        }
+        return nil
+    }
+}
+
+extension NewNoteViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredUsers.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let user = filteredUsers[indexPath.row]
+        cell.textLabel?.text = user.username
+        if selectedUsers.contains(user) {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let user = filteredUsers[indexPath.row]
+        let token = CLToken(displayText: user.username, context: user)
+        tokenInputView?.add(token)
     }
 }

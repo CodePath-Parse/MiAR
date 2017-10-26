@@ -1,6 +1,4 @@
 framework module FirebaseCoreDiagnostics {
   export *
   module * { export *}
-  link "z"
-  link framework "Security"
-  link framework "SystemConfiguration"}
+  link "z"}

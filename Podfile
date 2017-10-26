@@ -13,6 +13,7 @@ target 'MiAR' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
   pod 'FirebaseUI/Storage'
+  pod 'CLTokenInputView'
 
   target 'MiARTests' do
     inherit! :search_paths

@@ -195,6 +195,7 @@ class ARViewController: UIViewController {
             vc.completion = { (note) in
                 // Send by postman
                 // triggering a cool postman animation goes here...
+                print("Got Note from NewNoteViewController: \(note)")
                 note.save()
                 self.statusViewController.scheduleMessage("TAP TO SEND NOTE", inSeconds: 1, messageType: .planeEstimation)
             }
