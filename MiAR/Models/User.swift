@@ -24,6 +24,13 @@ class User: NSObject {
         self.email = email
     }
     
+    static func initWithSnapshot(snap: DataSnapshot) -> User {
+        let value = snap.value as? NSDictionary
+        let username = value?["username"] as? String ?? ""
+        let email = value?["email"] as? String ?? ""
+        return User.init(uid: snap.key, username: username, email: email)
+    }
+    
     static var currentUser: User?
     
     func save() {
@@ -32,7 +39,7 @@ class User: NSObject {
         ref.child("users/\(self.uid)/email").setValue(email)
     }
     
-    static func tryGetCurrentUser() {
+    static func trySetCurrentUser() {
         if Auth.auth().currentUser != nil {
             User.get(withUid: Auth.auth().currentUser!.uid, onSuccess: { (user) in
                 User.currentUser = user
@@ -45,12 +52,7 @@ class User: NSObject {
     static func get(withUid uid: String, onSuccess: @escaping (User)->(), onFailure: @escaping (Error)->()) {
         let ref = Database.database().reference()
         ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let username = value?["username"] as? String ?? ""
-            let email = value?["email"] as? String ?? ""
-            let user = User.init(uid: uid, username: username, email: email)
-            onSuccess(user)
+            onSuccess(User.initWithSnapshot(snap: snapshot))
         }) { (error) in
             print(error.localizedDescription)
             onFailure(error)
@@ -75,12 +77,9 @@ class User: NSObject {
             var users: [User] = []
             for child in snapshot.children {
                 print(child)
-                let snap =  child as? DataSnapshot
-                let value = snap?.value as? NSDictionary
-                let username = value?["username"] as? String ?? ""
-                let email = value?["email"] as? String ?? ""
-                let user = User.init(uid: snap!.key, username: username, email: email)
-                users.append(user)
+                if let snap = child as? DataSnapshot {
+                    users.append(User.initWithSnapshot(snap: snap))
+                }
             }
             onSuccess(users)
         }) { (error) in

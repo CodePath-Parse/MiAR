@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             window?.rootViewController = vc
             
             // Also fill current user.
-            User.tryGetCurrentUser()
+            User.trySetCurrentUser()
             
             // Each user is subscribed to its own topic.
             print("My uid" + Auth.auth().currentUser!.uid)
