@@ -11,6 +11,8 @@ target 'MiAR' do
   pod 'GoogleSignIn'
   pod 'Firebase/Database'
   pod 'Firebase/Messaging'
+  pod 'Firebase/Storage'
+  pod 'FirebaseUI/Storage'
 
   target 'MiARTests' do
     inherit! :search_paths

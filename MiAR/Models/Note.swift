@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import Firebase
+import FirebaseStorage
 
 enum EventType: String {
     case onEntry = "On Entry"
@@ -45,7 +46,7 @@ class Note: NSObject {
     
     func save() {
         let ref = Database.database().reference()
-        
+
         if let toUser = toUser {
             ref.child("notes/\(self.noteId)/to_uid").setValue(toUser.uid)
         }
@@ -54,6 +55,9 @@ class Note: NSObject {
         }
         if let fromUser = fromUser {
             ref.child("notes/\(self.noteId)/from_uid").setValue(fromUser.uid)
+        }
+        if let image = image {
+            image.saveToFBInBackground(with: noteId)
         }
     }
     
