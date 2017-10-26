@@ -58,8 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if Auth.auth().currentUser != nil {
             // User is signed in.
-            let vc = storyboard.instantiateViewController(withIdentifier: "NewNoteViewController") as! NewNoteViewController
-            window?.rootViewController = vc
+            let nc = storyboard.instantiateViewController(withIdentifier: "NewNoteNavController") as! UINavigationController
+            window?.rootViewController = nc
             
             // Also fill current user.
             User.tryGetCurrentUser()
