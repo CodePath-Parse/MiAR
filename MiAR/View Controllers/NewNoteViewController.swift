@@ -190,6 +190,13 @@ class NewNoteViewController: UIViewController {
 
     }
     
+    @IBAction func onTextButton(_ sender: Any) {
+        noteTextView.isHidden = false
+        noteTextView.isUserInteractionEnabled = true
+        noteTextView.updateFocusIfNeeded()
+        noteTextView.becomeFirstResponder()
+    }
+
     @IBAction func onSendButton(_ sender: Any) {
         UIGraphicsBeginImageContext(mainImageView.bounds.size)
         mainImageView.image?.draw(in: CGRect(x: 0, y: 0,
@@ -221,7 +228,7 @@ class NewNoteViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    
+
     func deregisterFromKeyboardNotifications(){
         //Removing notifies on keyboard appearing
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -250,7 +257,7 @@ class NewNoteViewController: UIViewController {
         print("keyboard hidden")
         drawView.transform = CGAffineTransform.identity
     }
-    
+
     deinit {
         deregisterFromKeyboardNotifications()
     }
@@ -282,6 +289,15 @@ extension NewNoteViewController: UITextViewDelegate {
         }
         
         activeTextView = nil
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            print("detected newline")
+            textView.resignFirstResponder()
+            textView.isUserInteractionEnabled = false
+        }
+        return true
     }
 }
 
