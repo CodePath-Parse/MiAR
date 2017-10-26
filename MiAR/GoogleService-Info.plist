@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>175631373882-cbandmh4u4i4omlplbv2m1ufita4gama.apps.googleusercontent.com</string>
+	<string>175631373882-ou8art46d56gtt10urc9v0hj9ectt378.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.175631373882-cbandmh4u4i4omlplbv2m1ufita4gama</string>
+	<string>com.googleusercontent.apps.175631373882-ou8art46d56gtt10urc9v0hj9ectt378</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBtvpyZ0XB6Hi0v5QGtN8Qm7eS9z_oKaiU</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.miar.MiAR</string>
+	<string>com.irshya.MiAR</string>
 	<key>PROJECT_ID</key>
 	<string>praxis-zoo-521</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:175631373882:ios:620e7b589e224a2b</string>
+	<string>1:175631373882:ios:1342fc8169d4c0aa</string>
 	<key>DATABASE_URL</key>
 	<string>https://praxis-zoo-521.firebaseio.com</string>
 </dict>

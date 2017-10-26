@@ -221,8 +221,7 @@ FIR_SWIFT_NAME(InstanceID)
  *                          NSNumber representing a BOOL in Objective C) set to true if
  *                          your app is a debug build, which means that the APNs
  *                          device token is for the sandbox environment. It should be
- *                          set to false otherwise. If the `apns_sandbox` key is not
- *                          provided, an automatically-detected value shall be used.
+ *                          set to false otherwise.
  *  @param handler          The callback handler which is invoked when the token is
  *                          successfully fetched. In case of success a valid `token` and
  *                          `nil` error are returned. In case of any error the `token`

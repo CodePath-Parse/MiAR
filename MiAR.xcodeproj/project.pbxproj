@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08A0893B1F93D4F800EA061B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */; };
+		08667E7E1F9F05F100E99DFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */; };
+		08C55FC51FA16E5A00F89C4B /* UIImage+Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */; };
 		2057AA0C1F9418D000F23EBD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0B1F9418D000F23EBD /* User.swift */; };
 		2057AA0E1F9418DE00F23EBD /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0D1F9418DE00F23EBD /* Note.swift */; };
 		2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0F1F942A7400F23EBD /* UIViewController+.swift */; };
@@ -56,7 +57,8 @@
 
 /* Begin PBXFileReference section */
 		08667E7C1F9D24ED00E99DFB /* MiAR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiAR.entitlements; sourceTree = "<group>"; };
-		08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Storage.swift"; sourceTree = "<group>"; };
 		2057AA0B1F9418D000F23EBD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2057AA0D1F9418DE00F23EBD /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2057AA0F1F942A7400F23EBD /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -216,7 +218,7 @@
 				2E65777F1F8C8175006F6A0A /* Main.storyboard */,
 				2E6577821F8C8175006F6A0A /* Assets.xcassets */,
 				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
-				08A0893A1F93D4F800EA061B /* GoogleService-Info.plist */,
+				08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */,
 				2E6577871F8C8175006F6A0A /* Info.plist */,
 			);
 			path = MiAR;
@@ -257,6 +259,7 @@
 				2EA39E941F9BCD9300B88E71 /* Simd+.swift */,
 				C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */,
 				2057AA0F1F942A7400F23EBD /* UIViewController+.swift */,
+				08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -340,6 +343,9 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -388,7 +394,7 @@
 				C44A8C5C1F9026D0003B7C59 /* README.md in Resources */,
 				2E6577831F8C8175006F6A0A /* Assets.xcassets in Resources */,
 				2E6577811F8C8175006F6A0A /* Main.storyboard in Resources */,
-				08A0893B1F93D4F800EA061B /* GoogleService-Info.plist in Resources */,
+				08667E7E1F9F05F100E99DFB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +427,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -431,6 +438,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -578,6 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08C55FC51FA16E5A00F89C4B /* UIImage+Storage.swift in Sources */,
 				2E93EA9C1F959DB9007EAFA1 /* LoginViewController.swift in Sources */,
 				2EA39E9B1F9EEE6E00B88E71 /* FocusSquare.swift in Sources */,
 				2E65777E1F8C8175006F6A0A /* ARViewController.swift in Sources */,
@@ -762,10 +771,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SA26Z4N7MU;
+				DEVELOPMENT_TEAM = ASJEXD5996;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.bonillas.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -779,10 +788,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SA26Z4N7MU;
+				DEVELOPMENT_TEAM = ASJEXD5996;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.bonillas.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
