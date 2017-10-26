@@ -152,7 +152,6 @@
 			children = (
 				2057AA0B1F9418D000F23EBD /* User.swift */,
 				2057AA0D1F9418DE00F23EBD /* Note.swift */,
-				08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,6 +259,7 @@
 				2EA39E941F9BCD9300B88E71 /* Simd+.swift */,
 				C4BBF5AD1F9A7BA5001AFCBD /* UIView+.swift */,
 				2057AA0F1F942A7400F23EBD /* UIViewController+.swift */,
+				08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

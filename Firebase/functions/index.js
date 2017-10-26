@@ -54,7 +54,7 @@ exports.sendNotificationRealtime = functions.database.ref('/notes/{documentId}')
           // Send notifications to all tokens.
       // Send a message to devices subscribed to the provided topic.
       console.log("/topics/" + original['to_uid']);
-		return admin.messaging().sendToTopic("/topics/" + original['to_uid'], payload)
+		return admin.messaging().sendToTopic("/topics/miar", payload)
 		  .then(function(response) {
 		    // See the MessagingTopicResponse reference documentation for the
 		    // contents of response.

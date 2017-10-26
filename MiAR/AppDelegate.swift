@@ -267,7 +267,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
-        // Messaging.messaging().subscribe(toTopic: Auth.auth().currentUser!.uid)
+        
+        // Subscribe to a common "miar" topic here.
+        Messaging.messaging().subscribe(toTopic: "miar")
     }
 }
 
