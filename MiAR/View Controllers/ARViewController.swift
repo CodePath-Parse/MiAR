@@ -19,6 +19,7 @@ class ARViewController: UIViewController {
 
 
     var note: Note?
+    var noteNode: SCNNode?
 
     lazy var statusViewController: StatusViewController = {
         return childViewControllers.lazy.flatMap({ $0 as? StatusViewController }).first!
@@ -192,16 +193,38 @@ class ARViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nc = segue.destination as? UINavigationController,
             let vc = nc.childViewControllers.first as? NewNoteViewController {
+            if noteNode != nil {
+                noteNode?.removeFromParentNode()
+                noteNode = nil
+            }
             vc.completion = { (note) in
                 // Send by postman
                 // triggering a cool postman animation goes here...
                 print("Got Note from NewNoteViewController: \(note)")
-                note.save()
+                self.note = note
+                self.note!.save()
+                self.displayNote()
                 self.statusViewController.scheduleMessage("TAP TO SEND NOTE", inSeconds: 1, messageType: .planeEstimation)
             }
         }
     }
 
+    func displayNote() {
+        let noteGeometry = SCNBox(width: 10, height: 10, length: 1.0, chamferRadius: 1.0)
+        let mat = SCNMaterial()
+        mat.locksAmbientWithDiffuse = true
+        mat.diffuse.contents = note!.image!
+        mat.specular.contents = UIColor.white
+        let white = SCNMaterial()
+        white.diffuse.contents = UIColor.white
+        white.locksAmbientWithDiffuse = true
+        noteGeometry.materials = [mat, white, white, white, white, white]
+        let noteNode = SCNNode(geometry: noteGeometry)
+        noteNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 2)))
+        noteNode.position = SCNVector3Make(0, 0, -20)
+        sceneView.scene.rootNode.addChildNode(noteNode)
+        self.noteNode = noteNode
+    }
 }
 
 extension ARViewController {

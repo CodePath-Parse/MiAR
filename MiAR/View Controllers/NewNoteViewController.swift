@@ -198,12 +198,18 @@ class NewNoteViewController: UIViewController {
     }
 
     @IBAction func onSendButton(_ sender: Any) {
-        UIGraphicsBeginImageContext(mainImageView.bounds.size)
-        // backgroundImage blending goer here... 
-        mainImageView.image?.draw(in: CGRect(x: 0, y: 0,
-                                               width: mainImageView.frame.size.width, height: mainImageView.frame.size.height))
-        let textImage = noteTextView.snapshot()
-        textImage?.draw(in: CGRect(x: 0, y: 0, width: mainImageView.frame.size.width, height: mainImageView.frame.size.height))
+        let rect = CGRect(x: 0, y: 0, width: mainImageView.frame.size.width, height: mainImageView.frame.size.height)
+        UIGraphicsBeginImageContextWithOptions(mainImageView.bounds.size, true, 1)
+        // white background (replace with backgroundImage)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(UIColor.white.cgColor)
+        context!.fill(rect)
+        mainImageView.image?.draw(in: rect, blendMode: .normal, alpha: 1)
+        if let text = noteTextView.text,
+            text != "" && text != "Leave a message" {
+            let textImage = noteTextView.snapshot()
+            textImage?.draw(in: rect, blendMode: .multiply, alpha: 1)
+        }
         noteImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 

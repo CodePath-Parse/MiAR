@@ -99,7 +99,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lj-PN-ofI" userLabel="Send To View">
-                                <rect key="frame" x="0.0" y="64" width="372.5" height="539"/>
+                                <rect key="frame" x="0.0" y="68" width="372.5" height="531"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oRQ-tu-zQe" customClass="CLTokenInputView">
                                         <rect key="frame" x="6" y="0.0" width="360.5" height="48"/>
@@ -127,7 +127,7 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVa-eL-azS">
-                                <rect key="frame" x="0.0" y="114" width="372.5" height="477"/>
+                                <rect key="frame" x="0.0" y="118" width="372.5" height="473"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QBc-3H-Lqh">
                                         <rect key="frame" x="0.0" y="0.0" width="368" height="445"/>
@@ -383,7 +383,7 @@
                 <navigationController storyboardIdentifier="NewNoteNavController" automaticallyAdjustsScrollViewInsets="NO" id="BgW-QA-dr8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mGD-IB-YcB">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

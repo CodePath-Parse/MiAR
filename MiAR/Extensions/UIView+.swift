@@ -13,7 +13,7 @@ extension UIView {
      * Take a snapshot of a UIView
      */
     func snapshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
         }
