@@ -143,18 +143,47 @@ class ARViewController: UIViewController {
         sceneView.addGestureRecognizer(debuggingRecognizer)
     }
 
-    private func addPostman(_ position: float3) {
+    @objc private func addFox(_ position: float3) {
+        let fox = Fox()
         print("Adding Fox")
-        guard let fox = self.fox else {
-            self.fox = Fox()
-            self.fox?.node.position = SCNVector3(position)
-            sceneView.scene.rootNode.addChildNode(self.fox!.node)
-            return
-        }
+        fox.node.position = SCNVector3(position)
+        sceneView.scene.rootNode.addChildNode(fox.node)
+        self.fox = fox
+    }
+    
+    private func moveFox(_ position: float3) {
         // move the fox
         let destination = SCNVector3(position)
-        fox.moveTo(destination)
-        fox.disappear()
+        fox?.moveTo(destination)
+        fox?.disappear()
+    }
+    
+    private func addNote(_ position: float3) {
+        let noteGeometry = SCNBox(width: 10, height: 10, length: 1.0, chamferRadius: 1.0)
+        let mat = SCNMaterial()
+        mat.locksAmbientWithDiffuse = true
+        mat.diffuse.contents = note!.image!
+        mat.specular.contents = UIColor.white
+        let white = SCNMaterial()
+        white.diffuse.contents = UIColor.white
+        white.locksAmbientWithDiffuse = true
+        noteGeometry.materials = [mat, white, white, white, white, white]
+        let noteNode = SCNNode(geometry: noteGeometry)
+        //        noteNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 2)))
+        noteNode.position = SCNVector3(position)
+        sceneView.scene.rootNode.addChildNode(noteNode)
+        self.noteNode = noteNode
+    }
+    
+    @objc private func moveNote(_ position: float3) {
+        let pos = SCNVector3(position)
+        let actions = SCNAction.sequence([
+            SCNAction.repeat(SCNAction.rotateBy(x: 0, y: 0, z: 2, duration: 2), count: 5),
+            SCNAction.move(to: pos, duration: 5),
+            SCNAction.fadeOut(duration: 5),
+            ])
+        noteNode?.runAction(actions)
+
     }
 
     @objc func handleTapFrom(recognizer: UIGestureRecognizer) {
@@ -168,8 +197,13 @@ class ARViewController: UIViewController {
 //        fox?.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
 
         updateQueue.async {
-            self.addPostman(focusSquarePosition)
+            self.addFox(focusSquarePosition)
+            self.addNote(float3(0, 0, -20))
         }
+        updateQueue.asyncAfter(deadline: .now() + 0.5) {
+            self.moveNote(focusSquarePosition)
+        }
+
 //        let tapPoint = recognizer.location(in: sceneView)
 //        let hits = sceneView.hitTest(tapPoint, types: .existingPlaneUsingExtent)
 //        guard hits.count > 0 else {
@@ -198,32 +232,11 @@ class ARViewController: UIViewController {
                 noteNode = nil
             }
             vc.completion = { (note) in
-                // Send by postman
-                // triggering a cool postman animation goes here...
                 print("Got Note from NewNoteViewController: \(note)")
                 self.note = note
-                self.note!.save()
-                self.displayNote()
                 self.statusViewController.scheduleMessage("TAP TO SEND NOTE", inSeconds: 1, messageType: .planeEstimation)
             }
         }
-    }
-
-    func displayNote() {
-        let noteGeometry = SCNBox(width: 10, height: 10, length: 1.0, chamferRadius: 1.0)
-        let mat = SCNMaterial()
-        mat.locksAmbientWithDiffuse = true
-        mat.diffuse.contents = note!.image!
-        mat.specular.contents = UIColor.white
-        let white = SCNMaterial()
-        white.diffuse.contents = UIColor.white
-        white.locksAmbientWithDiffuse = true
-        noteGeometry.materials = [mat, white, white, white, white, white]
-        let noteNode = SCNNode(geometry: noteGeometry)
-        noteNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 2)))
-        noteNode.position = SCNVector3Make(0, 0, -20)
-        sceneView.scene.rootNode.addChildNode(noteNode)
-        self.noteNode = noteNode
     }
 }
 

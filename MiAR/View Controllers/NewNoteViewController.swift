@@ -63,6 +63,7 @@ class NewNoteViewController: UIViewController {
         tableView?.delegate = self
         tableView?.dataSource = self
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        noteTextView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
