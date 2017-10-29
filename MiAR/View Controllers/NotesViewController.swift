@@ -61,6 +61,14 @@ class NotesViewController: UIViewController {
         return String(rounded)
     }
     
+    @IBAction func goToAR(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let arVC = storyboard.instantiateViewController(withIdentifier: "ARViewController") as? ARViewController else {
+            return
+        }
+        present(arVC, animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MapViewSegue" {
             guard let mapVC = segue.destination as? MapViewController else {
