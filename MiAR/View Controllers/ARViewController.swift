@@ -241,7 +241,7 @@ extension ARViewController {
         let noteGeometry = SCNBox(width: 2, height: 2, length: 0.2, chamferRadius: 1.0)
         let mat = SCNMaterial()
         mat.locksAmbientWithDiffuse = true
-        mat.diffuse.contents = note!.image!
+        mat.diffuse.contents = deliverNote!.image!
         mat.specular.contents = UIColor.white
         let white = SCNMaterial()
         white.diffuse.contents = UIColor.white
@@ -278,6 +278,8 @@ extension ARViewController {
                 self.noteNode = nil
                 self.fox = nil
                 self.note?.save()
+                print("Note sent!")
+                self.statusViewController.scheduleMessage("Note Sent!", inSeconds: 1, messageType: .information)
                 self.note = nil
             })
         })

@@ -373,7 +373,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = locations.last
         
-        print("Location Update \(userLocation?.coordinate.longitude), \(userLocation?.coordinate.latitude)")
+//        print("Location Update \(userLocation?.coordinate.longitude), \(userLocation?.coordinate.latitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {

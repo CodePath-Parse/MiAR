@@ -60,7 +60,7 @@ class NewNoteViewController: UIViewController {
         }
         
         tokenInputView?.fieldName = "Send Note To:"
-        tokenInputView?.placeholderText = "Enter a name"
+        tokenInputView?.placeholderText = "Everybody"
         tokenInputView?.delegate = self
         tokenInputView?.drawBottomBorder = true
         tableView?.delegate = self
@@ -74,9 +74,6 @@ class NewNoteViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if !tokenInputView!.isEditing {
-            tokenInputView?.beginEditing()
-        }
     }
     
     @objc func infoButtonTapped(sender: Any?) {
@@ -235,8 +232,6 @@ class NewNoteViewController: UIViewController {
         // we can call to create the note here or pass along to another VC to ask for sharing options
         let toUser = selectedUsers.first
         let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
-        
-        note.save()
         
         completion?(note)
         dismiss(animated: true, completion: nil)

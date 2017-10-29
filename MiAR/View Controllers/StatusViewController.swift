@@ -16,12 +16,14 @@ class StatusViewController: UIViewController {
         case planeEstimation
         case contentPlacement
         case focusSquare
+        case information
 
         static var all: [MessageType] = [
             .trackingStateEscalation,
             .planeEstimation,
             .contentPlacement,
-            .focusSquare
+            .focusSquare,
+            .information
         ]
     }
 
