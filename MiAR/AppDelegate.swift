@@ -151,16 +151,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if CLLocationManager.authorizationStatus() == .authorizedAlways{
             locationManager.startUpdatingLocation()
             
-            for region in locationManager.monitoredRegions {
-                locationManager.stopMonitoring(for: region)
-            }
+//            for region in locationManager.monitoredRegions {
+//                locationManager.stopMonitoring(for: region)
+//            }
             
             // TODO: Take this out once we have push calling monitorNote() directly
-            let appleLocation = CLLocationCoordinate2D(latitude: 37.331695, longitude: -122.0322801)
-            let user = User(uid: "12345", username: "oscar", email: "ob@yahoo.com")
-            User.currentUser = user
-            let note = Note(to: user, text: "hello MiAR", image: nil, location: appleLocation)
-            monitorNote(note)
+//            let appleLocation = CLLocationCoordinate2D(latitude: 37.331695, longitude: -122.0322801)
+//            let user = User(uid: "12345", username: "oscar", email: "ob@yahoo.com")
+//            User.currentUser = user
+//            let note = Note(to: user, text: "hello MiAR", image: nil, location: appleLocation)
+//            monitorNote(note)
         } else {
             locationManager.requestAlwaysAuthorization()
         }
