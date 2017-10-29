@@ -234,7 +234,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func region(withNote note: Note) -> CLCircularRegion {
         let region = CLCircularRegion(center: note.coordinate!, radius: 100, identifier: note.noteId)
         region.notifyOnEntry = true
-        region.notifyOnExit = false
+        region.notifyOnExit = true
         return region
     }
     
