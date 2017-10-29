@@ -13,12 +13,15 @@ import CLTokenInputView
 class NewNoteViewController: UIViewController {
 
     @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var tempImageView: UIImageView!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var drawView: UIView!
     @IBOutlet weak var tokenInputView: CLTokenInputView?
     @IBOutlet weak var tableView: UITableView?
-
+    @IBOutlet weak var imagesButton: UIButton!
+    @IBOutlet weak var cameraButton: UIButton!
+    
     var lastPoint = CGPoint.zero
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
@@ -64,6 +67,10 @@ class NewNoteViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         noteTextView.isHidden = true
+        
+        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+            cameraButton.isEnabled = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -202,9 +209,14 @@ class NewNoteViewController: UIViewController {
         let rect = CGRect(x: 0, y: 0, width: mainImageView.frame.size.width, height: mainImageView.frame.size.height)
         UIGraphicsBeginImageContextWithOptions(mainImageView.bounds.size, true, 1)
         // white background (replace with backgroundImage)
-        let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(UIColor.white.cgColor)
-        context!.fill(rect)
+        if backgroundImageView.image != nil {
+            backgroundImageView.image?.draw(in: rect, blendMode: .normal, alpha: 1)
+        } else {
+            let context = UIGraphicsGetCurrentContext()
+            context!.setFillColor(UIColor.white.cgColor)
+            context!.fill(rect)
+        }
+        
         mainImageView.image?.draw(in: rect, blendMode: .normal, alpha: 1)
         if let text = noteTextView.text,
             text != "" && text != "Leave a message" {
@@ -223,8 +235,30 @@ class NewNoteViewController: UIViewController {
         // we can call to create the note here or pass along to another VC to ask for sharing options
         let toUser = selectedUsers.first
         let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
+        
+        note.save()
+        
         completion?(note)
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onImages(_ sender: Any) {
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = .photoLibrary
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func onCamera(_ sender: Any) {
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            print("Camera is available 📸")
+            vc.sourceType = .camera
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Keyboard and scrolling
@@ -398,5 +432,12 @@ extension NewNoteViewController: UITableViewDelegate, UITableViewDataSource {
         let user = filteredUsers[indexPath.row]
         let token = CLToken(displayText: user.username, context: user)
         tokenInputView?.add(token)
+    }
+}
+
+extension NewNoteViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        backgroundImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        dismiss(animated: true, completion: nil)
     }
 }

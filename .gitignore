@@ -3,6 +3,19 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 .DS_Store
 
+# Firebase
+**/node_modules/
+**/.firebaserc
+*/npm-debug.log
+*~
+
+/.vscode
+node_modules
+/coverage
+firebase-debug.log
+npm-debug.log
+package-lock.json
+
 ## Build generated
 build/
 DerivedData/

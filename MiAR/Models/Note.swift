@@ -22,26 +22,33 @@ class Note: NSObject {
     var noteId: String
     
     var coordinate: CLLocationCoordinate2D?
-    var radius: CLLocationDistance?
     var eventType: EventType?
     var note: String?
     var image: UIImage?
     var fromUser: User?
     var toUser: User?
+    var delivered: Bool?
     
     init(noteId: String) {
         self.noteId = noteId
         self.fromUser = User.currentUser
     }
-
+    
     convenience init(to: User?, text: String, image: UIImage?, location: CLLocationCoordinate2D?) {
         let noteId = Note.makeNewNoteId()
+        // let noteId = UUID().uuidString
         self.init(noteId: noteId)
         self.note = text
         self.image = image
         self.fromUser = User.currentUser
         self.toUser = to
         self.coordinate = location
+        self.delivered = false
+    }
+    
+    func deliveryStatus(_ status: Bool) {
+        delivered = status
+        save()
     }
     
     func save() {
@@ -57,7 +64,18 @@ class Note: NSObject {
             ref.child("notes/\(self.noteId)/from_uid").setValue(fromUser.uid)
         }
         if let image = image {
-            image.saveToFBInBackground(with: noteId)
+            image.saveToFBInBackground(with: noteId, onComplete: { (storageRef) in
+                if let imageRef = storageRef {
+                    ref.child("notes/\(self.noteId)/image_url").setValue(imageRef.fullPath)
+                }
+            })
+		}
+		if let coordinate = coordinate {
+            ref.child("notes/\(self.noteId)/longitude").setValue(coordinate.longitude)
+            ref.child("notes/\(self.noteId)/latitude").setValue(coordinate.latitude)
+        }
+        if let delivered = delivered {
+            ref.child("notes/\(self.noteId)/delivered").setValue(delivered)
         }
     }
     
@@ -76,6 +94,12 @@ class Note: NSObject {
                 return
             }
             guard let fromUid = value?["from_uid"] as? String else {
+                return
+            }
+            guard let lat = value?["latitude"] as? Double else {
+                return
+            }
+            guard let lng = value?["longitude"] as? Double else {
                 return
             }
             let note = Note(noteId: noteId)
@@ -102,6 +126,8 @@ class Note: NSObject {
             note.dispatch.notify(queue: .main, execute: {
                 onSuccess(note)
             })
+            
+            note.coordinate = CLLocationCoordinate2DMake(lat, lng)
             
         }) { (error) in
             print(error.localizedDescription)

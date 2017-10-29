@@ -35,16 +35,30 @@ exports.sendNotificationRealtime = functions.database.ref('/notes/{documentId}')
       const original = event.data.val();
       console.log('Uppercasing', event.params.documentId, original);
 
-      var payload = {
-		  notification: {
-		    title: "$GOOG up 1.43% on the day",
-		    body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
+    //   var payload = {
+		//   notification: {
+		//   //   title: "$GOOG up 1.43% on the day",
+		//   //   body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
+		//   },
+		//   data: {
+		//     noteId: event.params.documentId,
+		//   }
+		// };
+
+		const payload = {
+			notification: {
+		     title: "Yay, someone sent you a new note.",
+		     body: "Click on the notification to get notified when you're nearby."
 		  },
-		  data: {
-		    stock: "GOOG",
-		    close: "635.67"
-		  }
+			data: {
+				noteId: event.params.documentId,
+			}
 		};
+	
+		const options = {
+			// contentAvailable: true,
+			// priority: "high",
+		}
       // const uppercase = original.toUpperCase();
       // You must return a Promise when performing asynchronous tasks inside a Functions such as
       // writing to the Firebase Realtime Database.
@@ -54,46 +68,7 @@ exports.sendNotificationRealtime = functions.database.ref('/notes/{documentId}')
           // Send notifications to all tokens.
       // Send a message to devices subscribed to the provided topic.
       console.log("/topics/" + original['to_uid']);
-		return admin.messaging().sendToTopic("/topics/miar", payload)
-		  .then(function(response) {
-		    // See the MessagingTopicResponse reference documentation for the
-		    // contents of response.
-		    console.log("Successfully sent message:", response);
-		  })
-		  .catch(function(error) {
-		    console.log("Error sending message:", error);
-		  });
-    });
-
-exports.sendNotification = functions.firestore.document('/notes/{documentId}')
-    .onCreate(event => {
-// [END makeUppercaseTrigger]
-      // [START makeUppercaseBody]
-
-      // Grab the current value of what was written to the Realtime Database.
-      const original = event.data.data().original;
-      console.log('Uppercasing', event.params.documentId, original);
-
-		var payload = {
-		  notification: {
-		    title: "$GOOG up 1.43% on the day",
-		    body: "$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day."
-		  },
-		  data: {
-		    stock: "GOOG",
-		    open: 829.62,
-		    close: "635.67"
-		  }
-		};
-      // const uppercase = original.toUpperCase();
-      // You must return a Promise when performing asynchronous tasks inside a Functions such as
-      // writing to the Firebase Realtime Database.
-      // Setting an 'uppercase' sibling in the Realtime Database returns a Promise.
-      // return event.data.ref.set({uppercase}, {merge: true});
-      // [END makeUppercaseBody]
-          // Send notifications to all tokens.
-      // Send a message to devices subscribed to the provided topic.
-		return admin.messaging().sendToTopic(original['to_uid'], payload)
+		return admin.messaging().sendToTopic("/topics/miar", payload, options)
 		  .then(function(response) {
 		    // See the MessagingTopicResponse reference documentation for the
 		    // contents of response.

@@ -9,9 +9,14 @@
 /* Begin PBXBuildFile section */
 		08667E7E1F9F05F100E99DFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */; };
 		08C55FC51FA16E5A00F89C4B /* UIImage+Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */; };
+		200944471FA3FC3A0027854B /* DirectionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200944461FA3FC3A0027854B /* DirectionsCell.swift */; };
+		200944491FA539510027854B /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200944481FA539510027854B /* DirectionsViewController.swift */; };
+		2009444B1FA555810027854B /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2009444A1FA555810027854B /* NotesViewController.swift */; };
+		2009444D1FA563220027854B /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2009444C1FA563220027854B /* NoteCell.swift */; };
 		2057AA0C1F9418D000F23EBD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0B1F9418D000F23EBD /* User.swift */; };
 		2057AA0E1F9418DE00F23EBD /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0D1F9418DE00F23EBD /* Note.swift */; };
 		2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2057AA0F1F942A7400F23EBD /* UIViewController+.swift */; };
+		20CAB3421FA16295005541A3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CAB3411FA16295005541A3 /* MapViewController.swift */; };
 		27DF4C5A51B121138C00E46A /* Pods_MiAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 322B2A96076E3691A2E807FF /* Pods_MiAR.framework */; };
 		2E059DCD1F92C3EC009030BA /* Fox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E059DCC1F92C3EC009030BA /* Fox.swift */; };
 		2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6577791F8C8175006F6A0A /* AppDelegate.swift */; };
@@ -59,9 +64,15 @@
 		08667E7C1F9D24ED00E99DFB /* MiAR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiAR.entitlements; sourceTree = "<group>"; };
 		08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08C55FC41FA16E5A00F89C4B /* UIImage+Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Storage.swift"; sourceTree = "<group>"; };
+		200944461FA3FC3A0027854B /* DirectionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsCell.swift; sourceTree = "<group>"; };
+		200944481FA539510027854B /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
+		2009444A1FA555810027854B /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		2009444C1FA563220027854B /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		2057AA0B1F9418D000F23EBD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2057AA0D1F9418DE00F23EBD /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2057AA0F1F942A7400F23EBD /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		20CAB3411FA16295005541A3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		20CAB3451FA167D5005541A3 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		2D11C1E3105C6ACE36C99D8F /* Pods-MiARUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiARUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiARUITests/Pods-MiARUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2E059DCC1F92C3EC009030BA /* Fox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fox.swift; sourceTree = "<group>"; };
 		2E6577761F8C8175006F6A0A /* MiAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +146,9 @@
 				2E93EA9B1F959DB9007EAFA1 /* LoginViewController.swift */,
 				2E65777D1F8C8175006F6A0A /* ARViewController.swift */,
 				C44A8C5F1F902FBF003B7C59 /* NewNoteViewController.swift */,
+				20CAB3411FA16295005541A3 /* MapViewController.swift */,
+				200944481FA539510027854B /* DirectionsViewController.swift */,
+				2009444A1FA555810027854B /* NotesViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -143,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				2EA39E9E1F9EF05600B88E71 /* CustomARView.swift */,
+				200944461FA3FC3A0027854B /* DirectionsCell.swift */,
+				2009444C1FA563220027854B /* NoteCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +236,7 @@
 				2E6577841F8C8175006F6A0A /* LaunchScreen.storyboard */,
 				08667E7D1F9F05EE00E99DFB /* GoogleService-Info.plist */,
 				2E6577871F8C8175006F6A0A /* Info.plist */,
+				20CAB3451FA167D5005541A3 /* Location.gpx */,
 			);
 			path = MiAR;
 			sourceTree = "<group>";
@@ -598,11 +615,16 @@
 				2EA39E991F9EDCE100B88E71 /* StatusViewController.swift in Sources */,
 				2057AA0C1F9418D000F23EBD /* User.swift in Sources */,
 				2E65777A1F8C8175006F6A0A /* AppDelegate.swift in Sources */,
+				200944491FA539510027854B /* DirectionsViewController.swift in Sources */,
+				2009444D1FA563220027854B /* NoteCell.swift in Sources */,
+				200944471FA3FC3A0027854B /* DirectionsCell.swift in Sources */,
 				2EA39E9D1F9EEEA600B88E71 /* FocusSquareSegment.swift in Sources */,
 				C4BBF5AE1F9A7BA5001AFCBD /* UIView+.swift in Sources */,
 				2057AA101F942A7400F23EBD /* UIViewController+.swift in Sources */,
+				2009444B1FA555810027854B /* NotesViewController.swift in Sources */,
 				C44A8C601F902FBF003B7C59 /* NewNoteViewController.swift in Sources */,
 				2EA39E951F9BCD9300B88E71 /* Simd+.swift in Sources */,
+				20CAB3421FA16295005541A3 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,10 +793,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SA26Z4N7MU;
+				DEVELOPMENT_TEAM = ASJEXD5996;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.bonillas.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
+				DEVELOPMENT_TEAM = Y3975H3CG2;
+				INFOPLIST_FILE = MiAR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.n1lom.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -788,10 +814,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SA26Z4N7MU;
+				DEVELOPMENT_TEAM = ASJEXD5996;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.bonillas.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
+				DEVELOPMENT_TEAM = Y3975H3CG2;
+				INFOPLIST_FILE = MiAR/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.n1lom.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
