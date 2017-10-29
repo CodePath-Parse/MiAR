@@ -84,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func getNearByNotes() -> [Note] {
         var nearByNotes: [Note] = []
         
+        
         for note in notes {
             if notifiedNotes.index(forKey: note.noteId) != nil {
                 nearByNotes.append(note)
@@ -201,8 +202,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             add(note: note)
             startMonitoring(note: note)
             
+            print("monitorNote")
             // TODO
             let distance = NotesViewController.getNoteDistance(noteLocation: note.coordinate, userLocation: userLocation)
+            print(distance)
+            print(userLocation)
             if distance < 100 {
                 let region = self.region(withNote: note)
                 handleEntryEvent(forRegion: region)

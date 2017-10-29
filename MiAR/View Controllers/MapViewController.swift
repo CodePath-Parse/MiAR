@@ -70,7 +70,7 @@ class MapViewController: UIViewController {
                 self.directionLabel.text = self.routeSteps[0].instructions
                 self.distanceLabel.text = DirectionsViewController.convertToMiles(meters: self.routeSteps[0].distance)
                 
-                if self.routeSteps.count <= 1 {
+                if self.routeSteps.count <= 2 {
                     self.goToAR()
                 }
             }
