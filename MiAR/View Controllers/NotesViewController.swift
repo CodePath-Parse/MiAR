@@ -43,22 +43,21 @@ class NotesViewController: UIViewController {
         }
     }
     
-    func getNoteDistance(noteLocation: CLLocationCoordinate2D?) -> String {
-        var miles = "-1.0"
+    static func getNoteDistance(noteLocation: CLLocationCoordinate2D?, userLocation: CLLocation?) -> Double {
+        var meters = -1.0
         if let userLocation = userLocation {
             if let noteLocation = noteLocation {
                 let noteLoc = CLLocation(latitude: noteLocation.latitude, longitude: noteLocation.longitude)
-                let meters = userLocation.distance(from: noteLoc)
-                miles = convertToMiles(meters: meters)
+                meters = userLocation.distance(from: noteLoc)
             }
         }
-        return miles
+        return meters
     }
     
-    func convertToMiles(meters: CLLocationDistance) -> String {
+    static func convertToMiles(meters: CLLocationDistance) -> Double {
         let miles = meters * DirectionsViewController.milesPerMeter
         let rounded = round(miles * 1000) / 1000
-        return String(rounded)
+        return rounded
     }
     
     @IBAction func goToAR(_ sender: Any) {
@@ -97,7 +96,8 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         let note = notes[indexPath.row]
         
         cell.usernameLabel.text = note.fromUser?.username
-        cell.distanceLabel.text = getNoteDistance(noteLocation: note.coordinate)
+        let meters = NotesViewController.getNoteDistance(noteLocation: note.coordinate, userLocation: userLocation)
+        cell.distanceLabel.text = String(NotesViewController.convertToMiles(meters: meters))
         cell.profileImageView.image = UIImage(named: "anonymous")
         
         return cell
