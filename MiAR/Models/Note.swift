@@ -96,6 +96,12 @@ class Note: NSObject {
             guard let fromUid = value?["from_uid"] as? String else {
                 return
             }
+            guard let lat = value?["latitude"] as? Double else {
+                return
+            }
+            guard let lng = value?["longitude"] as? Double else {
+                return
+            }
             let note = Note(noteId: noteId)
             note.note = noteText
             
@@ -120,6 +126,8 @@ class Note: NSObject {
             note.dispatch.notify(queue: .main, execute: {
                 onSuccess(note)
             })
+            
+            note.coordinate = CLLocationCoordinate2DMake(lat, lng)
             
         }) { (error) in
             print(error.localizedDescription)

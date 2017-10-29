@@ -53,6 +53,7 @@
 	<string>MiAR requires access to your phone’s location to notify you when you enter a geofence that has notes.</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
