@@ -19,6 +19,10 @@ class Fox: NSObject {
     static private let modelOffset = float3(0, 0, 0)
     static private let speedFactor: CGFloat = 2.0
 
+    private var spinParticle: SCNParticleSystem!
+    private var spinCircleParticle: SCNParticleSystem!
+    private var spinParticleAttach: SCNNode!
+
     // Direction
     var direction = float2()
     private var previousUpdateTime: TimeInterval = 0
@@ -59,6 +63,17 @@ class Fox: NSObject {
         walkAnimation.stop()
         model.addAnimationPlayer(walkAnimation, forKey: "walk")
 
+        let spinAnimation = Fox.loadAnimation(fromSceneNamed: "art.scnassets/fox/max_spin.scn")
+        spinAnimation.animation.isRemovedOnCompletion = false
+        spinAnimation.speed = 1.5
+        spinAnimation.stop()
+        model.addAnimationPlayer(spinAnimation, forKey: "spin")
+
+        let particleScene = SCNScene(named:"art.scnassets/particles/particles_spin.scn")!
+        spinParticle = (particleScene.rootNode.childNode(withName: "particles_spin", recursively: true)?.particleSystems?.first!)!
+        spinCircleParticle = (particleScene.rootNode.childNode(withName: "particles_spin_circle", recursively: true)?.particleSystems?.first!)!
+        spinParticleAttach = model.childNode(withName: "particles_spin_circle", recursively: true)
+
         super.init()
     }
 
@@ -96,15 +111,21 @@ class Fox: NSObject {
 
     }
 
-    func moveTo(_ destination: SCNVector3) {
+    func spin() {
+        model.animationPlayer(forKey: "spin")?.play()
+        spinParticleAttach.addParticleSystem(spinCircleParticle)
+    }
+
+    func moveTo(_ destination: SCNVector3, duration: TimeInterval, completionHandler: (() -> Void)?) {
         print("Current position: \(self.node.position)")
         print("Destination: \(destination)")
         // this is super lame but I couldn't figure out quaternions :-(
         foxNode.look(at: destination)
         foxNode.runAction(SCNAction.rotate(by: .pi, around: SCNVector3Make(0, 1, 0), duration: 0))
         isWalking = true
-        foxNode.runAction(SCNAction.move(to: destination, duration: 2)) {
+        foxNode.runAction(SCNAction.move(to: destination, duration: duration)) {
             self.isWalking = false
+            completionHandler?()
         }
     }
 

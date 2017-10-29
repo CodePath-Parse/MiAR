@@ -17,6 +17,8 @@ class ARViewController: UIViewController {
     var isRestartAvailable = true
     var focusSquare = FocusSquare()
 
+    var deliverNote: Note?
+    var delivered = false
 
     var note: Note?
     var noteNode: SCNNode?
@@ -108,6 +110,7 @@ class ARViewController: UIViewController {
         // Set the view's delegate
         sceneView.delegate = self
         sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
 
         let scene = SCNScene()
         sceneView.scene = scene
@@ -143,48 +146,6 @@ class ARViewController: UIViewController {
         sceneView.addGestureRecognizer(debuggingRecognizer)
     }
 
-    @objc private func addFox(_ position: float3) {
-        let fox = Fox()
-        print("Adding Fox")
-        fox.node.position = SCNVector3(position)
-        sceneView.scene.rootNode.addChildNode(fox.node)
-        self.fox = fox
-    }
-    
-    private func moveFox(_ position: float3) {
-        // move the fox
-        let destination = SCNVector3(position)
-        fox?.moveTo(destination)
-        fox?.disappear()
-    }
-    
-    private func addNote(_ position: float3) {
-        let noteGeometry = SCNBox(width: 10, height: 10, length: 1.0, chamferRadius: 1.0)
-        let mat = SCNMaterial()
-        mat.locksAmbientWithDiffuse = true
-        mat.diffuse.contents = note!.image!
-        mat.specular.contents = UIColor.white
-        let white = SCNMaterial()
-        white.diffuse.contents = UIColor.white
-        white.locksAmbientWithDiffuse = true
-        noteGeometry.materials = [mat, white, white, white, white, white]
-        let noteNode = SCNNode(geometry: noteGeometry)
-        //        noteNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 2)))
-        noteNode.position = SCNVector3(position)
-        sceneView.scene.rootNode.addChildNode(noteNode)
-        self.noteNode = noteNode
-    }
-    
-    @objc private func moveNote(_ position: float3) {
-        let pos = SCNVector3(position)
-        let actions = SCNAction.sequence([
-            SCNAction.repeat(SCNAction.rotateBy(x: 0, y: 0, z: 2, duration: 2), count: 5),
-            SCNAction.move(to: pos, duration: 5),
-            SCNAction.fadeOut(duration: 5),
-            ])
-        noteNode?.runAction(actions)
-
-    }
 
     @objc func handleTapFrom(recognizer: UIGestureRecognizer) {
         print("Handling TAP")
@@ -194,14 +155,24 @@ class ARViewController: UIViewController {
                 return
         }
 
-//        fox?.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
-
-        updateQueue.async {
-            self.addFox(focusSquarePosition)
-            self.addNote(float3(0, 0, -20))
+        if delivered && noteNode != nil {
+            // XXX: animate dismissal...
+            noteNode?.removeFromParentNode()
+            fox?.node.removeFromParentNode()
+            noteNode = nil
+            fox = nil
+            // remove me
+            note = nil
         }
-        updateQueue.asyncAfter(deadline: .now() + 0.5) {
-            self.moveNote(focusSquarePosition)
+
+//        fox?.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
+        guard note != nil else {
+            statusViewController.scheduleMessage("TAP + TO CREATE A NOTE", inSeconds: 0.1, messageType: .contentPlacement)
+            return
+        }
+
+        guard fox == nil else {
+            return
         }
 
 //        let tapPoint = recognizer.location(in: sceneView)
@@ -210,6 +181,11 @@ class ARViewController: UIViewController {
 //            return
 //        }
 //        let hitResult = hits.first!
+//        let pos = hitResult.worldTransform.position
+//        let p = float3(pos.x, pos.y, pos.z)
+        // Deliver the note
+//        receiveNote(focusSquarePosition)
+        sendNote(focusSquarePosition)
 //        addPostman(hitResult)
     }
 
@@ -240,6 +216,101 @@ class ARViewController: UIViewController {
     }
 }
 
+// Animations
+extension ARViewController {
+
+    private func addFox(_ position: float3) {
+        let fox = Fox()
+        fox.node.position = SCNVector3(position)
+        sceneView.scene.rootNode.addChildNode(fox.node)
+        self.fox = fox
+    }
+
+    private func addNote(_ position: float3) -> SCNNode {
+        let noteGeometry = SCNBox(width: 10, height: 10, length: 1.0, chamferRadius: 1.0)
+        let mat = SCNMaterial()
+        mat.locksAmbientWithDiffuse = true
+        mat.diffuse.contents = note!.image!
+        mat.specular.contents = UIColor.white
+        let white = SCNMaterial()
+        white.diffuse.contents = UIColor.white
+        white.locksAmbientWithDiffuse = true
+        noteGeometry.materials = [mat, white, white, white, white, white]
+        let noteNode = SCNNode(geometry: noteGeometry)
+        //        noteNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 2)))
+        //SCNVector3(node.simdWorldFront + simd_float3(0, 0, -20))
+        noteNode.position = SCNVector3(position)
+        return noteNode
+    }
+
+    private func addSmallNote(_ position: float3) -> SCNNode {
+        let noteGeometry = SCNBox(width: 2, height: 2, length: 0.2, chamferRadius: 1.0)
+        let mat = SCNMaterial()
+        mat.locksAmbientWithDiffuse = true
+        mat.diffuse.contents = note!.image!
+        mat.specular.contents = UIColor.white
+        let white = SCNMaterial()
+        white.diffuse.contents = UIColor.white
+        white.locksAmbientWithDiffuse = true
+        noteGeometry.materials = [mat, white, white, white, white, white]
+        let noteNode = SCNNode(geometry: noteGeometry)
+        noteNode.position = SCNVector3(position)
+        return noteNode
+    }
+
+    private func makeFoxRunAway() {
+        fox?.spin()
+        let pos = float3(sceneView.pointOfView!.position) + float3(0, 0, -50)
+        // move the fox
+        fox?.moveTo(SCNVector3(pos), duration: 10, completionHandler: {
+            self.fox?.disappear()
+        })
+    }
+
+    private func sendNote(_ position: float3) {
+        addFox(position)
+
+        noteNode = addNote(float3(0, 1.5, 0))
+        fox?.node.addChildNode(noteNode!)
+        noteNode?.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: .pi, z: 0, duration: 1)))
+        let duration:TimeInterval = 2
+        noteNode?.runAction(SCNAction.move(to: SCNVector3(position), duration: duration))
+        noteNode?.runAction(SCNAction.scale(to: 0.01, duration: duration), completionHandler: {
+            self.fox?.spin()
+            let pos = float3(self.sceneView.pointOfView!.position) + float3(0, 0, -30)
+            self.fox?.moveTo(SCNVector3(pos), duration: 5, completionHandler: {
+                self.noteNode?.removeFromParentNode()
+                self.fox?.node.removeFromParentNode()
+                self.noteNode = nil
+                self.fox = nil
+//                self.note?.save()
+                self.note = nil
+            })
+        })
+    }
+
+    private func receiveNote(_ position: float3) {
+        let posAway = position + float3(0, 0, -50)
+        addFox(posAway)
+        fox?.node.look(at: sceneView.pointOfView!.position)
+        fox?.node.runAction(SCNAction.rotate(by: .pi, around: SCNVector3Make(0, 1, 0), duration: 0))
+        fox?.isWalking = true
+        fox?.node.runAction(SCNAction.move(to: SCNVector3(position), duration: 2), completionHandler: {
+            self.fox?.spin()
+            self.fox?.isWalking = false
+            let startPosition = float3(self.fox!.node.position)
+            let finalPosition = startPosition + float3(0, 1.5, 0)
+            self.noteNode = self.addSmallNote(startPosition)
+            self.fox?.node.addChildNode(self.noteNode!)
+            self.noteNode?.runAction(SCNAction.repeat(SCNAction.rotateBy(x: 0, y: .pi, z: 0, duration: 0.1), count: 10))
+            self.noteNode?.runAction(SCNAction.scale(to: 1, duration: 1))
+            self.noteNode?.runAction(SCNAction.fadeIn(duration: 1))
+            self.noteNode?.runAction(SCNAction.move(to: SCNVector3(finalPosition), duration: 1))
+            self.delivered = true
+        })
+    }
+}
+
 extension ARViewController {
     func resetTracking() {
         let configuration = ARWorldTrackingConfiguration()
@@ -254,6 +325,13 @@ extension ARViewController {
         isRestartAvailable = false
         statusViewController.cancelAllScheduledMessages()
         resetTracking()
+        if fox != nil {
+            fox?.node.removeFromParentNode()
+        }
+        fox = nil
+        noteNode?.removeFromParentNode()
+        noteNode = nil
+        note = nil
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             self.isRestartAvailable = true
         }
