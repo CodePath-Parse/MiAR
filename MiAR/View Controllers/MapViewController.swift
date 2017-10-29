@@ -57,6 +57,7 @@ class MapViewController: UIViewController {
         request.source = MKMapItem.forCurrentLocation()
         request.destination = destination!
         request.requestsAlternateRoutes = false
+        request.transportType = .walking
         
         let directions = MKDirections(request: request)
         
