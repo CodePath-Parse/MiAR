@@ -373,7 +373,7 @@ extension NewNoteViewController: CLTokenInputViewDelegate {
                 tableView?.reloadData()
                 return
         }
-        filteredUsers = userList.filter { $0.username.contains(text) }
+        filteredUsers = userList.filter { $0.username.lowercased().contains(text.lowercased()) }
         tableView?.isHidden = false
         drawView.isHidden = true
         tableView?.reloadData()
