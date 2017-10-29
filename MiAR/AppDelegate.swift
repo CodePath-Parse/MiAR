@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var notes: [Note] = []
     let notificationCenter = UNUserNotificationCenter.current()
     let DEFAULTDATE = Date(timeIntervalSince1970: 0)
+    var userLocation: CLLocation?
     
     let gcmMessageIDKey = "gcm.message_id"
     
@@ -199,6 +200,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if notes.index(of: note) == nil {
             add(note: note)
             startMonitoring(note: note)
+            
+            // TODO
+            let distance = NotesViewController.getNoteDistance(noteLocation: note.coordinate, userLocation: userLocation)
+            if distance < 100 {
+                let region = self.region(withNote: note)
+                handleEntryEvent(forRegion: region)
+            }
         }
     }
     
@@ -359,9 +367,9 @@ extension AppDelegate: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let latestLocation: CLLocation = locations[locations.count - 1]
+        userLocation = locations.last
         
-        print("Location Update \(latestLocation.coordinate.longitude), \(latestLocation.coordinate.latitude)")
+        print("Location Update \(userLocation?.coordinate.longitude), \(userLocation?.coordinate.latitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
