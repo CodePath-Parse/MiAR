@@ -223,6 +223,9 @@ class NewNoteViewController: UIViewController {
         // we can call to create the note here or pass along to another VC to ask for sharing options
         let toUser = selectedUsers.first
         let note = Note(to: toUser, text: noteTextView.text, image: noteImage, location: currentLocation?.coordinate)
+        
+        note.save()
+        
         completion?(note)
         dismiss(animated: true, completion: nil)
     }

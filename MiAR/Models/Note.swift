@@ -22,26 +22,33 @@ class Note: NSObject {
     var noteId: String
     
     var coordinate: CLLocationCoordinate2D?
-    var radius: CLLocationDistance?
     var eventType: EventType?
     var note: String?
     var image: UIImage?
     var fromUser: User?
     var toUser: User?
+    var delivered: Bool?
     
     init(noteId: String) {
         self.noteId = noteId
         self.fromUser = User.currentUser
     }
-
+    
     convenience init(to: User?, text: String, image: UIImage?, location: CLLocationCoordinate2D?) {
         let noteId = Note.makeNewNoteId()
+        // let noteId = UUID().uuidString
         self.init(noteId: noteId)
         self.note = text
         self.image = image
         self.fromUser = User.currentUser
         self.toUser = to
         self.coordinate = location
+        self.delivered = false
+    }
+    
+    func deliveryStatus(_ status: Bool) {
+        delivered = status
+        save()
     }
     
     func save() {
@@ -62,6 +69,13 @@ class Note: NSObject {
                     ref.child("notes/\(self.noteId)/image_url").setValue(imageRef.fullPath)
                 }
             })
+		}
+		if let coordinate = coordinate {
+            ref.child("notes/\(self.noteId)/longitude").setValue(coordinate.longitude)
+            ref.child("notes/\(self.noteId)/latitude").setValue(coordinate.latitude)
+        }
+        if let delivered = delivered {
+            ref.child("notes/\(self.noteId)/delivered").setValue(delivered)
         }
     }
     
