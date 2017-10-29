@@ -108,7 +108,7 @@
                     <navigationItem key="navigationItem" title="Notes near you" id="Eok-BU-5PM">
                         <barButtonItem key="rightBarButtonItem" image="ar" id="WFh-nE-e7p">
                             <connections>
-                                <action selector="goToAR:" destination="uEv-56-Eeu" id="WHu-Gu-hYR"/>
+                                <segue destination="BV1-FR-VrT" kind="show" id="Lhc-S5-Qk8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -198,7 +198,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0u-WQ-caL" customClass="CustomARView" customModule="MiAR" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhD-GW-p2f">
                                 <rect key="frame" x="163" y="595" width="48" height="48"/>
@@ -208,7 +208,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWv-Yi-xzZ">
-                                <rect key="frame" x="0.0" y="20" width="375" height="85"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="i4T-kZ-Dt1"/>
                                 </constraints>
@@ -232,13 +232,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bbN-JV-AUV"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Nio-Lk-hvY"/>
                     <connections>
                         <outlet property="sceneView" destination="u0u-WQ-caL" id="Gkg-51-3TE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="476" y="34"/>
+            <point key="canvasLocation" x="311" y="-203"/>
         </scene>
         <!--Directions View Controller-->
         <scene sceneID="wCC-0g-vHh">
@@ -654,7 +655,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUg-Kv-u4d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2037.5999999999999" y="33.733133433283363"/>
+            <point key="canvasLocation" x="2376.8000000000002" y="33.733133433283363"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bQW-C8-DBW">
@@ -672,7 +673,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6k5-ln-NCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1260" y="34"/>
+            <point key="canvasLocation" x="1599.2" y="33.733133433283363"/>
         </scene>
         <!--Status View Controller-->
         <scene sceneID="wPp-s8-eNv">
