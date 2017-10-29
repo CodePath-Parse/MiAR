@@ -29,7 +29,7 @@ admin.initializeApp({
 
 // Listens for new messages added to /messages/:pushId/original and creates an
 // uppercase version of the message to /messages/:pushId/uppercase
-exports.sendNotificationRealtime = functions.database.ref('/notes/{documentId}')
+exports.sendNotificationRealtime = functions.database.ref('/notes/{documentId}/to_uid')
     .onCreate(event => {
       // Grab the current value of what was written to the Realtime Database.
       const original = event.data.val();
@@ -67,8 +67,14 @@ exports.sendNotificationRealtime = functions.database.ref('/notes/{documentId}')
       // [END makeUppercaseBody]
           // Send notifications to all tokens.
       // Send a message to devices subscribed to the provided topic.
-      console.log("/topics/" + original['to_uid']);
-		return admin.messaging().sendToTopic("/topics/miar", payload, options)
+		console.log("/topics/" + original);
+		
+		let topic = "/topics/miar"
+		if (original != "") {
+			topic = "/topics/" + original
+		}
+		
+		return admin.messaging().sendToTopic(topic, payload, options)
 		  .then(function(response) {
 		    // See the MessagingTopicResponse reference documentation for the
 		    // contents of response.

@@ -56,6 +56,9 @@ class Note: NSObject {
 
         if let toUser = toUser {
             ref.child("notes/\(self.noteId)/to_uid").setValue(toUser.uid)
+        } else {
+            // Empty to_uid is interpreted as public message.
+            ref.child("notes/\(self.noteId)/to_uid").setValue("")
         }
         if let note = note {
             ref.child("notes/\(self.noteId)/note").setValue(note)
@@ -105,15 +108,17 @@ class Note: NSObject {
             let note = Note(noteId: noteId)
             note.note = noteText
             
-            note.dispatch.enter()
-            User.get(withUid: toUid, onSuccess: { (user) in
-                note.toUser = user
-                note.dispatch.leave()
-            }, onFailure: { (error) in
-                print("Couldn't get toUser")
-                note.dispatch.leave()
-            })
-            
+            // Make sure its not a public message.
+            if toUid != "" {
+                note.dispatch.enter()
+                User.get(withUid: toUid, onSuccess: { (user) in
+                    note.toUser = user
+                    note.dispatch.leave()
+                }, onFailure: { (error) in
+                    print("Couldn't get toUser")
+                    note.dispatch.leave()
+                })
+            }
             note.dispatch.enter()
             User.get(withUid: fromUid, onSuccess: { (user) in
                 note.fromUser = user
