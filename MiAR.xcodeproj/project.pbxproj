@@ -793,11 +793,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ASJEXD5996;
-				INFOPLIST_FILE = MiAR/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
-				DEVELOPMENT_TEAM = Y3975H3CG2;
+				DEVELOPMENT_TEAM = SA26Z4N7MU;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.n1lom.MiAR;
@@ -814,11 +810,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ASJEXD5996;
-				INFOPLIST_FILE = MiAR/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
-				DEVELOPMENT_TEAM = Y3975H3CG2;
+				DEVELOPMENT_TEAM = SA26Z4N7MU;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.n1lom.MiAR;

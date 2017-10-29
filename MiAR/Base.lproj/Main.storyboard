@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dC6-V8-omu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uo1-fp-JZc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -72,8 +72,10 @@
                                                 <constraint firstItem="MQl-Vh-qJU" firstAttribute="top" secondItem="Qkd-x9-n1V" secondAttribute="top" constant="8" id="Agc-jn-1Mu"/>
                                                 <constraint firstItem="MQl-Vh-qJU" firstAttribute="leading" secondItem="Qkd-x9-n1V" secondAttribute="leading" constant="8" id="CYD-ao-nMJ"/>
                                                 <constraint firstItem="oZp-XA-Vfg" firstAttribute="leading" secondItem="MQl-Vh-qJU" secondAttribute="trailing" constant="8" id="He7-AK-SPb"/>
+                                                <constraint firstItem="3PT-8F-mpx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qkd-x9-n1V" secondAttribute="leading" constant="20" symbolic="YES" id="Hgi-fv-X4J"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="3AC-re-Nfd" secondAttribute="trailing" constant="8" id="OIZ-3M-yTl"/>
                                                 <constraint firstItem="3AC-re-Nfd" firstAttribute="top" secondItem="oZp-XA-Vfg" secondAttribute="bottom" constant="4" id="P81-rL-GAh"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oZp-XA-Vfg" secondAttribute="trailing" constant="20" symbolic="YES" id="UMm-xA-qQv"/>
                                                 <constraint firstAttribute="trailing" secondItem="fnJ-ih-9LV" secondAttribute="trailing" constant="8" id="WDP-1q-bOZ"/>
                                                 <constraint firstItem="fnJ-ih-9LV" firstAttribute="top" secondItem="Qkd-x9-n1V" secondAttribute="top" constant="4" id="bdI-bU-WCV"/>
                                                 <constraint firstItem="fnJ-ih-9LV" firstAttribute="leading" secondItem="3PT-8F-mpx" secondAttribute="trailing" constant="2" id="el7-sV-1dS"/>
@@ -160,6 +162,7 @@
                                     <constraint firstItem="7Kz-J5-Jcv" firstAttribute="top" secondItem="BRc-Fp-JVb" secondAttribute="top" id="h0A-31-Mez"/>
                                     <constraint firstItem="7Kz-J5-Jcv" firstAttribute="leading" secondItem="BRc-Fp-JVb" secondAttribute="trailing" constant="2" id="ia6-N7-eqM"/>
                                     <constraint firstItem="7Kz-J5-Jcv" firstAttribute="top" secondItem="00T-EB-ddE" secondAttribute="top" constant="4" id="pWf-A9-TcG"/>
+                                    <constraint firstItem="BRc-Fp-JVb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="00T-EB-ddE" secondAttribute="leading" constant="20" symbolic="YES" id="wfJ-tT-BYj"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -280,6 +283,7 @@
                                                 <constraint firstItem="M7A-xt-ASu" firstAttribute="top" secondItem="6ok-UI-xhK" secondAttribute="top" id="8Ua-yH-ucA"/>
                                                 <constraint firstItem="kY4-WL-sCM" firstAttribute="top" secondItem="KXI-MX-1me" secondAttribute="topMargin" constant="16" id="AxA-aJ-7Z8"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="kY4-WL-sCM" secondAttribute="trailing" id="Eux-Do-5ft"/>
+                                                <constraint firstItem="6ok-UI-xhK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KXI-MX-1me" secondAttribute="leading" constant="20" symbolic="YES" id="kdg-RV-aHc"/>
                                                 <constraint firstAttribute="trailing" secondItem="M7A-xt-ASu" secondAttribute="trailing" constant="8" id="lV4-pb-ind"/>
                                                 <constraint firstItem="M7A-xt-ASu" firstAttribute="leading" secondItem="6ok-UI-xhK" secondAttribute="trailing" constant="2" id="ov9-S4-Ad1"/>
                                                 <constraint firstItem="M7A-xt-ASu" firstAttribute="top" secondItem="KXI-MX-1me" secondAttribute="top" constant="4" id="sqn-ki-Zqo"/>

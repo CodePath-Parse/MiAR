@@ -109,6 +109,8 @@ class MapViewController: UIViewController {
         guard let arVC =  storyboard.instantiateViewController(withIdentifier: "ARViewController") as? ARViewController else {
             return
         }
+        arVC.deliverNote = note
+        arVC.delivered = false
         present(arVC, animated: true) {
             self.navigationController?.popViewController(animated: true)
         }

@@ -165,8 +165,7 @@ class ARViewController: UIViewController {
             note = nil
         }
 
-//        fox?.setPosition(focusSquarePosition, relativeTo: cameraTransform, smoothMovement: false)
-        guard note != nil else {
+        if note == nil && deliverNote == nil {
             statusViewController.scheduleMessage("TAP + TO CREATE A NOTE", inSeconds: 0.1, messageType: .contentPlacement)
             return
         }
@@ -175,18 +174,13 @@ class ARViewController: UIViewController {
             return
         }
 
-//        let tapPoint = recognizer.location(in: sceneView)
-//        let hits = sceneView.hitTest(tapPoint, types: .existingPlaneUsingExtent)
-//        guard hits.count > 0 else {
-//            return
-//        }
-//        let hitResult = hits.first!
-//        let pos = hitResult.worldTransform.position
-//        let p = float3(pos.x, pos.y, pos.z)
-        // Deliver the note
-//        receiveNote(focusSquarePosition)
-        sendNote(focusSquarePosition)
-//        addPostman(hitResult)
+        if deliverNote != nil && !delivered {
+            receiveNote(focusSquarePosition)
+            return
+        }
+        if note != nil {
+            sendNote(focusSquarePosition)
+        }
     }
 
     @objc func handleLongPressFrom(recognizer: UILongPressGestureRecognizer) {
@@ -283,7 +277,7 @@ extension ARViewController {
                 self.fox?.node.removeFromParentNode()
                 self.noteNode = nil
                 self.fox = nil
-//                self.note?.save()
+                self.note?.save()
                 self.note = nil
             })
         })
@@ -396,8 +390,12 @@ extension ARViewController : ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.statusViewController.cancelScheduledMessage(for: .planeEstimation)
             self.statusViewController.showMessage("SURFACE DETECTED")
-            if self.fox == nil && self.note == nil {
-                self.statusViewController.scheduleMessage("TAP + TO SEND A NOTE", inSeconds: 7.5, messageType: .contentPlacement)
+            if self.fox == nil {
+                if self.note == nil && self.deliverNote == nil {
+                    self.statusViewController.scheduleMessage("TAP + TO SEND A NOTE", inSeconds: 7.5, messageType: .contentPlacement)
+                } else if self.deliverNote == nil {
+                    self.statusViewController.scheduleMessage("TAP TO RECEIVE YOUR NOTE", inSeconds: 1, messageType: .contentPlacement)
+                }
             }
         }
         updateQueue.async {
