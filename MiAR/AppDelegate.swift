@@ -340,14 +340,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let token = Messaging.messaging().fcmToken
         print("FCM token: \(token ?? "")")
     
-        //User.currentUser!.fcmToken = token
-        //User.currentUser!.save()
-        
+        if let currentUser = User.currentUser {
+            // Subscribe to a common "miar" topic here.
+            Messaging.messaging().subscribe(toTopic: "miar")
+            Messaging.messaging().subscribe(toTopic: currentUser.uid)
+        }
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
-        
-        // Subscribe to a common "miar" topic here.
-        Messaging.messaging().subscribe(toTopic: "miar")
     }
 }
 
