@@ -17,65 +17,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
     let locationManager = CLLocationManager()
+    var notesViewController: NotesViewController?
+    var notifiedNotes: [String: Date] = [:]
     var notes: [Note] = []
     let notificationCenter = UNUserNotificationCenter.current()
+    let DEFAULTDATE = Date(timeIntervalSince1970: 0)
     
     let gcmMessageIDKey = "gcm.message_id"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        
+
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-      
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        
+
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
         Messaging.messaging().shouldEstablishDirectChannel = true
         // [END set_messaging_delegate]
-        
-        // Register for remote notifications. This shows a permission dialog on first run, to
-        // show the dialog at a more appropriate time move this registration accordingly.
-        // [START register_for_notifications]
-        if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
-            
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in })
-        } else {
-            let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
-        
-        application.registerForRemoteNotifications()
 
+        // Notification
+        requestAuthorization()
+        notificationCenter.delegate = self
+        notificationCenter.removeAllDeliveredNotifications()
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        application.registerForRemoteNotifications()
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if Auth.auth().currentUser != nil {
             // User is signed in.
-            let vc = storyboard.instantiateViewController(withIdentifier: "ARViewController") as! ARViewController
-            window?.rootViewController = vc
-            
-            // Also fill current user.
-            User.trySetCurrentUser()
-            
-            // Each user is subscribed to its own topic.
-            print("My uid" + Auth.auth().currentUser!.uid)
-        } else {
-            // No user is signed in.
-            let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            window?.rootViewController = vc
+            if let notesNC = storyboard.instantiateViewController(withIdentifier: "NotesNavigationController") as? UINavigationController {
+                if let notesVC = notesNC.topViewController as? NotesViewController {
+                    notesVC.notes = getNearByNotes()
+                    notesViewController = notesVC
+                    window?.rootViewController = notesNC
+                    
+                    // Also fill current user.
+                    User.trySetCurrentUser()
+
+                    // Each user is subscribed to its own topic.
+                    print("My uid" + Auth.auth().currentUser!.uid)
+                }
+            }
         }
         window?.makeKeyAndVisible()
-
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
         
         Note.listen(onSuccess: { (note) in
             print(note)
@@ -83,9 +69,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print(error)
         }
         
+        // location manager settings
+        locationManager.delegate = self
+        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        requestUserLocation()
+        
         return true
     }
     
+    func getNearByNotes() -> [Note] {
+        var nearByNotes: [Note] = []
+        
+        for note in notes {
+            if notifiedNotes.index(forKey: note.noteId) != nil {
+                nearByNotes.append(note)
+            }
+        }
+        return nearByNotes
+    }
     
     // Mark:- Signup/SignIn flow
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
@@ -125,8 +129,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             User.currentUser?.save()
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "ARViewController") as! ARViewController
-            self.window?.rootViewController = vc
+            if let notesNC = storyboard.instantiateViewController(withIdentifier: "NotesNavigationController") as? UINavigationController {
+                if let notesVC = notesNC.topViewController as? NotesViewController {
+                    notesVC.notes = self.getNearByNotes()
+                    self.notesViewController = notesVC
+                    self.window?.rootViewController = notesNC
+                }
+            }
         }
         // [END_EXCLUDE]
     }
@@ -135,37 +144,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
     }
-
     
     // MARK:- Location handlers
-    func handleEvent(forRegion region: CLRegion!) {
-        // Show an alert if application is active
-        if UIApplication.shared.applicationState == .active {
-            guard let message = note(fromRegionIdentifier: region.identifier) else { return }
-            window?.rootViewController?.showAlert(withTitle: nil, message: message)
-        } else {
-            // Otherwise present a local notification
-            let content = UNMutableNotificationContent()
-            content.title = NSString.localizedUserNotificationString(forKey: "Incoming Message", arguments: nil)
-            content.body = NSString.localizedUserNotificationString(forKey: "You have a new message!", arguments: nil)
-            content.sound = UNNotificationSound.default()
-            content.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber;
-//            content.categoryIdentifier = "com.elonchan.localNotification"
-            // Deliver the notification in five seconds.
-            let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 5.0, repeats: false)
-            let request = UNNotificationRequest.init(identifier: "FiveSecond", content: content, trigger: trigger)
+    private func requestUserLocation() {
+        if CLLocationManager.authorizationStatus() == .authorizedAlways{
+            locationManager.startUpdatingLocation()
             
-            // Schedule the notification.
-            notificationCenter.add(request, withCompletionHandler: { (error) in
-                if error != nil {
-                    print("error: \(String(describing: error?.localizedDescription))")
-                }
-            })
+            for region in locationManager.monitoredRegions {
+                locationManager.stopMonitoring(for: region)
+            }
+            
+            // TODO: Take this out once we have push calling monitorNote() directly
+            let appleLocation = CLLocationCoordinate2D(latitude: 37.331695, longitude: -122.0322801)
+            let user = User(uid: "12345", username: "oscar", email: "ob@yahoo.com")
+            User.currentUser = user
+            let note = Note(to: user, text: "hello MiAR", image: nil, location: appleLocation)
+            monitorNote(note)
+        } else {
+            locationManager.requestAlwaysAuthorization()
         }
     }
     
-    func note(fromRegionIdentifier identifier: String) -> String? {
-        return "You have a new note!"
+    
+    
+    func handleEntryEvent(forRegion region: CLRegion!) {
+        let currentDate = Date()
+        if let note = self.note(fromRegionIdentifier: region.identifier) {
+            if let notifiedIndex = notifiedNotes.index(forKey: note.noteId) {
+                let notifiedDate = notifiedNotes[notifiedIndex].value
+                
+                // don't notify if they were just recently notified, currently set to 5 mins, probably should increase this
+                if currentDate.timeIntervalSince(notifiedDate) < 300 {
+                    print("don't notify, too short")
+                    return
+                }
+            }
+            notifiedNotes.updateValue(currentDate, forKey: note.noteId)
+            print("send notification")
+            scheduleLocalNotification(note)
+            notesViewController?.notes = getNearByNotes()
+        }
+    }
+    
+    func handleExitEvent(forRegion region: CLRegion!) {
+        if let note = self.note(fromRegionIdentifier: region.identifier) {
+            if notifiedNotes.index(forKey: note.noteId) != nil {
+                notifiedNotes.removeValue(forKey: note.noteId)
+                notesViewController?.notes = getNearByNotes()
+            }
+        }
+    }
+    
+    func monitorNote(_ note: Note) {
+        if notes.index(of: note) == nil {
+            add(note: note)
+            startMonitoring(note: note)
+        }
     }
     
     func monitorNotes() {
@@ -184,10 +218,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         }
     }
     
+    func note(fromRegionIdentifier identifier: String) -> Note? {
+        let index = notes.index { $0.noteId == identifier }
+        return index != nil ? notes[index!] : nil
+    }
+    
     func region(withNote note: Note) -> CLCircularRegion {
-        let region = CLCircularRegion(center: note.coordinate!, radius: note.radius!, identifier: note.noteId)
-        region.notifyOnEntry = (note.eventType == .onEntry)
-        region.notifyOnExit = !region.notifyOnEntry
+        let region = CLCircularRegion(center: note.coordinate!, radius: 100, identifier: note.noteId)
+        region.notifyOnEntry = true
+        region.notifyOnExit = false
         return region
     }
     
@@ -212,9 +251,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         }
     }
     
-    
-    
     // Mark:- Notification center.
+    private func requestAuthorization() {
+        // Request Authorization
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
+            if let error = error {
+                print("Request Authorization Failed (\(error), \(error.localizedDescription))")
+            }
+        }
+    }
+    
+    private func scheduleLocalNotification(_ note: Note) {
+        print("schedule notification")
+        // Create Notification Content
+        let notificationContent = UNMutableNotificationContent()
+        
+        // Configure Notification Content
+        notificationContent.title = NSString.localizedUserNotificationString(forKey: "Incoming Message", arguments: nil)
+        notificationContent.body = NSString.localizedUserNotificationString(forKey: "You have a new message!", arguments: nil)
+        notificationContent.sound = UNNotificationSound.default()
+        notificationContent.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber;
+        
+        // Set Category Identifier
+        //        notificationContent.categoryIdentifier = Notification.Category.tutorial
+        
+        // Add Trigger
+        let notificationTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
+        
+        // Create Notification Request
+        let notificationRequest = UNNotificationRequest(identifier: note.noteId, content: notificationContent, trigger: notificationTrigger)
+        
+        // Add Request to User Notification Center
+        notificationCenter.add(notificationRequest) { (error) in
+            if let error = error {
+                print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+            }
+        }
+    }
+    
     // [START receive_message]
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
@@ -275,15 +349,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
 extension AppDelegate: CLLocationManagerDelegate {
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let latestLocation: CLLocation = locations[locations.count - 1]
+        
+        print("Location Update \(latestLocation.coordinate.longitude), \(latestLocation.coordinate.latitude)")
+    }
+    
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
-            handleEvent(forRegion: region)
+            print("entered region")
+            handleEntryEvent(forRegion: region)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         if region is CLCircularRegion {
-            handleEvent(forRegion: region)
+            print("exit region")
+            handleExitEvent(forRegion: region)
         }
     }
     
@@ -299,27 +387,27 @@ extension AppDelegate: CLLocationManagerDelegate {
 // [START ios_10_message_handling]
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
-    
+
     // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
-        
+
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
-        
+
         // Print full message.
         print(userInfo)
-        
+
         // Change this to your preferred presentation option
-        completionHandler([])
+        completionHandler([.alert])
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -328,10 +416,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
-        
+
         // Print full message.
         print(userInfo)
-        
+
         completionHandler()
     }
 }
