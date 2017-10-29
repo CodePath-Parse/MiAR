@@ -37,12 +37,7 @@ class MapViewController: UIViewController {
         let barButton = UIBarButtonItem(image: barButtonImage , style: .plain, target: self, action: #selector(showRouteSteps(sender:)))
         navigationItem.rightBarButtonItem = barButton
         
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showRouteSteps(sender:)))
-//        directionView.isUserInteractionEnabled = true
-//        directionView.addGestureRecognizer(tapGestureRecognizer)
-        
         // remove this once destination is passed in
-//        let location = CLLocationCoordinate2D(latitude: 37.331695, longitude: -122.0322801)
         if let location = note.coordinate {
             let placemark = MKPlacemark(coordinate: location)
             destination = MKMapItem(placemark: placemark)
