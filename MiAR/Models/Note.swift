@@ -57,7 +57,11 @@ class Note: NSObject {
             ref.child("notes/\(self.noteId)/from_uid").setValue(fromUser.uid)
         }
         if let image = image {
-            image.saveToFBInBackground(with: noteId)
+            image.saveToFBInBackground(with: noteId, onComplete: { (storageRef) in
+                if let imageRef = storageRef {
+                    ref.child("notes/\(self.noteId)/image_url").setValue(imageRef.fullPath)
+                }
+            })
         }
     }
     
