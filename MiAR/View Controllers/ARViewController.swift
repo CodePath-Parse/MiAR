@@ -279,7 +279,7 @@ extension ARViewController {
                 self.fox = nil
                 self.note?.save()
                 print("Note sent!")
-                self.statusViewController.scheduleMessage("Note Sent!", inSeconds: 1, messageType: .information)
+                DispatchQueue.main.async { self.statusViewController.showMessage("NOTE SENT!") }
                 self.note = nil
             })
         })

@@ -206,7 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             // TODO
             let distance = NotesViewController.getNoteDistance(noteLocation: note.coordinate, userLocation: userLocation)
             print(distance)
-            print(userLocation)
+            print(userLocation ?? "No userLocation")
             if distance < 100 {
                 let region = self.region(withNote: note)
                 handleEntryEvent(forRegion: region)
