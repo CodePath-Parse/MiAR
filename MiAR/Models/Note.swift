@@ -67,9 +67,9 @@ class Note: NSObject {
             ref.child("notes/\(self.noteId)/from_uid").setValue(fromUser.uid)
         }
         if let image = image {
-            image.saveToFBInBackground(with: noteId, onComplete: { (storageRef) in
-                if let imageRef = storageRef {
-                    ref.child("notes/\(self.noteId)/image_url").setValue(imageRef.fullPath)
+            image.saveToFBInBackground(with: noteId, onComplete: { (firebaseUrl) in
+                if let url = firebaseUrl {
+                    ref.child("notes/\(self.noteId)/firebase_url").setValue(url)
                 }
             })
 		}
@@ -110,8 +110,21 @@ class Note: NSObject {
         let note = Note(noteId: snapshot.key)
         note.note = noteText
         
-        if let dataUrl = value?["image_url"] as? String {
-            note.image = UIImage(contentsOfFile: dataUrl)
+        if let dataUrl = value?["firebase_url"] as? String {
+            let storage = Storage.storage()
+            let ref = storage.reference(withPath: dataUrl)
+            
+            note.dispatch.enter()
+            // Download in memory with a maximum allowed size of 10MB (10 * 1024 * 1024 bytes)
+            ref.getData(maxSize: 10 * 1024 * 1024) { data, error in
+                if let _ = error {
+                    // Uh-oh, an error occurred!
+                } else {
+                    // Data for "images/island.jpg" is returned
+                    note.image = UIImage(data: data!)
+                }
+                note.dispatch.leave()
+            }
         }
         
         // Make sure its not a public message.

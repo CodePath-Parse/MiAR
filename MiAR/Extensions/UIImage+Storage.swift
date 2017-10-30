@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 extension UIImage {
-    func saveToFBInBackground(with key: String, onComplete: @escaping ((StorageReference?)->())) {
+    func saveToFBInBackground(with key: String, onComplete: @escaping ((String?)->())) {
         let storage = Storage.storage(url: "gs://praxis-zoo-521.appspot.com")
         let storageRef = storage.reference().child(key)
         
@@ -30,7 +30,7 @@ extension UIImage {
             print(metadata.description)
             print(metadata.storageReference)
             // Metadata contains file metadata such as size, content-type, and download URL.
-            onComplete(metadata.storageReference)
+            onComplete(metadata.name)
         }
     }
 }
