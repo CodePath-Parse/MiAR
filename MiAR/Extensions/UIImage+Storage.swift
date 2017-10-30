@@ -28,7 +28,7 @@ extension UIImage {
             }
             
             print(metadata.description)
-            print(metadata.storageReference)
+            print(metadata.storageReference ?? "no value")
             // Metadata contains file metadata such as size, content-type, and download URL.
             onComplete(metadata.name)
         }
