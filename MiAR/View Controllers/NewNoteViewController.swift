@@ -32,6 +32,7 @@ class NewNoteViewController: UIViewController {
     var noteImage: UIImage!
     let locationManager = CLLocationManager()
     var activeTextView: UITextView!
+    var noteTextColor: UIColor = UIColor.black
 
     var emptyNote = true
     var dismissingKeyboard = false
@@ -179,6 +180,8 @@ class NewNoteViewController: UIViewController {
         if index == colors.count - 1 {
             opacity = 1.0
         }
+        // set text to same color as crayon
+        noteTextColor = UIColor(displayP3Red: red, green: green, blue: blue, alpha: 1.0)
     }
     
     @IBAction func reset(_ sender: Any) {
@@ -316,7 +319,7 @@ extension NewNoteViewController: UITextViewDelegate {
             emptyNote = false
         }
         
-        textView.textColor = UIColor.black
+        textView.textColor = noteTextColor
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
