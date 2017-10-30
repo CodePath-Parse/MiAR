@@ -26,6 +26,9 @@ extension UIImage {
                 // Uh-oh, an error occurred!
                 return
             }
+            
+            print(metadata.description)
+            print(metadata.storageReference)
             // Metadata contains file metadata such as size, content-type, and download URL.
             onComplete(metadata.storageReference)
         }

@@ -64,8 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         }
         window?.makeKeyAndVisible()
         
-        Note.listen(onSuccess: { (note) in
-            print(note)
+//        Note.listen(onSuccess: { (note) in
+//            print(note)
+//        }) { (error) in
+//            print(error)
+//        }
+        Note.getAllNotes(onSuccess: { (notes) in
+            print(notes)
         }) { (error) in
             print(error)
         }

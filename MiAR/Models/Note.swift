@@ -87,59 +87,101 @@ class Note: NSObject {
         return ref.child("notes").childByAutoId().key
     }
     
-    static func get(withNoteId noteId: String, onSuccess: @escaping (Note)->(), onFailure: @escaping (Error)->()) {
-        let ref = Database.database().reference()
-        ref.child("notes").child(noteId).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let noteText = value?["note"] as? String ?? ""
-            guard let toUid = value?["to_uid"] as? String else {
-                return
-            }
-            guard let fromUid = value?["from_uid"] as? String else {
-                return
-            }
-            guard let lat = value?["latitude"] as? Double else {
-                return
-            }
-            guard let lng = value?["longitude"] as? Double else {
-                return
-            }
-            let note = Note(noteId: noteId)
-            note.note = noteText
-            
-            // Make sure its not a public message.
-            if toUid != "" {
-                note.dispatch.enter()
-                User.get(withUid: toUid, onSuccess: { (user) in
-                    note.toUser = user
-                    note.dispatch.leave()
-                }, onFailure: { (error) in
-                    print("Couldn't get toUser")
-                    note.dispatch.leave()
-                })
-            }
+    static func initFromSnapshot(snapshot: DataSnapshot, onSuccess: @escaping (Note)->(), onFailure: @escaping ()->()) {
+        // Get user value
+        let value = snapshot.value as? NSDictionary
+        let noteText = value?["note"] as? String ?? ""
+        guard let toUid = value?["to_uid"] as? String else {
+            onFailure()
+            return
+        }
+        guard let fromUid = value?["from_uid"] as? String else {
+            onFailure()
+            return
+        }
+        guard let lat = value?["latitude"] as? Double else {
+            onFailure()
+            return
+        }
+        guard let lng = value?["longitude"] as? Double else {
+            onFailure()
+            return
+        }
+        let note = Note(noteId: snapshot.key)
+        note.note = noteText
+        
+        if let dataUrl = value?["image_url"] as? String {
+            note.image = UIImage(contentsOfFile: dataUrl)
+        }
+        
+        // Make sure its not a public message.
+        if toUid != "" {
             note.dispatch.enter()
-            User.get(withUid: fromUid, onSuccess: { (user) in
-                note.fromUser = user
+            User.get(withUid: toUid, onSuccess: { (user) in
+                note.toUser = user
                 note.dispatch.leave()
             }, onFailure: { (error) in
                 print("Couldn't get toUser")
                 note.dispatch.leave()
             })
-            
-            note.dispatch.notify(queue: .main, execute: {
-                onSuccess(note)
+        }
+        note.dispatch.enter()
+        User.get(withUid: fromUid, onSuccess: { (user) in
+            note.fromUser = user
+            note.dispatch.leave()
+        }, onFailure: { (error) in
+            print("Couldn't get toUser")
+            note.dispatch.leave()
+        })
+        
+        note.dispatch.notify(queue: .main, execute: {
+            onSuccess(note)
+        })
+        
+        note.coordinate = CLLocationCoordinate2DMake(lat, lng)
+    }
+    
+    static func get(withNoteId noteId: String, onSuccess: @escaping (Note)->(), onFailure: @escaping (Error)->()) {
+        let ref = Database.database().reference()
+        ref.child("notes").child(noteId).observeSingleEvent(of: .value, with: { (snapshot) in
+            Note.initFromSnapshot(snapshot: snapshot, onSuccess: onSuccess, onFailure: {
+                return
             })
-            
-            note.coordinate = CLLocationCoordinate2DMake(lat, lng)
-            
         }) { (error) in
             print(error.localizedDescription)
             onFailure(error)
         }
     }
     
+    static func getAllNotes(onSuccess: @escaping ([Note])->(), onFailure: @escaping (Error)->()) {
+        let ref = Database.database().reference()
+        ref.child("notes").observeSingleEvent(of: .value, with: { (snapshot) in
+            //print(snapshot)
+            let dispatchGroup = DispatchGroup()
+            var notes: [Note] = []
+            for child in snapshot.children {
+                print(child)
+                if let childSnapshot = child as? DataSnapshot {
+                    dispatchGroup.enter()
+                    Note.initFromSnapshot(snapshot: childSnapshot, onSuccess: { (note) in
+                        dispatchGroup.leave()
+                        notes.append(note)
+                    }, onFailure: {
+                        dispatchGroup.leave()
+                    })
+                }
+            }
+            dispatchGroup.notify(queue: .main, execute: {
+                onSuccess(notes)
+            })
+        }) { (error) in
+            print(error.localizedDescription)
+            onFailure(error)
+        }
+        //let query = ref.child("notes").queryOrderedByKey()
+        
+    }
+
     static func listen(onSuccess: @escaping (Note)->(), onFailure: @escaping (Error)->()) {
         let ref = Database.database().reference()
         ref.child("notes").observe(.childAdded, with: { (snapshot) in
