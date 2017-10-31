@@ -112,7 +112,7 @@ class MapViewController: UIViewController {
         }
         arVC.deliverNote = note
         arVC.delivered = false
-//        navigationController?.popViewController(animated: false)
+        navigationController?.popViewController(animated: false)
         navigationController?.pushViewController(arVC, animated: true)
     }
 }
