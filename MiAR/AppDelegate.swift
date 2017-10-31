@@ -227,7 +227,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func handleEntryEvent(forRegion region: CLRegion!, notify: Bool) {
         if let note = self.note(fromRegionIdentifier: region.identifier) {
-            if nearByNotes.index(of: note) == nil {
+            if noteIndex(of: note, from: nearByNotes) == nil {
                 nearByNotes.append(note)
                 notesViewController?.notes = nearByNotes
             }
@@ -240,7 +240,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func handleExitEvent(forRegion region: CLRegion!) {
         if let note = self.note(fromRegionIdentifier: region.identifier) {
-            if let index = nearByNotes.index(of: note) {
+            if let index = noteIndex(of: note, from: nearByNotes) {
                 nearByNotes.remove(at: index)
                 notesViewController?.notes = nearByNotes
             }
@@ -248,7 +248,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func monitorNote(_ note: Note) {
-        if notes.index(of: note) == nil && notes.count < 20 {
+        if noteIndex(of: note, from: notes) == nil && notes.count < 20 {
             add(note: note)
             startMonitoring(note: note)
             
@@ -275,11 +275,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     func remove(note: Note) {
-        if let indexInArray = notes.index(of: note) {
+        if let indexInArray = noteIndex(of: note, from: notes) {
             notes.remove(at: indexInArray)
         }
         
-        if let index = nearByNotes.index(of: note) {
+        if let index = noteIndex(of: note, from: nearByNotes) {
             nearByNotes.remove(at: index)
             notesViewController?.notes = nearByNotes
         }
@@ -288,6 +288,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func note(fromRegionIdentifier identifier: String) -> Note? {
         let index = notes.index { $0.noteId == identifier }
         return index != nil ? notes[index!] : nil
+    }
+    
+    func noteIndex(of note: Note, from notes: [Note]) -> Int? {
+        let index = notes.index { $0.noteId == note.noteId }
+        return index
     }
     
     func region(withNote note: Note) -> CLCircularRegion {
@@ -482,6 +487,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         if let noteId = userInfo["noteId"] as? String {
             Note.get(withNoteId: noteId, onSuccess: { (note) in
+                print("received message")
                 self.monitorNote(note)
             }, onFailure: { (error) in
                 print("Coulnd't get note from noteId")

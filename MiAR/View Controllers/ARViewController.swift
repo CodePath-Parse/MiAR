@@ -294,10 +294,10 @@ extension ARViewController {
         fox?.node.runAction(SCNAction.move(to: SCNVector3(position), duration: 2), completionHandler: {
             self.fox?.spin()
             self.fox?.isWalking = false
-            self.fox?.node.constraints = [
-                SCNLookAtConstraint(target: self.sceneView.pointOfView!),
-                SCNBillboardConstraint(),
-            ]
+//            self.fox?.node.constraints = [
+//                SCNLookAtConstraint(target: self.sceneView.pointOfView!),
+//                SCNBillboardConstraint(),
+//            ]
             let startPosition = float3(self.fox!.node.position)
             let finalPosition = startPosition + float3(0, 1.5, 0)
             self.noteNode = self.addSmallNote(startPosition)
