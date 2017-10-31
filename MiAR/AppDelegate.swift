@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var window: UIWindow?
     let locationManager = CLLocationManager()
     var notesViewController: NotesViewController?
-    var notifiedNotes: [String: Date] = [:]
     var notes: [Note] = []
+    var nearByNotes: [Note] = []
     let notificationCenter = UNUserNotificationCenter.current()
     let DEFAULTDATE = Date(timeIntervalSince1970: 0)
     var userLocation: CLLocation?
@@ -45,12 +45,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         application.registerForRemoteNotifications()
         
+        // location manager settings
+        locationManager.delegate = self
+        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        requestUserLocation()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.removeNote(_:)), name: Notification.Name(noteDeliveredMessageKey), object: nil)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if Auth.auth().currentUser != nil {
             // User is signed in.
             if let notesNC = storyboard.instantiateViewController(withIdentifier: "NotesNavigationController") as? UINavigationController {
                 if let notesVC = notesNC.topViewController as? NotesViewController {
-                    notesVC.notes = getNearByNotes()
+                    Note.getAllNotes(onSuccess: { (notes) in
+                        print(notes)
+                        self.populateNotes(notes: notes)
+                        notesVC.notes = self.nearByNotes
+                    }) { (error) in
+                        print(error)
+                    }
+                    
                     notesViewController = notesVC
                     window?.rootViewController = notesNC
                     
@@ -69,33 +86,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //        }) { (error) in
 //            print(error)
 //        }
-        Note.getAllNotes(onSuccess: { (notes) in
-            print(notes)
-        }) { (error) in
-            print(error)
-        }
-        
-        // location manager settings
-        locationManager.delegate = self
-        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        requestUserLocation()
         
         return true
-    }
-    
-    func getNearByNotes() -> [Note] {
-        var nearByNotes: [Note] = []
-        
-        
-        for note in notes {
-            if notifiedNotes.index(forKey: note.noteId) != nil {
-                nearByNotes.append(note)
-            }
-        }
-        return nearByNotes
     }
     
     // Mark:- Signup/SignIn flow
@@ -138,7 +130,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let notesNC = storyboard.instantiateViewController(withIdentifier: "NotesNavigationController") as? UINavigationController {
                 if let notesVC = notesNC.topViewController as? NotesViewController {
-                    notesVC.notes = self.getNearByNotes()
+                    Note.getAllNotes(onSuccess: { (notes) in
+                        print(notes)
+                        self.populateNotes(notes: notes)
+                        notesVC.notes = self.nearByNotes
+                    }) { (error) in
+                        print(error)
+                    }
                     self.notesViewController = notesVC
                     self.window?.rootViewController = notesNC
                 }
@@ -152,21 +150,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Perform any operations when the user disconnects from app here.
     }
     
+    // MARK:- Get notes
+    func populateNotes(notes: [Note]) {
+        let currentUserNotes = getCurrentUserNotes(notes: notes)
+        self.notes = getNotesToMonitor(notes: currentUserNotes)
+        
+        for region in locationManager.monitoredRegions {
+            locationManager.stopMonitoring(for: region)
+        }
+        monitorNotes()
+    }
+    
+    func getCurrentUserNotes(notes: [Note]) -> [Note] {
+        var userNotes: [Note] = []
+        for note in notes {
+            if note.toUser?.email == User.currentUser?.email {
+                userNotes.append(note)
+            }
+        }
+        return userNotes
+    }
+    
+    // limit to 20 notes to monitor each time
+    func getNotesToMonitor(notes: [Note]) -> [Note] {
+        var closeByNotes: [Note] = []
+        var remainingNotes: [Note] = []
+        var notesToMonitor: [Note] = []
+        var numOfNotes = 0
+        
+        for note in notes {
+            let distance = NotesViewController.getNoteDistance(noteLocation: note.coordinate, userLocation: userLocation)
+            print(distance)
+            print(userLocation ?? "No userLocation")
+            if distance < 100 {
+                closeByNotes.append(note)
+            } else {
+                remainingNotes.append(note)
+            }
+        }
+        
+        for note in closeByNotes {
+            if numOfNotes < 20 {
+                notesToMonitor.append(note)
+                nearByNotes.append(note)
+                numOfNotes += 1
+            }
+        }
+        
+        for note in remainingNotes {
+            if numOfNotes < 20 {
+                notesToMonitor.append(note)
+                numOfNotes += 1
+            }
+        }
+        
+        return notesToMonitor
+    }
+    
+    @objc func removeNote(_ notification: Notification) {
+        if let note = notification.userInfo?["note"] as? Note {
+            stopMonitoring(note: note)
+            remove(note: note)
+        }
+    }
+    
     // MARK:- Location handlers
     private func requestUserLocation() {
         if CLLocationManager.authorizationStatus() == .authorizedAlways{
             locationManager.startUpdatingLocation()
-            
-//            for region in locationManager.monitoredRegions {
-//                locationManager.stopMonitoring(for: region)
-//            }
-            
-            // TODO: Take this out once we have push calling monitorNote() directly
-//            let appleLocation = CLLocationCoordinate2D(latitude: 37.331695, longitude: -122.0322801)
-//            let user = User(uid: "12345", username: "oscar", email: "ob@yahoo.com")
-//            User.currentUser = user
-//            let note = Note(to: user, text: "hello MiAR", image: nil, location: appleLocation)
-//            monitorNote(note)
         } else {
             locationManager.requestAlwaysAuthorization()
         }
@@ -174,36 +225,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     
     
-    func handleEntryEvent(forRegion region: CLRegion!) {
-        let currentDate = Date()
+    func handleEntryEvent(forRegion region: CLRegion!, notify: Bool) {
         if let note = self.note(fromRegionIdentifier: region.identifier) {
-            if let notifiedIndex = notifiedNotes.index(forKey: note.noteId) {
-                let notifiedDate = notifiedNotes[notifiedIndex].value
-                
-                // don't notify if they were just recently notified, currently set to 5 mins, probably should increase this
-                if currentDate.timeIntervalSince(notifiedDate) < 300 {
-                    print("don't notify, too short")
-                    return
-                }
+            if nearByNotes.index(of: note) == nil {
+                nearByNotes.append(note)
+                notesViewController?.notes = nearByNotes
             }
-            notifiedNotes.updateValue(currentDate, forKey: note.noteId)
-            print("send notification")
-            scheduleLocalNotification(note)
-            notesViewController?.notes = getNearByNotes()
+            if notify {
+                print("send notification")
+                scheduleLocalNotification(note)
+            }
         }
     }
     
     func handleExitEvent(forRegion region: CLRegion!) {
         if let note = self.note(fromRegionIdentifier: region.identifier) {
-            if notifiedNotes.index(forKey: note.noteId) != nil {
-                notifiedNotes.removeValue(forKey: note.noteId)
-                notesViewController?.notes = getNearByNotes()
+            if let index = nearByNotes.index(of: note) {
+                nearByNotes.remove(at: index)
+                notesViewController?.notes = nearByNotes
             }
         }
     }
     
     func monitorNote(_ note: Note) {
-        if notes.index(of: note) == nil {
+        if notes.index(of: note) == nil && notes.count < 20 {
             add(note: note)
             startMonitoring(note: note)
             
@@ -214,7 +259,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print(userLocation ?? "No userLocation")
             if distance < 100 {
                 let region = self.region(withNote: note)
-                handleEntryEvent(forRegion: region)
+                handleEntryEvent(forRegion: region, notify: false)
             }
         }
     }
@@ -232,6 +277,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func remove(note: Note) {
         if let indexInArray = notes.index(of: note) {
             notes.remove(at: indexInArray)
+        }
+        
+        if let index = nearByNotes.index(of: note) {
+            nearByNotes.remove(at: index)
+            notesViewController?.notes = nearByNotes
         }
     }
     
@@ -365,6 +415,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // With swizzling disabled you must set the APNs token here.
         // Messaging.messaging().apnsToken = deviceToken
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension AppDelegate: CLLocationManagerDelegate {
@@ -384,7 +438,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
             print("entered region")
-            handleEntryEvent(forRegion: region)
+            handleEntryEvent(forRegion: region, notify: true)
         }
     }
     

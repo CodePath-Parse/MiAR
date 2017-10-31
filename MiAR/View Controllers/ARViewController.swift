@@ -10,6 +10,8 @@ import UIKit
 import SceneKit
 import ARKit
 
+let noteDeliveredMessageKey = "noteDeliveredMessageKey"
+
 class ARViewController: UIViewController {
 
     @IBOutlet var sceneView: CustomARView!
@@ -301,6 +303,11 @@ extension ARViewController {
             self.noteNode?.runAction(SCNAction.fadeIn(duration: 1))
             self.noteNode?.runAction(SCNAction.move(to: SCNVector3(finalPosition), duration: 1))
             self.delivered = true
+            
+            if let deliverNote = self.deliverNote {
+                let noteInfo: [String: Note] = ["note": deliverNote]
+                NotificationCenter.default.post(name: Notification.Name(noteDeliveredMessageKey), object: nil, userInfo: noteInfo)
+            }
         })
     }
 }
