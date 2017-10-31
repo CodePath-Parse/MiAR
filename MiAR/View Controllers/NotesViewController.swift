@@ -9,6 +9,8 @@
 import UIKit
 import CoreLocation
 
+let refreshNotesMessageKey = "refreshNotesMessageKey"
+
 class NotesViewController: UIViewController {
     
     @IBOutlet weak var notesTableView: UITableView!
@@ -35,6 +37,16 @@ class NotesViewController: UIViewController {
         locationManager.delegate = self
         requestUserLocation()
         loading = false
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        notesTableView.insertSubview(refreshControl, at: 0)
+    }
+    
+    @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        print("refreshing")
+        let refreshInfo: [String: UIRefreshControl] = ["refresh": refreshControl]
+        NotificationCenter.default.post(name: Notification.Name(refreshNotesMessageKey), object: nil, userInfo: refreshInfo)
     }
     
     private func requestUserLocation() {
