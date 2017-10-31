@@ -164,8 +164,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func getCurrentUserNotes(notes: [Note]) -> [Note] {
         var userNotes: [Note] = []
         for note in notes {
-            if note.toUser?.email == User.currentUser?.email {
-                userNotes.append(note)
+            if !(note.delivered ?? false) {
+                if note.toUser == nil || note.toUser?.email == User.currentUser?.email  {
+                    userNotes.append(note)
+                }
             }
         }
         return userNotes
@@ -211,6 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let note = notification.userInfo?["note"] as? Note {
             stopMonitoring(note: note)
             remove(note: note)
+            note.deliveryStatus(true)
         }
     }
     
