@@ -17,10 +17,12 @@ class NotesViewController: UIViewController {
     var userLocation: CLLocation?
     var loading = true
     
-    var notes: [Note]! {
+    var notes: [Note] = [Note]() {
         didSet {
             if !loading {
-                notesTableView.reloadData()
+                DispatchQueue.main.async {
+                    self.notesTableView.reloadData()
+                }
             }
         }
     }
