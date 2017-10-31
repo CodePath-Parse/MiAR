@@ -267,12 +267,12 @@ extension ARViewController {
         noteNode = addNote(float3(0, 1.5, 0))
         fox?.node.addChildNode(noteNode!)
         noteNode?.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: .pi, z: 0, duration: 1)))
-        let duration:TimeInterval = 2
+        let duration:TimeInterval = 3
         noteNode?.runAction(SCNAction.move(to: SCNVector3(position), duration: duration))
         noteNode?.runAction(SCNAction.scale(to: 0.01, duration: duration), completionHandler: {
             self.fox?.spin()
-            let pos = float3(self.sceneView.pointOfView!.position) + float3(0, 0, -30)
-            self.fox?.moveTo(SCNVector3(pos), duration: 5, completionHandler: {
+            let pos = float3(self.sceneView.pointOfView!.position) + float3(0, 0, -20)
+            self.fox?.moveTo(SCNVector3(pos), duration: 10, completionHandler: {
                 self.noteNode?.removeFromParentNode()
                 self.fox?.node.removeFromParentNode()
                 self.noteNode = nil
@@ -286,7 +286,7 @@ extension ARViewController {
     }
 
     private func receiveNote(_ position: float3) {
-        let posAway = position + float3(0, 0, -50)
+        let posAway = position + float3(0, 0, -30)
         addFox(posAway)
         fox?.node.look(at: sceneView.pointOfView!.position)
         fox?.node.runAction(SCNAction.rotate(by: .pi, around: SCNVector3Make(0, 1, 0), duration: 0))
@@ -294,6 +294,10 @@ extension ARViewController {
         fox?.node.runAction(SCNAction.move(to: SCNVector3(position), duration: 2), completionHandler: {
             self.fox?.spin()
             self.fox?.isWalking = false
+            self.fox?.node.constraints = [
+                SCNLookAtConstraint(target: self.sceneView.pointOfView!),
+                SCNBillboardConstraint(),
+            ]
             let startPosition = float3(self.fox!.node.position)
             let finalPosition = startPosition + float3(0, 1.5, 0)
             self.noteNode = self.addSmallNote(startPosition)
