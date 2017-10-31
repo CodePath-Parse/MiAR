@@ -226,10 +226,9 @@ extension ARViewController {
         mat.locksAmbientWithDiffuse = true
         mat.diffuse.contents = note!.image!
         mat.specular.contents = UIColor.white
-        let white = SCNMaterial()
-        white.diffuse.contents = UIColor.white
-        white.locksAmbientWithDiffuse = true
-        noteGeometry.materials = [mat, white, white, white, white, white]
+        let page = SCNMaterial()
+        page.diffuse.contents = #imageLiteral(resourceName: "parchment-page")
+        noteGeometry.materials = [mat, page, page, page, page, page]
         let noteNode = SCNNode(geometry: noteGeometry)
         //        noteNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 2)))
         //SCNVector3(node.simdWorldFront + simd_float3(0, 0, -20))
@@ -243,10 +242,9 @@ extension ARViewController {
         mat.locksAmbientWithDiffuse = true
         mat.diffuse.contents = deliverNote!.image!
         mat.specular.contents = UIColor.white
-        let white = SCNMaterial()
-        white.diffuse.contents = UIColor.white
-        white.locksAmbientWithDiffuse = true
-        noteGeometry.materials = [mat, white, white, white, white, white]
+        let page = SCNMaterial()
+        page.diffuse.contents = #imageLiteral(resourceName: "parchment-page")
+        noteGeometry.materials = [mat, page, page, page, page, page]
         let noteNode = SCNNode(geometry: noteGeometry)
         noteNode.position = SCNVector3(position)
         return noteNode

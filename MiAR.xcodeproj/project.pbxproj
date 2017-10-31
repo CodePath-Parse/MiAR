@@ -794,11 +794,11 @@
 				CODE_SIGN_ENTITLEMENTS = MiAR/MiAR.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ASJEXD5996;
+				DEVELOPMENT_TEAM = SA26Z4N7MU;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshy1a.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -815,11 +815,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ASJEXD5996;
+				DEVELOPMENT_TEAM = SA26Z4N7MU;
 				INFOPLIST_FILE = MiAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.irshya.MiAR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irshy1a.MiAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
