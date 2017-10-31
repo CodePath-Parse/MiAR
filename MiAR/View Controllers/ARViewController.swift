@@ -55,15 +55,8 @@ class ARViewController: UIViewController {
 
         setupRecognizers()
         setupDebugging()
-        
-        let backBarButton = UIBarButtonItem(title: "Notes near you", style: .plain, target: self, action: #selector(self.goBackToNotes))
-        navigationItem.leftBarButtonItem = backBarButton
     }
 
-    @objc func goBackToNotes() {
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
