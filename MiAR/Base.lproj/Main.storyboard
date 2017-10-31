@@ -108,7 +108,7 @@
                     <navigationItem key="navigationItem" title="Notes near you" id="Eok-BU-5PM">
                         <barButtonItem key="rightBarButtonItem" image="ar" id="WFh-nE-e7p">
                             <connections>
-                                <segue destination="BV1-FR-VrT" kind="show" id="Lhc-S5-Qk8"/>
+                                <segue destination="BV1-FR-VrT" kind="show" identifier="ARSegue" id="Lhc-S5-Qk8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -204,7 +204,7 @@
                                 <rect key="frame" x="163" y="595" width="48" height="48"/>
                                 <state key="normal" image="add"/>
                                 <connections>
-                                    <segue destination="BgW-QA-dr8" kind="show" id="4PT-eO-Spr"/>
+                                    <segue destination="BgW-QA-dr8" kind="show" identifier="NewNoteSegue" id="4PT-eO-Spr"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWv-Yi-xzZ">
@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311" y="-203"/>
+            <point key="canvasLocation" x="476" y="34"/>
         </scene>
         <!--Directions View Controller-->
         <scene sceneID="wCC-0g-vHh">
