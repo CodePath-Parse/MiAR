@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         requestUserLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.removeNote(_:)), name: Notification.Name(noteDeliveredMessageKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshNotes(_:)), name: Notification.Name(refreshNotesMessageKey), object: nil)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if Auth.auth().currentUser != nil {
@@ -151,6 +152,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     // MARK:- Get notes
+    
+    @objc func refreshNotes(_ notification: Notification) {
+        print("refresh notes")
+        if let refreshControl = notification.userInfo?["refresh"] as? UIRefreshControl {
+            Note.getAllNotes(onSuccess: { (notes) in
+                print(notes)
+                self.populateNotes(notes: notes)
+                self.notesViewController?.notes = self.nearByNotes
+                refreshControl.endRefreshing()
+            }) { (error) in
+                print(error)
+            }
+        }
+    }
+    
     func populateNotes(notes: [Note]) {
         let currentUserNotes = getCurrentUserNotes(notes: notes)
         self.notes = getNotesToMonitor(notes: currentUserNotes)
@@ -164,8 +180,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func getCurrentUserNotes(notes: [Note]) -> [Note] {
         var userNotes: [Note] = []
         for note in notes {
-            if note.toUser?.email == User.currentUser?.email {
-                userNotes.append(note)
+            if !(note.delivered ?? false) {
+                if note.toUser == nil || note.toUser?.email == User.currentUser?.email  {
+                    userNotes.append(note)
+                }
             }
         }
         return userNotes
@@ -211,6 +229,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let note = notification.userInfo?["note"] as? Note {
             stopMonitoring(note: note)
             remove(note: note)
+            if note.toUser != nil {
+                note.deliveryStatus(true)
+            }
         }
     }
     
