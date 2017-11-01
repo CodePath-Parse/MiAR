@@ -159,6 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             Note.getAllNotes(onSuccess: { (notes) in
                 print(notes)
                 self.notes = []
+                self.nearByNotes = []
                 self.populateNotes(notes: notes)
                 self.notesViewController?.notes = self.nearByNotes
                 refreshControl.endRefreshing()
