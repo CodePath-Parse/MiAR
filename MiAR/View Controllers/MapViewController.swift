@@ -23,7 +23,8 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     var routeSteps: [MKRouteStep] = []
     var expanded = false
-    
+    var toAR = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,12 +32,13 @@ class MapViewController: UIViewController {
         directionsMapView.showsUserLocation = true
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
+
         requestUserLocation()
         
         let barButtonImage = UIImage(named: "list")
         let barButton = UIBarButtonItem(image: barButtonImage , style: .plain, target: self, action: #selector(showRouteSteps(sender:)))
         navigationItem.rightBarButtonItem = barButton
-        
+        toAR = true
         // remove this once destination is passed in
         if let location = note.coordinate {
             let placemark = MKPlacemark(coordinate: location)
@@ -71,7 +73,12 @@ class MapViewController: UIViewController {
                 self.distanceLabel.text = DirectionsViewController.convertToMiles(meters: self.routeSteps[0].distance)
                 
                 if self.routeSteps.count <= 2 {
-                    self.goToAR()
+                    print("calling goToAR")
+                    self.locationManager.stopUpdatingLocation()
+                    if self.toAR {
+                        self.goToAR()
+                        self.toAR = false
+                    }
                 }
             }
         })
@@ -112,7 +119,7 @@ class MapViewController: UIViewController {
         }
         arVC.deliverNote = note
         arVC.delivered = false
-        navigationController?.popViewController(animated: false)
+//        navigationController?.popViewController(animated: false)
         navigationController?.pushViewController(arVC, animated: true)
     }
 }

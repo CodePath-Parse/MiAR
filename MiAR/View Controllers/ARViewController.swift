@@ -55,6 +55,14 @@ class ARViewController: UIViewController {
 
         setupRecognizers()
         setupDebugging()
+
+        navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "Notes List", style: .plain, target: self, action: #selector(self.onBackButton))
+        navigationItem.leftBarButtonItem = newBackButton
+    }
+
+    @objc func onBackButton() {
+        navigationController?.popToRootViewController(animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
